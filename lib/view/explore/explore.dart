@@ -41,6 +41,34 @@ class _ExploreState extends State<Explore> {
       "rating": 4.6,
       "reviewers": 21
     },
+    {
+      "imageUrl": AppImages.doctor4,
+      "doctorName": "Dr. Carla Schoen",
+      "specialty": "Orthopaedist",
+      "rating": 4.6,
+      "reviewers": 21
+    },
+    {
+      "imageUrl": AppImages.doctor4,
+      "doctorName": "Dr. Carla Schoen",
+      "specialty": "Scan Specialist",
+      "rating": 4.6,
+      "reviewers": 21
+    },
+    {
+      "imageUrl": AppImages.doctor4,
+      "doctorName": "Dr. Carla Schoen",
+      "specialty": "Neurologist",
+      "rating": 4.6,
+      "reviewers": 21
+    },
+    {
+      "imageUrl": AppImages.doctor4,
+      "doctorName": "Dr. Carla Schoen",
+      "specialty": "Eye",
+      "rating": 4.6,
+      "reviewers": 21
+    },
   ];
 
   // Selected Tab
@@ -60,7 +88,7 @@ class _ExploreState extends State<Explore> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4, // Total tabs
+      length: 7, // Total tabs
       child: Scaffold(
         //backgroundColor: Colors.white,
         body: Column(
@@ -75,7 +103,7 @@ class _ExploreState extends State<Explore> {
               onTap: (index) {
                 setState(() {
                   selectedTab =
-                      ["All", "Dentist", "Cardiologist", "Heart"][index];
+                      ["All", "Dentist", "Cardiologist", "Heart", "Eye", "Neurologist", "Orthopaedist" ][index];
                 });
               },
               tabs: const [
@@ -83,6 +111,10 @@ class _ExploreState extends State<Explore> {
                 Tab(text: "Dentist"),
                 Tab(text: "Cardiologist"),
                 Tab(text: "Heart"),
+                Tab(text: "Eye"),
+                Tab(text: "Neurologist"),
+                Tab(text: "Orthopaedist"),
+
               ],
             ),
             const SizedBox(height: 10),

@@ -1,39 +1,32 @@
 import 'package:dream_tech_doctor/utils/colors.dart';
-import 'package:dream_tech_doctor/view/auth/signup.dart';
-import 'package:dream_tech_doctor/view/booking/booking.dart';
-import 'package:dream_tech_doctor/view/explore/explore.dart';
-import 'package:dream_tech_doctor/view/explore/search_doctor.dart';
-import 'package:dream_tech_doctor/view/home/home.dart';
 import 'package:dream_tech_doctor/view/profile/prodile.dart';
 import 'package:flutter/material.dart';
 
-class BottomNav extends StatefulWidget {
-  const BottomNav({super.key});
+class HospitalBottomNav extends StatefulWidget {
+  const HospitalBottomNav({super.key});
 
   @override
-  BottomNavState createState() => BottomNavState();
+  HospitalBottomNavState createState() => HospitalBottomNavState();
 }
 
-class BottomNavState extends State<BottomNav> {
+class HospitalBottomNavState extends State<HospitalBottomNav> {
   int _selectedIndex = 0;
 
   // Screens for each tab
   static final List<Widget> _pages = <Widget>[
-    const Home(),
-    const Explore(),
-    Center(child: Text("Phythology"),),
-    MyBookingsScreen(),
-    //Center(child: Text('home 3')),
+     
+    Center(child: Text('home 1')),
+    Center(child: Text('home 2')),
+    Center(child: Text('home 3')),
     Center(child: Text('home 4')),
-    //CreateAccountPage(),
+    Center(child: Text('home 5')),
     const Profile()
   ];
 
   // Titles for each tab
   static const List<String?> _titles = <String?>[
-    'Home',
-    "Doctor",
-    "Phythology",
+    'Enam Medical College Hospital',
+    "Explore",
     'Doctor Booking',
     'Chat',
     'Profile',
@@ -51,38 +44,18 @@ class BottomNavState extends State<BottomNav> {
     return Scaffold(
       appBar: _titles[_selectedIndex] != null
           ? AppBar(
+
               title: Text(
                 _titles[_selectedIndex]!,
                 style: const TextStyle(color: Colors.white),
               ),
-              // title: Text(
-              //   "Find Your Doctor",
-              //   style: TextStyle(color: AppColor.doctorDTBody),
-              // ),
+              
               backgroundColor: AppColor.primaryColor.withOpacity(0.7),
               iconTheme: const IconThemeData(
                 color: Colors.white,
               ),
-              actions: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SearchDoctor()));
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.only(right: 5.0),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white10,
-                      child: Icon(
-                        Icons.search,
-                        color: AppColor.primaryColor,
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(
+              actions: const [
+                Padding(
                   padding: EdgeInsets.only(right: 5.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.white10,
@@ -91,7 +64,7 @@ class BottomNavState extends State<BottomNav> {
                       color: AppColor.primaryColor,
                     ),
                   ),
-                ),
+                )
               ],
             )
           : null,
@@ -101,27 +74,23 @@ class BottomNavState extends State<BottomNav> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Home1',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.explore_rounded),
-            label: 'Doctor',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.vaccines),
-            label: 'Phythology',
+            label: 'Home2',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.date_range),
-            label: 'Booking',
+            label: 'Home3',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
-            label: 'Chat',
+            label: 'Home4',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'profile',
+            label: 'Home5',
           ),
         ],
         currentIndex: _selectedIndex,

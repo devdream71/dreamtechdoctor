@@ -19,7 +19,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const BottomNav(),
+      
     );
   }
 }
+
+
+///====>hospital seat managment 
+///
 

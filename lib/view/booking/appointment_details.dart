@@ -109,6 +109,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
+            
             const SizedBox(height: 8),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

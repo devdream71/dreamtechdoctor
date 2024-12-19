@@ -1,269 +1,10 @@
-// import 'package:dream_tech_doctor/utils/images.dart';
-// import 'package:dream_tech_doctor/view/auth/signin.dart';
-// import 'package:flutter/gestures.dart';
-// import 'package:flutter/material.dart';
-
-// class CreateAccountPage extends StatefulWidget {
-//   @override
-//   _CreateAccountPageState createState() => _CreateAccountPageState();
-// }
-
-// class _CreateAccountPageState extends State<CreateAccountPage> {
-//   bool _isPasswordHidden = true;
-//   bool _isTermsAccepted = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         mainAxisAlignment: MainAxisAlignment.start,
-//         children: [
-//           const SizedBox(height: 80,),
-//           Center(
-//             child: Container(
-//               height: 100,
-//               width: 200,
-//               decoration: const BoxDecoration(
-//                 image: DecorationImage(
-//                   image: AssetImage(AppImages.popup),
-//                 ),
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 20),
-//           const Center(
-//             child: Text(
-//               'Create Account',
-//               style: TextStyle(
-//                 fontSize: 24,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 8),
-//           const Center(
-//             child: Text(
-//               'Fill your information below or register with\n your social account.',
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 color: Colors.grey,
-//                 fontSize: 14,
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 20),
-//            const Padding(
-//              padding: EdgeInsets.symmetric(horizontal: 24.0),
-//              child: Text(
-//               'Name',
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 color: Colors.grey,
-//                 fontSize: 14,
-//               ),
-//                          ),
-//            ),
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 24),
-//             child: TextField(
-//               decoration: InputDecoration(
-//                 labelText: 'Name',
-//                 border: OutlineInputBorder(
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 12),
-//           const Padding(
-//              padding: EdgeInsets.symmetric(horizontal: 24.0),
-//              child: Text(
-//               'Email',
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 color: Colors.grey,
-//                 fontSize: 14,
-//               ),
-//                          ),
-//            ),
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 24),
-//             child: TextField(
-//               decoration: InputDecoration(
-//                 labelText: 'Email',
-//                 hintText: 'example@gmail.com',
-//                 border: OutlineInputBorder(
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 12),
-//           const Padding(
-//              padding: EdgeInsets.symmetric(horizontal: 24.0),
-//              child: Text(
-//               'Password',
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 color: Colors.grey,
-//                 fontSize: 14,
-//               ),
-//                          ),
-//            ),
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 24),
-//             child: TextField(
-//               obscureText: _isPasswordHidden,
-//               decoration: InputDecoration(
-//                 labelText: 'Password',
-//                 border: OutlineInputBorder(
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//                 suffixIcon: IconButton(
-//                   icon: Icon(
-//                     _isPasswordHidden
-//                         ? Icons.visibility_off
-//                         : Icons.visibility,
-//                   ),
-//                   onPressed: () {
-//                     setState(() {
-//                       _isPasswordHidden = !_isPasswordHidden;
-//                     });
-//                   },
-//                 ),
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 12),
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 24),
-//             child: Row(
-//               children: [
-//                 Checkbox(
-//                   value: _isTermsAccepted,
-//                   onChanged: (value) {
-//                     setState(() {
-//                       _isTermsAccepted = value!;
-//                     });
-//                   },
-//                 ),
-//                 RichText(
-//                   text: const TextSpan(
-//                     text: 'Agree with ',
-//                     style: TextStyle(color: Colors.black),
-//                     children: [
-//                       TextSpan(
-//                         text: 'Terms & Condition',
-//                         style: TextStyle(
-//                           color: Colors.blue,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           const SizedBox(height: 12),
-
-//           const Spacer(),
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 24),
-//             child: SizedBox(
-//               width: double.infinity,
-//               height: 48,
-//               child: ElevatedButton(
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: Colors.blue,
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(12),
-//                   ),
-//                 ),
-//                 onPressed: () {
-//                   if (_isTermsAccepted) {
-//                     // Handle sign-up action
-//                     print('Account Created');
-//                   } else {
-//                     // Show message
-//                     ScaffoldMessenger.of(context).showSnackBar(
-//                       const SnackBar(
-//                         content: Text('Please accept terms & conditions'),
-//                       ),
-//                     );
-//                   }
-//                 },
-//                 child: const Text(
-//                   'Sign Up',
-//                   style: TextStyle(color: Colors.white, fontSize: 16),
-//                 ),
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 20),
-          
-           
-//           Center(
-//             child:  RichText(
-//             text: TextSpan(
-//               text: 'Already have an account? ',
-//               style: const TextStyle(color: Colors.black),
-//               children: [
-//                 TextSpan(
-//                   text: 'Sign In',
-//                   style: const TextStyle(
-//                     color: Colors.blue,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                   recognizer: TapGestureRecognizer()
-//                     ..onTap = () {
-//                       Navigator.pushReplacement(
-//                   context,
-//                   MaterialPageRoute(
-//                       builder: (context) =>   LoginPage()),
-//                 );
-//                       print('Sign In clicked');
-//                     },
-//                 ),
-//               ],
-//             ),
-//           ),
-//           ),
-//           const SizedBox(height: 30),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget _socialIconButton(String assetPath) {
-//     return Container(
-//       height: 50,
-//       width: 50,
-//       decoration: BoxDecoration(
-//         shape: BoxShape.circle,
-//         border: Border.all(color: Colors.grey, width: 1),
-//       ),
-//       child: Center(
-//         child: Image.asset(
-//           assetPath,
-//           height: 24,
-//           width: 24,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-
-
- import 'package:dream_tech_doctor/utils/images.dart';
+import 'package:dream_tech_doctor/utils/images.dart';
+import 'package:dream_tech_doctor/view/auth/sign_up_otp.dart';
 import 'package:dream_tech_doctor/view/auth/signin.dart';
 import 'package:dream_tech_doctor/view/auth/signup.dart';
+import 'package:dream_tech_doctor/view/widgets/custom_dropdown.dart';
+import 'package:dream_tech_doctor/view/widgets/custom_form_textfield.dart';
+import 'package:dream_tech_doctor/view/widgets/lebel_with_asterisk.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -274,7 +15,56 @@ class CreateAccountPage extends StatefulWidget {
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
   bool _isPasswordHidden = true;
+  bool _isConformPasswordHidden = true;
+
   bool _isTermsAccepted = false;
+
+  final List<String> _genderOptions = ["Male", "Female"];
+  final List<String> _religionOptions = ["Islam", "Christianity", "Hinduism"];
+  final List<String> _bloodGroupOptions = ["A+", "B+", "AB+", "O+"];
+  final List<String> _marriedOptions = [
+    "Married",
+    "Unmarried",
+  ];
+
+  final List<String> _DivisionOptions = [
+    "Barisal",
+    "Chittagong",
+    "Dhaka",
+    "Khulna",
+    "Mymensingh",
+    "Rajshahi",
+    "Sylhet",
+    "Rangpur"
+  ];
+
+  String? _selectedGender;
+  String? _selectedReligion;
+  String? _selectedBloodGroup;
+  String? _selectedmarried;
+  String? _selectedDivision;
+
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordConformController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController genderController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController heightController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+  final TextEditingController bloodGroupController = TextEditingController();
+  final TextEditingController marriedController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
+  final TextEditingController divisionController = TextEditingController();
+  final TextEditingController districtController = TextEditingController();
+  final TextEditingController upazilaController = TextEditingController();
+  final TextEditingController currentCountryController = TextEditingController();
+  final TextEditingController currentDivisionController = TextEditingController();
+  final TextEditingController currentDistrictController = TextEditingController();
+  final TextEditingController currentUpazilaController = TextEditingController();
+  final TextEditingController currentLocationDetailsController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -285,7 +75,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          centerTitle: true,
+          //centerTitle: true,
           title: const Text(
             'Sign up',
             style: TextStyle(
@@ -294,140 +84,388 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          bottom: const TabBar(
-            labelColor: Colors.blue,
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.blue,
-            tabs: [
-              Tab(text: "Patient Sign up"),
-              Tab(text: "Doctor Sign up"),
-            ],
-          ),
+          
         ),
-        body: TabBarView(
+        body: SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            _buildLoginForm(context, "Patient"),
-            _buildLoginForm(context, "Doctor"),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLoginForm(BuildContext context, String userType) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(height: 40),
-        Center(
-          child: Container(
-            height: 100,
-            width: 200,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(AppImages.popup),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Center(
-          child: Text(
-            'Sign up as $userType',
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        const Center(
-          child: Text(
-            "Welcome back, you've been missed!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        const Padding(
-             padding: EdgeInsets.symmetric(horizontal: 24.0),
-             child: Text(
-              'Name',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
-                         ),
-           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: TextField(
-              decoration: InputDecoration(
-                //labelText: 'Name',
-                hintText: 'Md. Musa Ahmed',
-                hintStyle: const TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+            const SizedBox(height: 40),
+            Center(
+              child: Container(
+                height: 100,
+                width: 200,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AppImages.popup),
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
-          child: Text(
-            'Email',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: TextField(
-            decoration: InputDecoration(
-              //labelText: 'Email',
-              hintText: 'example@gmail.com',
-              hintStyle: const TextStyle(color: Colors.grey),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+            const SizedBox(height: 20),
+           
+             
+            const Center(
+              child: Text(
+                "Welcome back, you've been missed!",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                ),
               ),
             ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
-          child: Text(
-            'Password',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
+            const SizedBox(height: 8),
+            CustomTextFormField(
+              labelText: 'Name',
+              isRequired: true,
+              hintText: 'Md. A ',
+              //controller: nameController,
+              keyboardType: TextInputType.name,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your Name';
+                }
+                return null;
+              },
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: TextField(
-            obscureText: _isPasswordHidden,
-            decoration: InputDecoration(
-              //labelText: 'Password',
-               hintText: '&8/%^56',
-               hintStyle: const TextStyle(color: Colors.grey),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+
+            const SizedBox(height: 5),
+
+            CustomTextFormField(
+              labelText: 'Phone',
+              isRequired: true,
+              hintText: '+880 ',
+              //controller: nameController,
+              keyboardType: TextInputType.name,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your phone';
+                }
+                return null;
+              },
+            ),
+
+            const SizedBox(height: 5),
+
+            CustomTextFormField(
+              labelText: 'Email',
+              isRequired: true,
+              hintText: 'exp@gmail.com ',
+              //controller: nameController,
+              keyboardType: TextInputType.name,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your Email';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "Gender",
+                    isRequired: true,
+                    items: _genderOptions,
+                    selectedItem: _selectedGender,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedGender = value;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: CustomTextFormField(
+                    labelText: 'Age',
+                    isRequired: true,
+                    hintText: '27',
+                    //controller: nameController,
+                    keyboardType: TextInputType.name,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your Age';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 5),
+
+            Row(
+              children: [
+                Expanded(
+                  child: CustomTextFormField(
+                    labelText: 'Height',
+                    isRequired: true,
+                    hintText: '5.4"',
+                    //controller: nameController,
+                    keyboardType: TextInputType.name,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your Height';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                const SizedBox(width: 5),
+                Expanded(
+                  child: CustomTextFormField(
+                    labelText: 'Weight',
+                    isRequired: true,
+                    hintText: '65 KG"',
+                    //controller: nameController,
+                    keyboardType: TextInputType.name,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your Weight';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 5),
+
+            Row(
+              children: [
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "Blood Group",
+                    isRequired: true,
+                    items: _bloodGroupOptions,
+                    selectedItem: _selectedBloodGroup,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedBloodGroup = value;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(width: 5),
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "Married Status",
+                    isRequired: true,
+                    items: _marriedOptions,
+                    selectedItem: _selectedmarried,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedmarried = value;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(
+              height: 5,
+            ),
+
+            const Text(
+              'Location',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
               ),
+            ),
+
+            const SizedBox(
+              height: 5,
+            ),
+
+            Row(
+              children: [
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "Country",
+                    isRequired: true,
+                    items: _DivisionOptions,
+                    selectedItem: _selectedDivision,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDivision = value;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "Division",
+                    isRequired: true,
+                    items: _DivisionOptions,
+                    selectedItem: _selectedDivision,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDivision = value;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            Row(
+              children: [
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "District",
+                    isRequired: true,
+                    items: _DivisionOptions,
+                    selectedItem: _selectedDivision,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDivision = value;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "Upazila",
+                    isRequired: true,
+                    items: _DivisionOptions,
+                    selectedItem: _selectedDivision,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDivision = value;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(
+              height: 5,
+            ),
+
+            const Text(
+              'Current Location',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+
+            const SizedBox(
+              height: 5,
+            ),
+
+            Row(
+              children: [
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "Country",
+                    isRequired: true,
+                    items: _DivisionOptions,
+                    selectedItem: _selectedDivision,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDivision = value;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "Division",
+                    isRequired: true,
+                    items: _DivisionOptions,
+                    selectedItem: _selectedDivision,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDivision = value;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            Row(
+              children: [
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "District",
+                    isRequired: true,
+                    items: _DivisionOptions,
+                    selectedItem: _selectedDivision,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDivision = value;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: CustomDropdown(
+                    labelText: "Upazila",
+                    isRequired: true,
+                    items: _DivisionOptions,
+                    selectedItem: _selectedDivision,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDivision = value;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 5,),
+
+            CustomTextFormField(
+              labelText: 'Current Location Details',
+              isRequired: true,
+              hintText: '',
+              //controller: nameController,
+              keyboardType: TextInputType.name,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your Location details';
+                }
+                return null;
+              },
+            ),
+
+            const SizedBox(height: 5),
+            CustomTextFormField(
+              labelText: 'Password',
+              isRequired: true,
+              hintText: 'Enter your password',
+              controller: passwordController,
+              obscureText: _isPasswordHidden,
               suffixIcon: IconButton(
                 icon: Icon(
-                  _isPasswordHidden
-                      ? Icons.visibility_off
-                      : Icons.visibility,
+                  _isPasswordHidden ? Icons.visibility_off : Icons.visibility,
                 ),
                 onPressed: () {
                   setState(() {
@@ -435,13 +473,39 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   });
                 },
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your password';
+                }
+                return null;
+              },
             ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Row(
+            const SizedBox(height: 5),
+            CustomTextFormField(
+              isRequired: true,
+              labelText: 'Conform Password',
+              hintText: 'Enter your conform password',
+              controller: passwordController,
+              obscureText: _isConformPasswordHidden,
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _isPasswordHidden ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isConformPasswordHidden = !_isConformPasswordHidden;
+                  });
+                },
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your password';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 20),
+            Row(
               children: [
                 Checkbox(
                   value: _isTermsAccepted,
@@ -468,61 +532,67 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 ),
               ],
             ),
-          ),
-        Spacer(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              onPressed: () {
-                // Handle login action
-                print('$userType sign up');
-              },
-              child: Text(
-                'Sign Up as $userType',
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
- 
-        Center(
-            child:  RichText(
-            text: TextSpan(
-              text: 'Already have an account? ',
-              style: const TextStyle(color: Colors.black),
-              children: [
-                TextSpan(
-                  text: 'Sign In',
-                  style: const TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
+            //Spacer(),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>   LoginPage()),
-                );
-                      print('Sign In clicked');
-                    },
                 ),
-              ],
+                onPressed: () {
+                  // Handle login action
+                  print('sign up');
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignUpOtp()));
+                },
+                child: Text(
+                  'Sign Up',
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
             ),
-          ),
-          ),
-        const SizedBox(height: 20),
-      ],
+            const SizedBox(height: 20),
+
+            Center(
+              child: RichText(
+                text: TextSpan(
+                  text: 'Already have an account? ',
+                  style: const TextStyle(color: Colors.black),
+                  children: [
+                    TextSpan(
+                      text: 'Sign In',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()),
+                          );
+                          print('Sign In clicked');
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    )
+      ),
     );
   }
+
+   
 }

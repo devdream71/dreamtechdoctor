@@ -14,6 +14,9 @@ class AppImages {
 
   static const hospital = "assets/images/hopital2.jpg";
 
+  static const hospitallogo = "assets/images/hospital_logo.png";
+
+
 
    
 

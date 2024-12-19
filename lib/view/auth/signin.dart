@@ -11,6 +11,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordHidden = true;
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -20,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          centerTitle: true,
+          //centerTitle: true,
           title: const Text(
             'Login',
             style: TextStyle(
@@ -29,28 +32,9 @@ class _LoginPageState extends State<LoginPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          bottom: const TabBar(
-            labelColor: Colors.blue,
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.blue,
-            tabs: [
-              Tab(text: "Patient Login"),
-              Tab(text: "Doctor Login"),
-            ],
-          ),
+          
         ),
-        body: TabBarView(
-          children: [
-            _buildLoginForm(context, "Patient"),
-            _buildLoginForm(context, "Doctor"),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLoginForm(BuildContext context, String userType) {
-    return Column(
+        body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -67,15 +51,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         const SizedBox(height: 20),
-        Center(
-          child: Text(
-            'Sign in as $userType',
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+        
         const SizedBox(height: 8),
         const Center(
           child: Text(
@@ -180,10 +156,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               onPressed: () {
                 // Handle login action
-                print('$userType logged in');
+                print(' logged in');
               },
               child: Text(
-                'Sign In as $userType',
+                'Sign In',
                 style: const TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
@@ -217,6 +193,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
         const SizedBox(height: 20),
       ],
+    )
+      ),
     );
   }
+
+  
 }
