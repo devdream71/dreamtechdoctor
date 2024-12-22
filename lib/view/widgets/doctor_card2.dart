@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DoctorCard extends StatelessWidget {
+class DoctorCard2 extends StatelessWidget {
   final String imageUrl;
   final String name;
   final String qualifications;
@@ -10,7 +10,7 @@ class DoctorCard extends StatelessWidget {
   final void Function() ? onTapDoctorView;
   final void Function() ? onTapAppointment;
 
-  const DoctorCard({
+  const DoctorCard2({
     super.key,
     required this.imageUrl,
     required this.name,
@@ -104,13 +104,13 @@ class DoctorCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           // Buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildButton("Doctor View", Colors.blueAccent, onTapDoctorView),
-              _buildButton("Appointment", Colors.green, onTapAppointment),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     _buildButton("Doctor View", Colors.blueAccent, onTapDoctorView),
+          //     _buildButton("Appointment", Colors.green, onTapAppointment),
+          //   ],
+          // ),
         ],
       ),
     );

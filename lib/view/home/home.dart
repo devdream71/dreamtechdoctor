@@ -46,11 +46,11 @@ class _HomeState extends State<Home> {
     );
 
     // Automatically close dialog after 8 seconds
-    Future.delayed(const Duration(seconds: 8), () {
-      if (Navigator.of(context).canPop()) {
-        Navigator.of(context).pop();
-      }
-    });
+    // Future.delayed(const Duration(seconds: 8), () {
+    //   if (Navigator.of(context).canPop()) {
+    //     Navigator.of(context).pop();
+    //   }
+    // });
   }
 
   @override

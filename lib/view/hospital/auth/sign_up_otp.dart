@@ -1,10 +1,50 @@
+import 'dart:async';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
-class HospitalSignUpOtp extends StatelessWidget {
-  const HospitalSignUpOtp({Key? key}) : super(key: key);
+class HospitalSignUpOtp extends StatefulWidget {
+  const HospitalSignUpOtp({super.key});
+
+  @override
+  HospitalSignUpOtpState createState() => HospitalSignUpOtpState();
+}
+
+class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
+  late Timer _timer;
+  int _secondsRemaining = 120;
+  bool _isTimerActive = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_secondsRemaining > 0) {
+          _secondsRemaining--;
+        } else {
+          _isTimerActive = false;
+          _timer.cancel();
+        }
+      });
+    });
+  }
+
+  String _formatTime(int seconds) {
+    final minutes = seconds ~/ 60;
+    final secondsLeft = seconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${secondsLeft.toString().padLeft(2, '0')}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +61,7 @@ class HospitalSignUpOtp extends StatelessWidget {
         border: Border.all(color: Colors.transparent),
       ),
     );
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -70,6 +111,17 @@ class HospitalSignUpOtp extends StatelessWidget {
               ),
               onCompleted: (pin) => debugPrint(pin),
             ),
+            const SizedBox(height: 20),
+            Text(
+              _isTimerActive
+                  ? "Time Remaining: ${_formatTime(_secondsRemaining)}"
+                  : "OTP expired",
+              style: TextStyle(
+                fontSize: 18,
+                color: _isTimerActive ? Colors.green : Colors.red, 
+                fontWeight: FontWeight.bold
+              ),
+            ),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -78,19 +130,22 @@ class HospitalSignUpOtp extends StatelessWidget {
                 height: 48,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: _isTimerActive ? Colors.blue : Colors.grey,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () {
-                    // Handle login action
-                    print('logged in');
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context0) => HospitalLoginPage()));
-                  },
+                  onPressed: _isTimerActive
+                      ? () {
+                          // Handle next action
+                          print('Next button clicked');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HospitalLoginPage()),
+                          );
+                        }
+                      : null,
                   child: const Text(
                     'Next',
                     style: TextStyle(color: Colors.white, fontSize: 16),
@@ -98,9 +153,23 @@ class HospitalSignUpOtp extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            )
+            if (!_isTimerActive)
+              TextButton(
+                onPressed: () {
+                  // Handle resend OTP action
+                  print("Resend OTP clicked");
+                  setState(() {
+                    _secondsRemaining = 120;
+                    _isTimerActive = true;
+                    _startTimer();
+                  });
+                },
+                child: const Text(
+                  'Resend OTP',
+                  style: TextStyle(color: Colors.blue, fontSize: 16),
+                ),
+              ),
+            const SizedBox(height: 10),
           ],
         ),
       ),

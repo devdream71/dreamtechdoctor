@@ -1,5 +1,7 @@
 import 'package:dream_tech_doctor/view/auth/signin.dart';
+import 'package:dream_tech_doctor/view/doctor_appointment/doctor_all_appointment.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login.dart';
+import 'package:dream_tech_doctor/view/prescription/prescription_create.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
@@ -38,7 +40,13 @@ class Profile extends StatelessWidget {
                   title: const Text("Doctor"),
                   leading: const Icon(Icons.vaccines),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const DoctorAllAppointment()));
+                  },
                 ),
               ),
               const SizedBox(height: 5.0),
@@ -83,7 +91,12 @@ class Profile extends StatelessWidget {
                   title: const Text("All Prescription"),
                   leading: const Icon(Icons.document_scanner_outlined),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PrescriptionForm()));
+                  },
                 ),
               ),
               const SizedBox(height: 5.0),
@@ -111,10 +124,8 @@ class Profile extends StatelessWidget {
                   leading: const Icon(Icons.info),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LoginPage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                 ),
               ),

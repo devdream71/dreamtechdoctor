@@ -1,18 +1,25 @@
+import 'dart:io';
 import 'package:dream_tech_doctor/utils/images.dart';
-import 'package:dream_tech_doctor/view/auth/signup.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/sign_up_otp.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_dropdown.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_form_textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HospitalSignUpPage extends StatefulWidget {
+  const HospitalSignUpPage({super.key});
+
   @override
-  _HospitalSignUpPageState createState() => _HospitalSignUpPageState();
+  HospitalSignUpPageState createState() => HospitalSignUpPageState();
 }
 
-class _HospitalSignUpPageState extends State<HospitalSignUpPage> {
+class HospitalSignUpPageState extends State<HospitalSignUpPage> {
+  final List<String> _CountryOptions = [
+    "Bangladesh",
+  ];
+
   final List<String> _DivisionOptions = [
     "Barisal",
     "Chittagong",
@@ -24,13 +31,19 @@ class _HospitalSignUpPageState extends State<HospitalSignUpPage> {
     "Rangpur"
   ];
 
+  final List<String> _District = [];
+
+  String? _selectedCountry;
   String? _selectedDivision;
 
   bool _isPasswordHidden = true;
   bool _isConformPasswordHidden = true;
 
+  final _formkey = GlobalKey<FormState>();
+
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConformController = TextEditingController();
+  final TextEditingController passwordConformController =
+      TextEditingController();
   final TextEditingController hospitalNameController = TextEditingController();
   final TextEditingController regNumberController = TextEditingController();
   final TextEditingController estDateController = TextEditingController();
@@ -38,13 +51,57 @@ class _HospitalSignUpPageState extends State<HospitalSignUpPage> {
   final TextEditingController divisionController = TextEditingController();
   final TextEditingController districtController = TextEditingController();
   final TextEditingController upazilaController = TextEditingController();
-  final TextEditingController currentrLocationDetailsController = TextEditingController();
-  final TextEditingController hospitalPrimaryNumberController = TextEditingController();
-  final TextEditingController hospitalSecondaryNumberController = TextEditingController();
+  final TextEditingController currentrLocationDetailsController =
+      TextEditingController();
+  final TextEditingController hospitalPrimaryNumberController =
+      TextEditingController();
+  final TextEditingController hospitalSecondaryNumberController =
+      TextEditingController();
   final TextEditingController hospitalEmailController = TextEditingController();
   final TextEditingController hospitaladminController = TextEditingController();
   final TextEditingController hospitalPhoneController = TextEditingController();
-  
+  final TextEditingController adminEmailontroller = TextEditingController();
+
+  final ImagePicker _picker = ImagePicker();
+
+  XFile? _logoImageFile;
+  XFile? _frontImageFile;
+  String? _logoImageError;
+  String? _frontImageError;
+
+  Future<void> _pickImage(ImageSource source, bool isLogo) async {
+    final XFile? pickedFile = await _picker.pickImage(source: source);
+
+    setState(() {
+      if (isLogo) {
+        _logoImageFile = pickedFile;
+        _logoImageError = null;
+      } else {
+        _frontImageFile = pickedFile;
+        _frontImageError = null;
+      }
+    });
+  }
+
+  bool _validateLogoImage() {
+    if (_logoImageFile == null) {
+      setState(() {
+        _logoImageError = 'Please select a hospital logo';
+      });
+      return false;
+    }
+    return true;
+  }
+
+  bool _validateFrontImage() {
+    if (_frontImageFile == null) {
+      setState(() {
+        _frontImageError = 'Please select a hospital front picture';
+      });
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,356 +125,610 @@ class _HospitalSignUpPageState extends State<HospitalSignUpPage> {
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 40),
-                  Center(
-                    child: Container(
-                      height: 100,
-                      width: 200,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(AppImages.hospitallogo),
+              child: Form(
+                key: _formkey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Container(
+                        height: 80,
+                        width: 200,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(AppImages.hospitallogo),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Center(),
-                  const SizedBox(height: 8),
-                  const Center(
-                    child: Text(
-                      "Welcome, you've been good time with us!",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
+                    const SizedBox(height: 20),
+                    const Center(),
+                    const Center(
+                      child: Text(
+                        "Welcome, you've been good time with us!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomTextFormField(
-                    labelText: 'Hospital Name',
-                    isRequired: true,
-                    hintText: 'Enter hospital name',
-                    //controller: nameController,
 
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter hospital Name';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomTextFormField(
-                          labelText: 'Registration Number',
-                          isRequired: true,
-                          hintText: 'Enter Registration number',
-                          keyboardType: TextInputType.name,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter registration number';
-                            }
-                            return null;
-                          },
+                    const SizedBox(height: 20),
+
+                    const Row(
+                      children: [
+                        Text(
+                          "Hospital Logo",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
                         ),
-                      ),
-                      const SizedBox(
-                          width: 8), // Add spacing between the two fields
-                      Expanded(
-                        child: CustomTextFormField(
-                          labelText: 'Established Date',
-                          isRequired: true,
-                          hintText: 'Enter Established date',
-                          keyboardType: TextInputType.name,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter established date';
-                            }
-                            return null;
-                          },
+                        Text(
+                          "*",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.red),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomDropdown(
-                          labelText: "Country",
-                          isRequired: true,
-                          items: _DivisionOptions,
-                          selectedItem: _selectedDivision,
-                          //placeholder: "Select your division",
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedDivision = value;
-                            });
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: CustomDropdown(
-                          labelText: "Division",
-                          isRequired: true,
-                          items: _DivisionOptions,
-                          selectedItem: _selectedDivision,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedDivision = value;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomDropdown(
-                          labelText: "District",
-                          isRequired: true,
-                          items: _DivisionOptions,
-                          selectedItem: _selectedDivision,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedDivision = value;
-                            });
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 8,),
-                      Expanded(
-                        child: CustomDropdown(
-                          labelText: "Upazila",
-                          isRequired: true,
-                          items: _DivisionOptions,
-                          selectedItem: _selectedDivision,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedDivision = value;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  CustomTextFormField(
-                    labelText: 'Current Location Details',
-                    isRequired: true,
-                    hintText: 'Enter location details',
-                    //controller: nameController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your Location details';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  
-                  CustomTextFormField(
-                    labelText: 'Hospital Primary Phone Number',
-                    isRequired: true,
-                    hintText: 'Enter primary phone number',
-                    //controller: nameController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter Hospital Primary Phone Number';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  CustomTextFormField(
-                    labelText: 'Hospital Secondary Phone Number',
-                    isRequired: true,
-                    hintText: 'Enter Secondary phone number',
-                    //controller: nameController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter Hospital Secondary Phone Number';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  CustomTextFormField(
-                    labelText: 'Hospital Email',
-                    isRequired: true,
-                    hintText: 'Enter hopital email',
-                    //controller: nameController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter Hospital Email';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  CustomTextFormField(
-                    labelText: 'Admin Name',
-                    isRequired: true,
-                    hintText: 'Enter admin name',
-                    //controller: nameController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter admin Name';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  CustomTextFormField(
-                    labelText: 'Admin Phone Number',
-                    isRequired: true,
-                    hintText: 'Enter admin phone number',
-                    //controller: nameController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter admin phone number';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  CustomTextFormField(
-                    labelText: 'Admin Email',
-                    isRequired: true,
-                    hintText: 'Enter admin email',
-                    //controller: nameController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter admin email';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  CustomTextFormField(
-                    labelText: 'Password',
-                    isRequired: true,
-                    hintText: 'Enter your password',
-                    controller: passwordController,
-                    obscureText: _isPasswordHidden,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isPasswordHidden
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isPasswordHidden = !_isPasswordHidden;
-                        });
-                      },
+                      ],
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  CustomTextFormField(
-                    isRequired: true,
-                    labelText: 'Conform Password',
-                    hintText: 'Enter your conform password',
-                    controller: passwordConformController,
-                    obscureText: _isConformPasswordHidden,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isPasswordHidden
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isConformPasswordHidden = !_isConformPasswordHidden;
-                        });
-                      },
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () {
-                        // Handle login action
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const HospitalSignUpOtp()));
-                      },
-                      child: const Text(
-                        'Sign up',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Already an account? ',
-                        style: const TextStyle(color: Colors.black),
+
+                    Center(
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
                         children: [
-                          TextSpan(
-                            text: 'Sign in',
-                            style: const TextStyle(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundColor: Colors.green[100],
+                            child: CircleAvatar(
+                              radius: 55,
+                              backgroundImage: _logoImageFile != null
+                                  ? FileImage(File(_logoImageFile!.path))
+                                  : const AssetImage(AppImages.splashLogo)
+                                      as ImageProvider,
                             ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          HospitalLoginPage()),
-                                );
+                          ),
+                          Positioned(
+                            bottom: 4,
+                            right: 4,
+                            child: GestureDetector(
+                              onTap: () {
+                                _showImageSourceActionSheet(
+                                    context, true); // true for logo
                               },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                padding: const EdgeInsets.all(6),
+                                child: const Icon(
+                                  Icons.camera_alt,
+                                  size: 20,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                ],
+                    if (_logoImageError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Center(
+                          child: Text(
+                            _logoImageError!,
+                            style: const TextStyle(
+                                color: Colors.red, fontSize: 14),
+                          ),
+                        ),
+                      ),
+
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Row(
+                      children: [
+                        Text(
+                          "Hospital Front Picture",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          "*",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.red),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          Container(
+                            width: 220,
+                            height: 110,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(8),
+                              image: _frontImageFile != null
+                                  ? DecorationImage(
+                                      image: FileImage(
+                                          File(_frontImageFile!.path)),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null,
+                            ),
+                            child: _frontImageFile == null
+                                ? const Center(
+                                    child: Icon(
+                                      Icons.image,
+                                      size: 40,
+                                      color: Colors.grey,
+                                    ),
+                                  )
+                                : null,
+                          ),
+                          Positioned(
+                            bottom: 4,
+                            right: 4,
+                            child: GestureDetector(
+                              onTap: () {
+                                _showImageSourceActionSheet(
+                                    context, false); // false for front picture
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                padding: const EdgeInsets.all(6),
+                                child: const Icon(
+                                  Icons.camera_alt,
+                                  size: 20,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (_frontImageError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Center(
+                          child: Text(
+                            _frontImageError!,
+                            style: const TextStyle(
+                                color: Colors.red, fontSize: 14),
+                          ),
+                        ),
+                      ),
+
+                    const SizedBox(height: 20),
+                    CustomTextFormField(
+                      labelText: 'Hospital Name',
+                      isRequired: true,
+                      hintText: 'Enter hospital name',
+                      controller: hospitalNameController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter hospital Name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextFormField(
+                            labelText: 'Registration Number',
+                            isRequired: true,
+                            hintText: 'Enter Registration number',
+                            keyboardType: TextInputType.name,
+                            controller: regNumberController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter registration number';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                            width: 8), // Add spacing between the two fields
+                        Expanded(
+                          child: CustomTextFormField(
+                            labelText: 'Established Year',
+                            isRequired: true,
+                            hintText: 'Enter Established Year',
+                            keyboardType: TextInputType.number,
+                            controller: estDateController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter established Year';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomDropdown(
+                            labelText: "Country",
+                            isRequired: true,
+                            items: _CountryOptions,
+                            selectedItem: _selectedCountry,
+                            //placeholder: "Select your division",
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedCountry = value;
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: CustomDropdown(
+                            labelText: "Division",
+                            isRequired: true,
+                            items: _DivisionOptions,
+                            selectedItem: _selectedDivision,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedDivision = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomDropdown(
+                            labelText: "District",
+                            isRequired: true,
+                            items: _DivisionOptions,
+                            selectedItem: _selectedDivision,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedDivision = value;
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: CustomDropdown(
+                            labelText: "Upazila",
+                            isRequired: true,
+                            items: _DivisionOptions,
+                            selectedItem: _selectedDivision,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedDivision = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    CustomTextFormField(
+                      labelText: 'Current Location Details',
+                      isRequired: true,
+                      hintText: 'Enter location details',
+                      controller: currentrLocationDetailsController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your Location details';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+
+                    CustomTextFormField(
+                      labelText: 'Hospital Primary Phone Number',
+                      isRequired: true,
+                      hintText: 'Enter primary phone number',
+                      controller: hospitalPrimaryNumberController,
+                      keyboardType: TextInputType.phone,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Hospital Primary Phone Number';
+                        }
+                        if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return 'Please enter a valid phone number';
+                        }
+                        if (value.length != 11) {
+                          // Adjust this length as per your requirement
+                          return 'Phone number must be 10 digits';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+
+                    CustomTextFormField(
+                      labelText: 'Hospital Secondary Phone Number',
+                      hintText: 'Enter Secondary phone number',
+                      controller: hospitalSecondaryNumberController,
+                      keyboardType: TextInputType.number,
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'Please enter Hospital Primary Phone Number';
+                      //   }
+                      //   if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                      //     return 'Please enter a valid phone number';
+                      //   }
+                      //   if (value.length != 10) {
+                      //     // Adjust this length as per your requirement
+                      //     return 'Phone number must be 10 digits';
+                      //   }
+                      //   return null;
+                      // },
+                    ),
+                    const SizedBox(height: 5),
+                    CustomTextFormField(
+                      labelText: 'Hospital Email',
+                      isRequired: true,
+                      hintText: 'Enter hopital email',
+                      controller: hospitalEmailController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Hospital Email';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    CustomTextFormField(
+                      labelText: 'Admin Name',
+                      isRequired: true,
+                      hintText: 'Enter admin name',
+                      controller: hospitaladminController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter admin Name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    CustomTextFormField(
+                      labelText: 'Admin Phone Number',
+                      isRequired: true,
+                      hintText: 'Enter admin phone number',
+                      controller: hospitalPhoneController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter admin phone number';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    CustomTextFormField(
+                      labelText: 'Admin Email',
+                      isRequired: true,
+                      hintText: 'Enter admin email',
+                      controller: adminEmailontroller,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter admin email';
+                        }
+                        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                            .hasMatch(value)) {
+                          return 'Please enter a valid email address';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    ////===> password.
+                    CustomTextFormField(
+                      labelText: 'Password',
+                      isRequired: true,
+                      hintText: 'Enter your password',
+                      controller: passwordController,
+                      obscureText: _isPasswordHidden,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordHidden
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordHidden = !_isPasswordHidden;
+                          });
+                        },
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        if (value.length < 6) {
+                          return 'Password must be at least 6 characters long';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+
+                    ///====>conform password.
+                    CustomTextFormField(
+                      isRequired: true,
+                      labelText: 'Confirm Password',
+                      hintText: 'Enter your confirm password',
+                      controller: passwordConformController,
+                      obscureText: _isConformPasswordHidden,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isConformPasswordHidden
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isConformPasswordHidden =
+                                !_isConformPasswordHidden;
+                          });
+                        },
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your confirm password';
+                        }
+                        if (value != passwordController.text) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: () {
+                          // Handle login action
+                          if (_formkey.currentState!.validate()) {
+                            print(
+                                " Hospital Name ${hospitalNameController.text}");
+                            print(
+                                "Hospital Reg number ${regNumberController.text}");
+                            print("Est date ${estDateController.text}");
+                            print(
+                                "location deatils ${currentrLocationDetailsController.text}");
+                            print(
+                                "primary number ${hospitalPrimaryNumberController.text}");
+                            print(
+                                "2nd number ${hospitalSecondaryNumberController.text}");
+                            print(
+                                "hospital email ${hospitalEmailController.text}");
+                            print("admin name${hospitaladminController.text}");
+                            print("phone ${hospitalPhoneController.text}");
+                            print("admin email ${adminEmailontroller.text}");
+                            print("logo ${_logoImageFile}");
+                            print("front image ${_frontImageFile}");
+
+                            print("Country ${_selectedDivision}");
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HospitalSignUpOtp(),
+                              ),
+                            );
+                          } else {
+                            // Form validation failed
+                            print('Form validation failed');
+                          }
+                        },
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Center(
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Already an account? ',
+                          style: const TextStyle(color: Colors.black),
+                          children: [
+                            TextSpan(
+                              text: 'Sign in',
+                              style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            HospitalLoginPage()),
+                                  );
+                                },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
           )),
+    );
+  }
+
+  void _showImageSourceActionSheet(BuildContext context, bool isLogo) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Gallery'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _pickImage(ImageSource.gallery, isLogo);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_camera),
+                title: const Text('Camera'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _pickImage(ImageSource.camera, isLogo);
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
