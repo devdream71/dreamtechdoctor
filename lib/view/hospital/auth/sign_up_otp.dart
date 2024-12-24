@@ -8,9 +8,42 @@ import 'package:pinput/pinput.dart';
 class HospitalSignUpOtp extends StatefulWidget {
   final adminemail;
   final otp;
+  final hospitalName;
+  final regNumber;
+  final establish;
+  final country;
+  final division;
+  final district;
+  final subDistrict;
+  final locationDetails;
+  final mobileNumber1;
+  final mobileNumber2;
+  final email;
+  final adminName;
+  final adminMobile;
+  final adminEmail;
+  final password;
 
-  const HospitalSignUpOtp(
-      {super.key, required this.adminemail, required this.otp});
+  const HospitalSignUpOtp({
+    super.key,
+    required this.adminemail,
+    required this.otp,
+    this.adminEmail,
+    this.adminMobile,
+    this.adminName,
+    this.country,
+    this.district,
+    this.division,
+    this.subDistrict,
+    this.email,
+    this.establish,
+    this.hospitalName,
+    this.locationDetails,
+    this.mobileNumber1,
+    this.mobileNumber2,
+    this.password,
+    this.regNumber,
+  });
 
   @override
   HospitalSignUpOtpState createState() => HospitalSignUpOtpState();
@@ -53,8 +86,8 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
     final secondsLeft = seconds % 60;
     return '${minutes.toString().padLeft(2, '0')}:${secondsLeft.toString().padLeft(2, '0')}';
   }
-  //final otp = Get.arguments?['otp'];
-
+  
+  
   @override
   Widget build(
     BuildContext context,
@@ -105,7 +138,7 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
             Container(
               margin: const EdgeInsets.only(bottom: 40),
               child: const Text(
-                "Shakib@gmail.com",
+                "",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
@@ -113,7 +146,7 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
               ),
             ),
             Pinput(
-              length: 5,
+              length: 6,
               defaultPinTheme: defaultPinTheme,
               focusedPinTheme: defaultPinTheme.copyWith(
                 decoration: defaultPinTheme.decoration!.copyWith(

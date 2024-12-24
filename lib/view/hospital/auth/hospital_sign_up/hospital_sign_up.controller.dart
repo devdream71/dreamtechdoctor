@@ -114,6 +114,7 @@ class SignupController extends GetxController {
 
           // Trigger OTP send call
           //await sendOtp(adminEmail: adminEmail);
+          Get.snackbar("title", "message");
         } else {
           // Get.snackbar('Error', data['message']);
         }
