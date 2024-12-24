@@ -1,3 +1,7 @@
+
+
+
+
 import 'package:dream_tech_doctor/view/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +29,6 @@ class MyApp extends StatelessWidget {
 }
 
 
-///====>hospital seat managment 
-///
+// ///====>hospital seat managment 
+// ///
 

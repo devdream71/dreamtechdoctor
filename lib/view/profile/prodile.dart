@@ -34,7 +34,7 @@ class Profile extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Doctor"),
@@ -49,7 +49,7 @@ class Profile extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Symptoms"),
@@ -58,7 +58,7 @@ class Profile extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Pathology"),
@@ -67,7 +67,7 @@ class Profile extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Medicine"),
@@ -76,7 +76,7 @@ class Profile extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Medicine Reminder"),
@@ -85,7 +85,7 @@ class Profile extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("All Prescription"),
@@ -99,7 +99,7 @@ class Profile extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Pharmacy"),
@@ -108,7 +108,7 @@ class Profile extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Ambulance"),
@@ -117,7 +117,7 @@ class Profile extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Personal Info"),
@@ -129,7 +129,7 @@ class Profile extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Notification"),
@@ -138,7 +138,7 @@ class Profile extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
 
               // Language Change Button
               Card(
@@ -150,7 +150,7 @@ class Profile extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
 
               Card(
                 child: ListTile(
@@ -160,7 +160,7 @@ class Profile extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
-              const SizedBox(height: 5.0),
+              //const SizedBox(height: 1.0),
               Card(
                 child: ListTile(
                   title: const Text("Delete Account"),
@@ -171,7 +171,7 @@ class Profile extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 20),
+              //const SizedBox(height: 20),
             ],
           ),
         ),

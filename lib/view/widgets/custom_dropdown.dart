@@ -32,8 +32,8 @@ class CustomDropdown extends StatelessWidget {
             Text(
               labelText,
               style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
               ),
             ),
             if (isRequired)
@@ -43,7 +43,7 @@ class CustomDropdown extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         DropdownButtonFormField<String>(
           decoration: InputDecoration(
             border: OutlineInputBorder(

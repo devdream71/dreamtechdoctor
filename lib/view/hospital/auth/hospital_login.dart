@@ -1,7 +1,7 @@
 import 'package:dream_tech_doctor/utils/images.dart';
 import 'package:dream_tech_doctor/view/auth/signup.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/forget_password.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_signup.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/hospital_signup.dart';
 import 'package:dream_tech_doctor/view/hospital/hospital_bottom_nav.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

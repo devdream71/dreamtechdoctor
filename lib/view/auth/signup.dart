@@ -1,10 +1,8 @@
 import 'package:dream_tech_doctor/utils/images.dart';
 import 'package:dream_tech_doctor/view/auth/sign_up_otp.dart';
 import 'package:dream_tech_doctor/view/auth/signin.dart';
-import 'package:dream_tech_doctor/view/auth/signup.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_dropdown.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_form_textfield.dart';
-import 'package:dream_tech_doctor/view/widgets/lebel_with_asterisk.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

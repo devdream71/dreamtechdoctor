@@ -1,16 +1,24 @@
 import 'dart:async';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/hospital_sign_up.controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
 class HospitalSignUpOtp extends StatefulWidget {
-  const HospitalSignUpOtp({super.key});
+  final adminemail;
+  final otp;
+
+  const HospitalSignUpOtp(
+      {super.key, required this.adminemail, required this.otp});
 
   @override
   HospitalSignUpOtpState createState() => HospitalSignUpOtpState();
 }
 
 class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
+  final SignupController signupController = Get.find<SignupController>();
+
   late Timer _timer;
   int _secondsRemaining = 120;
   bool _isTimerActive = true;
@@ -45,9 +53,12 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
     final secondsLeft = seconds % 60;
     return '${minutes.toString().padLeft(2, '0')}:${secondsLeft.toString().padLeft(2, '0')}';
   }
+  //final otp = Get.arguments?['otp'];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 60,
@@ -94,7 +105,7 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
             Container(
               margin: const EdgeInsets.only(bottom: 40),
               child: const Text(
-                "shakib24@gmail.com",
+                "Shakib@gmail.com",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
@@ -117,10 +128,9 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
                   ? "Time Remaining: ${_formatTime(_secondsRemaining)}"
                   : "OTP expired",
               style: TextStyle(
-                fontSize: 18,
-                color: _isTimerActive ? Colors.green : Colors.red, 
-                fontWeight: FontWeight.bold
-              ),
+                  fontSize: 18,
+                  color: _isTimerActive ? Colors.green : Colors.red,
+                  fontWeight: FontWeight.bold),
             ),
             const Spacer(),
             Padding(
@@ -136,7 +146,7 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
                     ),
                   ),
                   onPressed: _isTimerActive
-                      ? () {
+                      ? () async {
                           // Handle next action
                           print('Next button clicked');
                           Navigator.push(
@@ -144,6 +154,11 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
                             MaterialPageRoute(
                                 builder: (context) => HospitalLoginPage()),
                           );
+
+                          var adminEmailontroller = "sh@gmail.com";
+
+                          // await signupController.sendOtp(
+                          //     adminEmailontroller, context);
                         }
                       : null,
                   child: const Text(

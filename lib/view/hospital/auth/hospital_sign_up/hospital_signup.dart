@@ -1,12 +1,15 @@
 import 'dart:io';
 import 'package:dream_tech_doctor/utils/images.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/hospital_sign_up.controller.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/sign_up_otp.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_dropdown.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_form_textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HospitalSignUpPage extends StatefulWidget {
   const HospitalSignUpPage({super.key});
@@ -31,6 +34,17 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
     "Rangpur"
   ];
 
+  final List<String> _DistrictOptions = [
+    "district 1 ",
+    "district 2",
+    "district 3",
+    "district 4",
+    "district 5",
+    "district 6",
+    "district 7",
+    "district 8 "
+  ];
+
   final List<String> _District = [];
 
   String? _selectedCountry;
@@ -39,7 +53,7 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
   bool _isPasswordHidden = true;
   bool _isConformPasswordHidden = true;
 
-  final _formkey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordConformController =
@@ -103,6 +117,8 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
     return true;
   }
 
+  final SignupController signupController = Get.put(SignupController());
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -126,7 +142,7 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Form(
-                key: _formkey,
+                key: _formKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -367,6 +383,8 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
                       ],
                     ),
 
+                    const SizedBox(height: 5),
+
                     Row(
                       children: [
                         Expanded(
@@ -399,6 +417,7 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 5),
                     Row(
                       children: [
                         Expanded(
@@ -615,57 +634,151 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
                       height: 5,
                     ),
                     const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+
+//                     Obx(() {
+//   return SizedBox(
+//     width: double.infinity,
+//     height: 48,
+//     child: ElevatedButton(
+//       style: ElevatedButton.styleFrom(
+//         backgroundColor: Colors.blue,
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(12),
+//         ),
+//       ),
+//       onPressed: signupController.isLoading.value
+//           ? null
+//           : () async {
+//               if (_formKey.currentState!.validate()) {
+//                 await signupController.sendOtp(
+//                     adminEmailontroller.text, context);
+
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                     builder: (context) => HospitalSignUpOtp(
+//                       adminemail: adminEmailontroller.text,
+//                       otp: '123456',
+//                       hospitalName: hospitalNameController.text,
+//                       regNumber: regNumberController.text,
+//                       establish: estDateController.text,
+//                       country: _selectedDivision.toString(),
+//                       division: _selectedDivision.toString(),
+//                       district: _selectedDivision.toString(),
+//                       subDistrict: _selectedDivision.toString(),
+//                       locationDetails: currentrLocationDetailsController.text,
+//                       mobileNumber1: hospitalPrimaryNumberController.text,
+//                       mobileNumber2: hospitalSecondaryNumberController.text,
+//                       email: hospitalEmailController.text,
+//                       adminName: hospitaladminController.text,
+//                       adminMobile: hospitalPhoneController.text,
+//                       password: passwordController.text,
+//                       logoPath: _logoImageFile.toString(),
+//                       frontPicturePath: _frontImageFile.toString(),
+//                     ),
+//                   ),
+//                 );
+//               } else {
+//                 Get.snackbar('Error', 'Please fill all fields correctly.');
+//               }
+//             },
+//       child: signupController.isLoading.value
+//           ? const CircularProgressIndicator(color: Colors.white)
+//           : const Text('Sign up',
+//               style: TextStyle(color: Colors.white, fontSize: 16)),
+//     ),
+//   );
+// }),
+
+                    ///==========>send otp
+
+                    Obx(() {
+                      return SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
-                        ),
-                        onPressed: () {
-                          // Handle login action
-                          if (_formkey.currentState!.validate()) {
-                            print(
-                                " Hospital Name ${hospitalNameController.text}");
-                            print(
-                                "Hospital Reg number ${regNumberController.text}");
-                            print("Est date ${estDateController.text}");
-                            print(
-                                "location deatils ${currentrLocationDetailsController.text}");
-                            print(
-                                "primary number ${hospitalPrimaryNumberController.text}");
-                            print(
-                                "2nd number ${hospitalSecondaryNumberController.text}");
-                            print(
-                                "hospital email ${hospitalEmailController.text}");
-                            print("admin name${hospitaladminController.text}");
-                            print("phone ${hospitalPhoneController.text}");
-                            print("admin email ${adminEmailontroller.text}");
-                            print("logo ${_logoImageFile}");
-                            print("front image ${_frontImageFile}");
+                          onPressed: signupController.isLoading.value
+                              ? null
+                              : () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    print(
+                                        "Admin email: ${adminEmailontroller.text}");
 
-                            print("Country ${_selectedDivision}");
+                                    // Call the OTP API
+                                    await signupController.sendOtp(
+                                        adminEmailontroller.text, context);
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HospitalSignUpOtp(),
-                              ),
-                            );
-                          } else {
-                            // Form validation failed
-                            print('Form validation failed');
-                          }
-                        },
-                        child: const Text(
-                          'Sign up',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
+                                    ///call the sign up
+                                    print(
+                                        " Hospital Name ${hospitalNameController.text}");
+                                    print(
+                                        "Hospital Reg number ${regNumberController.text}");
+                                    print("Est date ${estDateController.text}");
+                                    print(
+                                        "location deatils ${currentrLocationDetailsController.text}");
+                                    print(
+                                        "primary number ${hospitalPrimaryNumberController.text}");
+                                    print(
+                                        "2nd number ${hospitalSecondaryNumberController.text}");
+                                    print(
+                                        "hospital email ${hospitalEmailController.text}");
+                                    print(
+                                        "admin name${hospitaladminController.text}");
+                                    print(
+                                        "phone ${hospitalPhoneController.text}");
+                                    print(
+                                        "admin email ${adminEmailontroller.text}");
+                                    print("logo ${_logoImageFile}");
+                                    print("front image ${_frontImageFile}");
+
+                                    print("Country ${_selectedDivision}");
+
+                                    signupController.signup(
+                                      hospitalName: hospitalNameController.text,
+                                      regNumber: regNumberController.text,
+                                      establish: estDateController.text,
+                                      country: _selectedDivision.toString(),
+                                      division: _selectedDivision.toString(),
+                                      district: _selectedDivision.toString(),
+                                      subDistrict: _selectedDivision.toString(),
+                                      locationDetails:
+                                          currentrLocationDetailsController
+                                              .text,
+                                      mobileNumber1:
+                                          hospitalPrimaryNumberController.text,
+                                      mobileNumber2:
+                                          hospitalSecondaryNumberController
+                                              .text,
+                                      email: hospitalEmailController.text,
+                                      adminName: adminEmailontroller.text,
+                                      adminMobile: hospitalPhoneController.text,
+                                      adminEmail: adminEmailontroller.text,
+                                      password: passwordController.text,
+                                      logoPath: _logoImageFile.toString(),
+                                      frontPicturePath:
+                                          _frontImageFile.toString(),
+                                    );
+                                  } else {
+                                    Get.snackbar('Error',
+                                        'Please fill all fields correctly.');
+                                  }
+                                },
+                          child: signupController.isLoading.value
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white)
+                              : const Text('Sign up',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16)),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
+
                     const SizedBox(height: 20),
                     Center(
                       child: RichText(
