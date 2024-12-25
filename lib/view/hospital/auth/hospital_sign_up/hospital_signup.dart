@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dream_tech_doctor/utils/images.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_login.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/ddu/division_controller.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/hospital_sign_up.controller.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/sign_up_otp.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_dropdown.dart';
@@ -62,7 +63,7 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
   final TextEditingController regNumberController = TextEditingController();
   final TextEditingController estDateController = TextEditingController();
   final TextEditingController countryController = TextEditingController();
-  final TextEditingController divisionController = TextEditingController();
+  //final TextEditingController divisionController = TextEditingController();
   final TextEditingController districtController = TextEditingController();
   final TextEditingController upazilaController = TextEditingController();
   final TextEditingController currentrLocationDetailsController =
@@ -118,6 +119,7 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
   }
 
   final SignupController signupController = Get.put(SignupController());
+  final DivisionController divisionController = Get.put(DivisionController());
 
   @override
   Widget build(BuildContext context) {
@@ -160,8 +162,8 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const Center(),
+                    const SizedBox(height: 5),
+
                     const Center(
                       child: Text(
                         "Welcome, you've been good time with us!",
@@ -173,80 +175,420 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
 
-                    const Row(
+                    CustomTextFormField(
+                      labelText: 'Hospital Name',
+                      isRequired: true,
+                      hintText: 'Enter hospital name',
+                      controller: hospitalNameController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter hospital Name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
                       children: [
-                        Text(
-                          "Hospital Logo",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                        Expanded(
+                          child: CustomTextFormField(
+                            labelText: 'Registration Number',
+                            isRequired: true,
+                            hintText: 'Enter Registration number',
+                            keyboardType: TextInputType.name,
+                            controller: regNumberController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter registration number';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
-                        Text(
-                          "*",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.red),
+                        const SizedBox(
+                            width: 8), // Add spacing between the two fields
+                        Expanded(
+                          child: CustomTextFormField(
+                            labelText: 'Established Year',
+                            isRequired: true,
+                            hintText: 'Enter Established Year',
+                            keyboardType: TextInputType.number,
+                            controller: estDateController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter established Year';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
                       ],
                     ),
 
-                    Center(
-                      child: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          CircleAvatar(
-                            radius: 60,
-                            backgroundColor: Colors.green[100],
-                            child: CircleAvatar(
-                              radius: 55,
-                              backgroundImage: _logoImageFile != null
-                                  ? FileImage(File(_logoImageFile!.path))
-                                  : const AssetImage(AppImages.splashLogo)
-                                      as ImageProvider,
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 4,
-                            right: 4,
-                            child: GestureDetector(
-                              onTap: () {
-                                _showImageSourceActionSheet(
-                                    context, true); // true for logo
-                              },
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                padding: const EdgeInsets.all(6),
-                                child: const Icon(
-                                  Icons.camera_alt,
-                                  size: 20,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (_logoImageError != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Center(
-                          child: Text(
-                            _logoImageError!,
-                            style: const TextStyle(
-                                color: Colors.red, fontSize: 14),
+                    const SizedBox(height: 5),
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomDropdown(
+                            labelText: "Country",
+                            isRequired: true,
+                            items: _CountryOptions,
+                            selectedItem: _selectedCountry,
+                            //placeholder: "Select your division",
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedCountry = value;
+                              });
+                            },
                           ),
                         ),
-                      ),
+                        const SizedBox(width: 8),
+                        // Expanded(
+                        //   child: CustomDropdown(
+                        //     labelText: "Division",
+                        //     isRequired: true,
+                        //     items: _DivisionOptions,
+                        //     selectedItem: _selectedDivision,
+                        //     onChanged: (value) {
+                        //       setState(() {
+                        //         _selectedDivision = value;
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
+                        //division
+                        Expanded(
+                          child: Obx(() {
+                            if (divisionController.isLoading.value) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
 
-                    const SizedBox(
-                      height: 10,
+                            if (divisionController.errorMessage.isNotEmpty) {
+                              return Center(
+                                child: Text(
+                                  divisionController.errorMessage.value,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              );
+                            }
+
+                            return CustomDropdown(
+                              labelText: "Division",
+                              isRequired: true,
+                              items: divisionController.divisions
+                                  .map((division) => division.text)
+                                  .toList(),
+                              selectedItem:
+                                  divisionController.selectedDivision.value,
+                              onChanged: (value) {
+                                divisionController.selectedDivision.value =
+                                    value;
+
+                                // Fetch districts for the selected division
+                                final divisionId = divisionController.divisions
+                                    .firstWhere(
+                                        (division) => division.text == value)
+                                    .id;
+                                divisionController.fetchDistricts(divisionId);
+                              },
+                            );
+                          }),
+                        ),
+                      ],
                     ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        // Expanded(
+                        //   child: CustomDropdown(
+                        //     labelText: "District",
+                        //     isRequired: true,
+                        //     items: _DivisionOptions,
+                        //     selectedItem: _selectedDivision,
+                        //     onChanged: (value) {
+                        //       setState(() {
+                        //         _selectedDivision = value;
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
+                        Expanded(
+                          child: Obx(() {
+                            if (divisionController.isLoading.value) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
+
+                            if (divisionController.errorMessage.isNotEmpty) {
+                              return Center(
+                                child: Text(
+                                  divisionController.errorMessage.value,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              );
+                            }
+
+                            return CustomDropdown(
+                              labelText: "District",
+                              isRequired: true,
+                              items: divisionController.districts
+                                  .map((district) => district.text)
+                                  .toList(),
+                              selectedItem:
+                                  divisionController.selectedDistrict.value,
+                              onChanged: (value) {
+                                divisionController.selectedDistrict.value =
+                                    value;
+
+                                // Fetch upazilas for the selected district
+                                final districtId = divisionController.districts
+                                    .firstWhere(
+                                        (district) => district.text == value)
+                                    .id;
+                                divisionController.fetchUpazilas(districtId);
+                              },
+                            );
+                          }),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        // Expanded(
+                        //   child: CustomDropdown(
+                        //     labelText: "Upazila",
+                        //     isRequired: true,
+                        //     items: _DivisionOptions,
+                        //     selectedItem: _selectedDivision,
+                        //     onChanged: (value) {
+                        //       setState(() {
+                        //         _selectedDivision = value;
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
+                        Expanded(
+                          child: Obx(() {
+                            if (divisionController.isLoading.value) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
+
+                            if (divisionController.errorMessage.isNotEmpty) {
+                              return Center(
+                                child: Text(
+                                  divisionController.errorMessage.value,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              );
+                            }
+
+                            return CustomDropdown(
+                              labelText: "Upazila",
+                              isRequired: true,
+                              items: divisionController.upazilas
+                                  .map((upazila) => upazila.text)
+                                  .toList(),
+                              selectedItem:
+                                  divisionController.selectedUpazila.value,
+                              onChanged: (value) {
+                                divisionController.selectedUpazila.value =
+                                    value;
+
+                                // Perform any additional action based on the selected upazila
+                                print("Selected Upazila: $value");
+                              },
+                            );
+                          }),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    CustomTextFormField(
+                      labelText: 'Current Location Details',
+                      isRequired: true,
+                      hintText: 'Enter location details',
+                      controller: currentrLocationDetailsController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your Location details';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+
+                    CustomTextFormField(
+                      labelText: 'Hospital Primary Phone Number',
+                      isRequired: true,
+                      hintText: 'Enter primary phone number',
+                      controller: hospitalPrimaryNumberController,
+                      keyboardType: TextInputType.phone,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Hospital Primary Phone Number';
+                        }
+                        if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return 'Please enter a valid phone number';
+                        }
+                        if (value.length != 11) {
+                          // Adjust this length as per your requirement
+                          return 'Phone number must be 10 digits';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+
+                    CustomTextFormField(
+                      labelText: 'Hospital Secondary Phone Number',
+                      hintText: 'Enter Secondary phone number',
+                      controller: hospitalSecondaryNumberController,
+                      keyboardType: TextInputType.number,
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'Please enter Hospital Primary Phone Number';
+                      //   }
+                      //   if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                      //     return 'Please enter a valid phone number';
+                      //   }
+                      //   if (value.length != 10) {
+                      //     // Adjust this length as per your requirement
+                      //     return 'Phone number must be 10 digits';
+                      //   }
+                      //   return null;
+                      // },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomTextFormField(
+                      labelText: 'Hospital Email',
+                      isRequired: true,
+                      hintText: 'Enter hopital email',
+                      controller: hospitalEmailController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Hospital Email';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    CustomTextFormField(
+                      labelText: 'Admin Name',
+                      isRequired: true,
+                      hintText: 'Enter admin name',
+                      controller: hospitaladminController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter admin Name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    CustomTextFormField(
+                      labelText: 'Admin Phone Number',
+                      isRequired: true,
+                      hintText: 'Enter admin phone number',
+                      controller: hospitalPhoneController,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter admin phone number';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    CustomTextFormField(
+                      labelText: 'Admin Email',
+                      isRequired: true,
+                      hintText: 'Enter admin email',
+                      controller: adminEmailontroller,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter admin email';
+                        }
+                        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                            .hasMatch(value)) {
+                          return 'Please enter a valid email address';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    ////===> password.
+                    CustomTextFormField(
+                      labelText: 'Password',
+                      isRequired: true,
+                      hintText: 'Enter your password',
+                      controller: passwordController,
+                      obscureText: _isPasswordHidden,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordHidden
+                              ? Icons.visibility_off
+                              : Icons.visibility, size: 18,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordHidden = !_isPasswordHidden;
+                          });
+                        },
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        if (value.length < 6) {
+                          return 'Password must be at least 6 characters long';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 5),
+
+                    ///====>conform password.
+                    CustomTextFormField(
+                      isRequired: true,
+                      labelText: 'Confirm Password',
+                      hintText: 'Enter your confirm password',
+                      controller: passwordConformController,
+                      obscureText: _isConformPasswordHidden,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isConformPasswordHidden
+                              ? Icons.visibility_off
+                              : Icons.visibility, size: 18,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isConformPasswordHidden =
+                                !_isConformPasswordHidden;
+                          });
+                        },
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your confirm password';
+                        }
+                        if (value != passwordController.text) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
+                    ),
+                    
+                    const SizedBox(height: 30),
+
                     const Row(
                       children: [
                         Text(
@@ -331,309 +673,82 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
                         ),
                       ),
 
-                    const SizedBox(height: 20),
-                    CustomTextFormField(
-                      labelText: 'Hospital Name',
-                      isRequired: true,
-                      hintText: 'Enter hospital name',
-                      controller: hospitalNameController,
-                      keyboardType: TextInputType.name,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter hospital Name';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextFormField(
-                            labelText: 'Registration Number',
-                            isRequired: true,
-                            hintText: 'Enter Registration number',
-                            keyboardType: TextInputType.name,
-                            controller: regNumberController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter registration number';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                            width: 8), // Add spacing between the two fields
-                        Expanded(
-                          child: CustomTextFormField(
-                            labelText: 'Established Year',
-                            isRequired: true,
-                            hintText: 'Enter Established Year',
-                            keyboardType: TextInputType.number,
-                            controller: estDateController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter established Year';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 5),
-
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomDropdown(
-                            labelText: "Country",
-                            isRequired: true,
-                            items: _CountryOptions,
-                            selectedItem: _selectedCountry,
-                            //placeholder: "Select your division",
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedCountry = value;
-                              });
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: CustomDropdown(
-                            labelText: "Division",
-                            isRequired: true,
-                            items: _DivisionOptions,
-                            selectedItem: _selectedDivision,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedDivision = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomDropdown(
-                            labelText: "District",
-                            isRequired: true,
-                            items: _DivisionOptions,
-                            selectedItem: _selectedDivision,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedDivision = value;
-                              });
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: CustomDropdown(
-                            labelText: "Upazila",
-                            isRequired: true,
-                            items: _DivisionOptions,
-                            selectedItem: _selectedDivision,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedDivision = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    CustomTextFormField(
-                      labelText: 'Current Location Details',
-                      isRequired: true,
-                      hintText: 'Enter location details',
-                      controller: currentrLocationDetailsController,
-                      keyboardType: TextInputType.name,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your Location details';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 5),
-
-                    CustomTextFormField(
-                      labelText: 'Hospital Primary Phone Number',
-                      isRequired: true,
-                      hintText: 'Enter primary phone number',
-                      controller: hospitalPrimaryNumberController,
-                      keyboardType: TextInputType.phone,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter Hospital Primary Phone Number';
-                        }
-                        if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                          return 'Please enter a valid phone number';
-                        }
-                        if (value.length != 11) {
-                          // Adjust this length as per your requirement
-                          return 'Phone number must be 10 digits';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 5),
-
-                    CustomTextFormField(
-                      labelText: 'Hospital Secondary Phone Number',
-                      hintText: 'Enter Secondary phone number',
-                      controller: hospitalSecondaryNumberController,
-                      keyboardType: TextInputType.number,
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'Please enter Hospital Primary Phone Number';
-                      //   }
-                      //   if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                      //     return 'Please enter a valid phone number';
-                      //   }
-                      //   if (value.length != 10) {
-                      //     // Adjust this length as per your requirement
-                      //     return 'Phone number must be 10 digits';
-                      //   }
-                      //   return null;
-                      // },
-                    ),
-                    const SizedBox(height: 5),
-                    CustomTextFormField(
-                      labelText: 'Hospital Email',
-                      isRequired: true,
-                      hintText: 'Enter hopital email',
-                      controller: hospitalEmailController,
-                      keyboardType: TextInputType.name,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter Hospital Email';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 5),
-                    CustomTextFormField(
-                      labelText: 'Admin Name',
-                      isRequired: true,
-                      hintText: 'Enter admin name',
-                      controller: hospitaladminController,
-                      keyboardType: TextInputType.name,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter admin Name';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 5),
-                    CustomTextFormField(
-                      labelText: 'Admin Phone Number',
-                      isRequired: true,
-                      hintText: 'Enter admin phone number',
-                      controller: hospitalPhoneController,
-                      keyboardType: TextInputType.name,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter admin phone number';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 5),
-                    CustomTextFormField(
-                      labelText: 'Admin Email',
-                      isRequired: true,
-                      hintText: 'Enter admin email',
-                      controller: adminEmailontroller,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter admin email';
-                        }
-                        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                            .hasMatch(value)) {
-                          return 'Please enter a valid email address';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 5),
-                    ////===> password.
-                    CustomTextFormField(
-                      labelText: 'Password',
-                      isRequired: true,
-                      hintText: 'Enter your password',
-                      controller: passwordController,
-                      obscureText: _isPasswordHidden,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _isPasswordHidden
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isPasswordHidden = !_isPasswordHidden;
-                          });
-                        },
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        if (value.length < 6) {
-                          return 'Password must be at least 6 characters long';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 5),
-
-                    ///====>conform password.
-                    CustomTextFormField(
-                      isRequired: true,
-                      labelText: 'Confirm Password',
-                      hintText: 'Enter your confirm password',
-                      controller: passwordConformController,
-                      obscureText: _isConformPasswordHidden,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _isConformPasswordHidden
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isConformPasswordHidden =
-                                !_isConformPasswordHidden;
-                          });
-                        },
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your confirm password';
-                        }
-                        if (value != passwordController.text) {
-                          return 'Passwords do not match';
-                        }
-                        return null;
-                      },
-                    ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
-                    const SizedBox(height: 20),
+
+                    const Row(
+                      children: [
+                        Text(
+                          "Hospital Logo",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          "*",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.red),
+                        ),
+                      ],
+                    ),
+
+                    Center(
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundColor: Colors.green[100],
+                            child: CircleAvatar(
+                              radius: 55,
+                              backgroundImage: _logoImageFile != null
+                                  ? FileImage(File(_logoImageFile!.path))
+                                  : const AssetImage(AppImages.splashLogo)
+                                      as ImageProvider,
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 4,
+                            right: 4,
+                            child: GestureDetector(
+                              onTap: () {
+                                _showImageSourceActionSheet(
+                                    context, true); // true for logo
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                padding: const EdgeInsets.all(6),
+                                child: const Icon(
+                                  Icons.camera_alt,
+                                  size: 20,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (_logoImageError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Center(
+                          child: Text(
+                            _logoImageError!,
+                            style: const TextStyle(
+                                color: Colors.red, fontSize: 14),
+                          ),
+                        ),
+                      ),
+
+                    const SizedBox(
+                      height: 15,
+                    ),
 
 //                     Obx(() {
 //   return SizedBox(
@@ -711,8 +826,48 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
                                         "Admin email: ${adminEmailontroller.text}");
 
                                     // Call the OTP API
+                                    // await signupController.sendOtp(
+                                    //     adminEmailontroller.text, context);
+
                                     await signupController.sendOtp(
-                                        adminEmailontroller.text, context);
+                                      adminEmailontroller.text,
+                                      context,
+                                      signupData: {
+                                        'hospitalName':
+                                            hospitalNameController.text,
+                                        'regNumber': regNumberController.text,
+                                        'establish': estDateController.text,
+                                        'country': _selectedCountry.toString(),
+                                        'division': divisionController
+                                            .selectedDivision
+                                            .toString(),
+                                        'district': divisionController
+                                            .selectedDistrict.value
+                                            .toString(),
+                                        'subDistrict': divisionController
+                                            .selectedUpazila.value
+                                            .toString(),
+                                        'locationDetails':
+                                            currentrLocationDetailsController
+                                                .text,
+                                        'mobileNumber1':
+                                            hospitalPrimaryNumberController
+                                                .text,
+                                        'mobileNumber2':
+                                            hospitalSecondaryNumberController
+                                                .text,
+                                        'email': hospitalEmailController.text,
+                                        'adminName':
+                                            hospitaladminController.text,
+                                        'adminMobile':
+                                            hospitalPhoneController.text,
+                                        'adminEmail': adminEmailontroller.text,
+                                        'password': passwordController.text,
+                                        'logoPath': _logoImageFile.toString(),
+                                        'frontPicturePath':
+                                            _frontImageFile.toString(),
+                                      },
+                                    );
 
                                     ///call the sign up
                                     print(

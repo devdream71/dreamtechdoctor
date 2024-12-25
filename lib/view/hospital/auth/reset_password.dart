@@ -1,4 +1,4 @@
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_login.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_form_textfield.dart';
 import 'package:flutter/material.dart';
 

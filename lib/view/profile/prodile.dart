@@ -1,6 +1,6 @@
 import 'package:dream_tech_doctor/view/auth/signin.dart';
 import 'package:dream_tech_doctor/view/doctor_appointment/doctor_all_appointment.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_login.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
 import 'package:dream_tech_doctor/view/prescription/prescription_create.dart';
 import 'package:flutter/material.dart';
 

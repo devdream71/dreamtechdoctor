@@ -1,48 +1,22 @@
 import 'dart:async';
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_login.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/hospital_sign_up.controller.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:pinput/pinput.dart';
 
 class HospitalSignUpOtp extends StatefulWidget {
-  final adminemail;
-  final otp;
-  final hospitalName;
-  final regNumber;
-  final establish;
-  final country;
-  final division;
-  final district;
-  final subDistrict;
-  final locationDetails;
-  final mobileNumber1;
-  final mobileNumber2;
-  final email;
-  final adminName;
-  final adminMobile;
-  final adminEmail;
-  final password;
+  final Map<String, dynamic> signupData;
+  final String otp;
+  
 
   const HospitalSignUpOtp({
     super.key,
-    required this.adminemail,
+    required this.signupData,
     required this.otp,
-    this.adminEmail,
-    this.adminMobile,
-    this.adminName,
-    this.country,
-    this.district,
-    this.division,
-    this.subDistrict,
-    this.email,
-    this.establish,
-    this.hospitalName,
-    this.locationDetails,
-    this.mobileNumber1,
-    this.mobileNumber2,
-    this.password,
-    this.regNumber,
+    
   });
 
   @override
@@ -50,11 +24,10 @@ class HospitalSignUpOtp extends StatefulWidget {
 }
 
 class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
-  final SignupController signupController = Get.find<SignupController>();
-
   late Timer _timer;
   int _secondsRemaining = 120;
   bool _isTimerActive = true;
+  String otp = "";
 
   @override
   void initState() {
@@ -86,12 +59,173 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
     final secondsLeft = seconds % 60;
     return '${minutes.toString().padLeft(2, '0')}:${secondsLeft.toString().padLeft(2, '0')}';
   }
-  
-  
+
+
+// Future<void> submitSignup() async {
+//   if (otp.isEmpty || otp.length != 6) {
+//     print('Error: Please enter a valid 6-digit OTP.');
+//     return;
+//   }
+
+//   try {
+//     var request = http.MultipartRequest(
+//       'POST',
+//       Uri.parse('https://doctorapp.com.softservice.site/api/auth/signup'),
+//     );
+
+//     // Adding fields
+//     request.fields.addAll({
+//       'hospital_name': widget.signupData['hospitalName'] ?? '',
+//       'reg_number': widget.signupData['regNumber'] ?? '',
+//       'establish': widget.signupData['establish'] ?? '',
+//       'country': widget.signupData['country'] ?? '',
+//       'division': widget.signupData['division'] ?? '',
+//       'district': widget.signupData['district'] ?? '',
+//       'sub_district': widget.signupData['subDistrict'] ?? '',
+//       'location_details': widget.signupData['locationDetails'] ?? '',
+//       'mobile_number_1': widget.signupData['mobileNumber1'] ?? '',
+//       'mobile_number_2': widget.signupData['mobileNumber2'] ?? '',
+//       'email': widget.signupData['email'] ?? '',
+//       'admin_name': widget.signupData['adminName'] ?? '',
+//       'admin_mobile': widget.signupData['adminMobile'] ?? '',
+//       'admin_email': widget.signupData['adminEmail'] ?? '',
+//       'password': widget.signupData['password'] ?? '',
+//       'otp': otp.toString(),
+//     });
+
+//     // Adding files
+//     if (widget.signupData['logoPath'] != null &&
+//         File(widget.signupData['logoPath']!).existsSync()) {
+//       request.files.add(
+//         await http.MultipartFile.fromPath('logo', widget.signupData['logoPath']!),
+//       );
+//     }
+
+//     if (widget.signupData['frontPicturePath'] != null &&
+//         File(widget.signupData['frontPicturePath']!).existsSync()) {
+//       request.files.add(
+//         await http.MultipartFile.fromPath(
+//             'front_picture', widget.signupData['frontPicturePath']!),
+//       );
+//     }
+
+//     http.StreamedResponse response = await request.send();
+
+//     if (response.statusCode == 200) {
+//       String responseBody = await response.stream.bytesToString();
+//       final data = jsonDecode(responseBody);
+
+//       if (data['message'] == 'User created successfully') {
+//         print('Success: ${data['message']}');
+//         // Navigate directly to HospitalLoginPage
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => HospitalLoginPage()),
+//         );
+//       } else {
+//         print('Error: ${data['message'] ?? 'An unknown error occurred.'}');
+//       }
+//     } else {
+//       String responseBody = await response.stream.bytesToString();
+//       final errorData = jsonDecode(responseBody);
+//       print('Error: ${errorData['message'] ?? 'Failed to sign up. Please try again later.'}');
+//     }
+//   } catch (e) {
+//     print('Error: An unexpected error occurred: $e');
+//   }
+// }
+
+
+
+Future<void> submitSignup() async {
+  if (otp.isEmpty || otp.length != 6) {
+    print('Error: Please enter a valid 6-digit OTP.');
+    return;
+  }
+
+  try {
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse('https://doctorapp.com.softservice.site/api/auth/signup'),
+    );
+
+    // Adding fields
+    request.fields.addAll({
+      'hospital_name': widget.signupData['hospitalName'] ?? '',
+      'reg_number': widget.signupData['regNumber'] ?? '',
+      'establish': widget.signupData['establish'] ?? '',
+      'country': widget.signupData['country'] ?? '',
+      'division': widget.signupData['division'] ?? '',
+      'district': widget.signupData['district'] ?? '',
+      'sub_district': widget.signupData['subDistrict'] ?? '',
+      'location_details': widget.signupData['locationDetails'] ?? '',
+      'mobile_number_1': widget.signupData['mobileNumber1'] ?? '',
+      'mobile_number_2': widget.signupData['mobileNumber2'] ?? '',
+      'email': widget.signupData['email'] ?? '',
+      'admin_name': widget.signupData['adminName'] ?? '',
+      'admin_mobile': widget.signupData['adminMobile'] ?? '',
+      'admin_email': widget.signupData['adminEmail'] ?? '',
+      'password': widget.signupData['password'] ?? '',
+      'otp': otp.toString(),
+    });
+
+    // Adding files
+    if (widget.signupData['logoPath'] != null &&
+        File(widget.signupData['logoPath']!).existsSync()) {
+      request.files.add(
+        await http.MultipartFile.fromPath('logo', widget.signupData['logoPath']!),
+      );
+    }
+
+    if (widget.signupData['frontPicturePath'] != null &&
+        File(widget.signupData['frontPicturePath']!).existsSync()) {
+      request.files.add(
+        await http.MultipartFile.fromPath(
+            'front_picture', widget.signupData['frontPicturePath']!),
+      );
+    }
+
+    // Ensuring that the content type is set properly
+    request.headers.addAll({
+      'Content-Type': 'multipart/form-data', // Ensure this header is set correctly
+    });
+
+    // Sending the request and logging the response status and body
+    http.StreamedResponse response = await request.send();
+
+    print('Response status: ${response.statusCode}');
+    String responseBody = await response.stream.bytesToString();
+    print('Response body: $responseBody');
+
+    if (response.statusCode == 201) {
+      final data = jsonDecode(responseBody);
+
+      if (data['message'] == 'User created successfully') {
+        print('Success: ${data['message']}');
+        // Navigate directly to HospitalLoginPage
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HospitalLoginPage()),
+        );
+      } else {
+        print('Error: ${data['message'] ?? 'An unknown error occurred.'}');
+      }
+    } else {
+      final errorData = jsonDecode(responseBody);
+      print('Error: ${errorData['message'] ?? 'Failed to sign up. Please try again later.'}');
+    }
+  } catch (e) {
+    print('Error: An unexpected error occurred: $e');
+  }
+}
+
+
+
+
+
+
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 60,
@@ -135,16 +269,40 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 40),
-              child: const Text(
-                "",
-                style: TextStyle(
-                  color: Colors.black,
+           // Text('OTP: $otp'),
+           if (widget.signupData['adminEmail'] != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(
+                "Admin Email: ${widget.signupData['adminEmail']}",
+                style: const TextStyle(
+                  color: Colors.grey,
                   fontSize: 18,
                 ),
               ),
             ),
+             Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(
+              "OTP: ${widget.otp}",
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+              ),
+            ),
+          ),
+          if (widget.signupData['division'] != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Text(
+                "Division: ${widget.signupData['division']}",
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          
             Pinput(
               length: 6,
               defaultPinTheme: defaultPinTheme,
@@ -153,7 +311,11 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
                   border: Border.all(color: Colors.green),
                 ),
               ),
-              onCompleted: (pin) => debugPrint(pin),
+              onCompleted: (pin) {
+                setState(() {
+                  otp = pin;
+                });
+              },
             ),
             const SizedBox(height: 20),
             Text(
@@ -161,9 +323,10 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
                   ? "Time Remaining: ${_formatTime(_secondsRemaining)}"
                   : "OTP expired",
               style: TextStyle(
-                  fontSize: 18,
-                  color: _isTimerActive ? Colors.green : Colors.red,
-                  fontWeight: FontWeight.bold),
+                fontSize: 18,
+                color: _isTimerActive ? Colors.green : Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const Spacer(),
             Padding(
@@ -178,24 +341,9 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: _isTimerActive
-                      ? () async {
-                          // Handle next action
-                          print('Next button clicked');
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HospitalLoginPage()),
-                          );
-
-                          var adminEmailontroller = "sh@gmail.com";
-
-                          // await signupController.sendOtp(
-                          //     adminEmailontroller, context);
-                        }
-                      : null,
+                  onPressed: _isTimerActive ? submitSignup : null,
                   child: const Text(
-                    'Next',
+                    'Submit',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
@@ -204,8 +352,6 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
             if (!_isTimerActive)
               TextButton(
                 onPressed: () {
-                  // Handle resend OTP action
-                  print("Resend OTP clicked");
                   setState(() {
                     _secondsRemaining = 120;
                     _isTimerActive = true;
@@ -224,3 +370,13 @@ class HospitalSignUpOtpState extends State<HospitalSignUpOtp> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+

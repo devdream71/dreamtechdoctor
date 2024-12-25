@@ -1,4 +1,5 @@
 import 'package:dream_tech_doctor/utils/colors.dart';
+import 'package:dream_tech_doctor/view/hospital/setting/hospital_setting.dart';
 import 'package:dream_tech_doctor/view/profile/prodile.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +20,7 @@ class HospitalBottomNavState extends State<HospitalBottomNav> {
     Center(child: Text('home 2')),
     Center(child: Text('home 3')),
     Center(child: Text('home 4')),
-    Center(child: Text('home 5')),
-    const Profile()
+    HospitalSetting(),
   ];
 
   // Titles for each tab
@@ -29,7 +29,7 @@ class HospitalBottomNavState extends State<HospitalBottomNav> {
     "Explore",
     'Doctor Booking',
     'Chat',
-    'Profile',
+    'Setting',
   ];
 
   // Function to handle tab selection
@@ -90,7 +90,7 @@ class HospitalBottomNavState extends State<HospitalBottomNav> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Home5',
+            label: 'Setting',
           ),
         ],
         currentIndex: _selectedIndex,
