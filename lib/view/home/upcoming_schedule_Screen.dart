@@ -7,8 +7,6 @@ class UpcomingScheduleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      
-       
       child: Center(
         child: Padding(
           padding: EdgeInsets.all(16.0),
@@ -52,9 +50,9 @@ class ScheduleCard extends StatelessWidget {
         children: [
           Row(
             children: [
-               const CircleAvatar(
+              const CircleAvatar(
                 radius: 30,
-                backgroundImage: AssetImage(AppImages.doctor), 
+                backgroundImage: AssetImage(AppImages.doctor),
               ),
               const SizedBox(width: 16),
               Column(
@@ -82,7 +80,26 @@ class ScheduleCard extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: Colors.white.withOpacity(0.5),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Feature Not Available"),
+                          content: const Text(
+                              "This feature is not available at the moment."),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); 
+                              },
+                              child: const Text("OK"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   icon: const Icon(Icons.phone, color: Colors.white),
                 ),
               ),
@@ -101,7 +118,8 @@ class ScheduleCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.calendar_today, color: Colors.white70, size: 20),
+                      const Icon(Icons.calendar_today,
+                          color: Colors.white70, size: 20),
                       const SizedBox(width: 8),
                       Text(
                         date,
@@ -112,13 +130,14 @@ class ScheduleCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                    const VerticalDivider(
-                      color: Colors.black,
-                      thickness: 2,
-                    ),
-                         Row(
+                  const VerticalDivider(
+                    color: Colors.black,
+                    thickness: 2,
+                  ),
+                  Row(
                     children: [
-                      const Icon(Icons.access_time, color: Colors.white70, size: 20),
+                      const Icon(Icons.access_time,
+                          color: Colors.white70, size: 20),
                       const SizedBox(width: 8),
                       Text(
                         time,

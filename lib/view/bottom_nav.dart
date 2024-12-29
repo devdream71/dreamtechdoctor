@@ -22,12 +22,12 @@ class BottomNavState extends State<BottomNav> {
   static final List<Widget> _pages = <Widget>[
     const Home(),
     const Explore(),
-    Center(
-      child: Text("Phythology"),
+    const Center(
+      child: Text("This feature is not available at the moment."),
     ),
     MyBookingsScreen(),
     //Center(child: Text('home 3')),
-    Center(child: Text('home 4')),
+    const Center(child: Text('This feature is not available at the moment.')),
     //CreateAccountPage(),
     const Profile()
   ];
@@ -67,43 +67,44 @@ class BottomNavState extends State<BottomNav> {
                 color: Colors.white,
               ),
               actions: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SearchDoctor()));
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.only(right: 5.0),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white10,
-                      child: Icon(
-                        Icons.search,
-                        color: AppColor.primaryColor,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const DoctorPrescriptionUI()));
-                    },
-                    child: const CircleAvatar(
-                      backgroundColor: Colors.white10,
-                      child: Icon(
-                        Icons.notifications,
-                        color: AppColor.primaryColor,
-                      ),
-                    ),
-                  ),
-                ),
+                ////===> search and notification commet 
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => const SearchDoctor()));
+                //   },
+                //   child: const Padding(
+                //     padding: EdgeInsets.only(right: 5.0),
+                //     child: CircleAvatar(
+                //       backgroundColor: Colors.white10,
+                //       child: Icon(
+                //         Icons.search,
+                //         color: AppColor.primaryColor,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 5.0),
+                //   child: InkWell(
+                //     onTap: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) =>
+                //                   const DoctorPrescriptionUI()));
+                //     },
+                //     child: const CircleAvatar(
+                //       backgroundColor: Colors.white10,
+                //       child: Icon(
+                //         Icons.notifications,
+                //         color: AppColor.primaryColor,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             )
           : null,

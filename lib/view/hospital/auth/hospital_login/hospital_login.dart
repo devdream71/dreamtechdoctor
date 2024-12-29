@@ -182,28 +182,29 @@ class _HospitalLoginPageState extends State<HospitalLoginPage> {
                 const SizedBox(
                   height: 5,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ForgetPasswordPage()));
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forget Password ?',
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 14,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Colors.blue),
-                      ),
-                    ),
-                  ),
-                ),
+                //====>forget password
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => ForgetPasswordPage()));
+                //   },
+                //   child: const Padding(
+                //     padding: EdgeInsets.symmetric(horizontal: 24.0),
+                //     child: Align(
+                //       alignment: Alignment.centerRight,
+                //       child: Text(
+                //         'Forget Password ?',
+                //         style: TextStyle(
+                //             color: Colors.blue,
+                //             fontSize: 14,
+                //             decoration: TextDecoration.underline,
+                //             decorationColor: Colors.blue),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 20),
                 const Spacer(),
                 Padding(

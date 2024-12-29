@@ -33,7 +33,27 @@ class DoctorDetailsPage extends StatelessWidget {
              Share.share('Visit DreamTechBD at https://dreamtechbd.net/');
           }, icon: Icon(Icons.share)),
           SizedBox(width: 12),
-          Icon(Icons.favorite_border),
+          InkWell(
+            onTap: (){
+              showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+            },
+            child: Icon(Icons.favorite_border)),
           SizedBox(width: 12),
         ],
         //backgroundColor: Colors.white,
@@ -151,6 +171,26 @@ class DoctorDetailsPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     //onTap: _launchMapURL,
+                    onTap: (){
+                      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+
+                    },
                     child: const Text(
                       "View on Map",
                       style: TextStyle(color: Colors.blue),

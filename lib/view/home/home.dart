@@ -91,7 +91,8 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: RowLeftRightText(
                   text1: 'Upcoming Schedule',
-                  text2: 'View All',
+                  //text2: 'View All',
+                  text2: '',
                   onTap: () {},
                 ),
               ),
@@ -105,7 +106,8 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: RowLeftRightText(
                   text1: 'Top Specialist',
-                  text2: 'View All',
+                 // text2: 'View All',
+                  text2: '',
                   onTap: () {},
                 ),
               ),

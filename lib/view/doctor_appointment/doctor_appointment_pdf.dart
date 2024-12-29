@@ -79,6 +79,25 @@ class AppointmentDetailsPage extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           // Pay Now action
+                           showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Feature Not Available"),
+                                  content: const Text(
+                                      "This feature is not available at the moment."),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(); // Close the dialog
+                                      },
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
@@ -245,29 +264,29 @@ class AppointmentDetailsPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Symptom',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    height: 50,
-                    color: Colors.grey[200],
-                    child: const TextField(),
-                  ),
+                  // const Text(
+                  //   'Symptom',
+                  //   style: TextStyle(fontWeight: FontWeight.bold),
+                  // ),
+                  // Container(
+                  //   height: 50,
+                  //   color: Colors.grey[200],
+                  //   child: const TextField(),
+                  // ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Description',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Container(
-                    height: 90,
-                    color: Colors.grey[200],
-                    child: const TextField(
-                      maxLines: 3,
-                    ),
-                  ),
+                  // const Text(
+                  //   'Description',
+                  //   style: TextStyle(
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                  // Container(
+                  //   height: 90,
+                  //   color: Colors.grey[200],
+                  //   child: const TextField(
+                  //     maxLines: 3,
+                  //   ),
+                  // ),
                 ],
               ),
             ),

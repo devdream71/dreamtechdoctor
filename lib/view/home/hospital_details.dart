@@ -28,19 +28,59 @@ class HospitalDetails extends StatelessWidget {
                   child: BackButton(),
                 ),
               ),
-              const Positioned(
+                Positioned(
                 top: 40,
                 right: 10,
                 child: Row(
                   children: [
                     CircleAvatar(
                       backgroundColor: Colors.white,
-                      child: Icon(Icons.share, color: Colors.black),
+                      child: InkWell(
+                        onTap: (){
+                           showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+                        },
+                        child: Icon(Icons.share, color: Colors.black)),
                     ),
                     SizedBox(width: 10),
                     CircleAvatar(
                       backgroundColor: Colors.white,
-                      child: Icon(Icons.favorite_border, color: Colors.black),
+                      child: InkWell(
+                        onTap: (){
+                          showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+                        },
+                        child: Icon(Icons.favorite_border, color: Colors.black)),
                     ),
                   ],
                 ),
@@ -179,7 +219,25 @@ class HospitalDetails extends StatelessWidget {
                 backgroundColor: Colors.blue,
                 minimumSize: const Size(double.infinity, 50),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+              },
               child: const Text(
                 'Book Appointment',
                 style: TextStyle(color: Colors.white, fontSize: 16),
@@ -205,7 +263,27 @@ class ActionButton extends StatelessWidget {
       children: [
         CircleAvatar(
           backgroundColor: Colors.blue.withOpacity(0.1),
-          child: Icon(icon, color: Colors.blue),
+          child: InkWell(
+            onTap: (){
+              showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+            },
+            child: Icon(icon, color: Colors.blue)),
         ),
         const SizedBox(height: 5),
         Text(label, style: const TextStyle(color: Colors.grey)),

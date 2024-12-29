@@ -147,7 +147,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                 title: Text('Messaging'),
                 subtitle: Text('Chat with Doctor'),
                 trailing: Text(
-                  '\$20',
+                  '৳ 20',
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.green),
                 ),
@@ -163,7 +163,25 @@ class AppointmentDetailsScreen extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(

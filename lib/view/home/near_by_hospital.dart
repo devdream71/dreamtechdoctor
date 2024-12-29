@@ -33,7 +33,8 @@ class NearbyHospitalsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: RowLeftRightText(
               text1: 'Nearby Hospitals',
-              text2: 'View All',
+              //text2: 'View All',
+              text2: '',
               onTap: () {},
             ),
           ),
@@ -116,10 +117,30 @@ class HospitalCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                const Positioned(
+                  Positioned(
                   top: 8,
                   right: 8,
-                  child: Icon(Icons.favorite_border, color: Colors.white),
+                  child: InkWell(
+                    onTap: (){
+                       showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+                    },
+                    child: Icon(Icons.favorite_border, color: Colors.white)),
                 ),
                 Positioned(
                   bottom: 8,

@@ -117,9 +117,30 @@ class DoctorCard extends StatelessWidget {
                 ),
               ),
               // Heart Icon (Favorite)
-              const Icon(
-                Icons.favorite_border,
-                color: Colors.grey,
+              InkWell(
+                onTap: (){
+                  showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+                },
+                child: const Icon(
+                  Icons.favorite_border,
+                  color: Colors.grey,
+                ),
               ),
             ],
           ),
@@ -135,11 +156,32 @@ class DoctorCard extends StatelessWidget {
                 color: Colors.blueAccent.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Text(
-                "Make Appointment",
-                style: TextStyle(
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.bold,
+              child: InkWell(
+                onTap: (){
+                  showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Feature Not Available"),
+            content: const Text("This feature is not available at the moment."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+                },
+                child: const Text(
+                  "Make Appointment",
+                  style: TextStyle(
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
