@@ -1,11 +1,15 @@
 import 'package:dream_tech_doctor/view/auth/signin.dart';
 import 'package:dream_tech_doctor/view/doctor_appointment/doctor_all_appointment.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
+import 'package:dream_tech_doctor/view/hospital/hospital_bottom_nav.dart';
 import 'package:dream_tech_doctor/view/prescription/prescription_create.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -26,30 +30,32 @@ class Profile extends StatelessWidget {
                   title: const Text("Hospital"),
                   leading: const Icon(Icons.medication),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () {
-                    showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text("Feature Not Available"),
-                                  content: const Text(
-                                      "This feature is not available at the moment."),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .pop(); // Close the dialog
-                                      },
-                                      child: const Text("OK"),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                    // Navigator.push(
+                  onTap: () async {
+                    // SharedPreferences prefs =
+                    //     await SharedPreferences.getInstance();
+                    // String? token = prefs.getString('access_token');
+
+                    // if (token != null && token.isNotEmpty) {
+                    //   // Token exists, navigate to the HospitalBottomNav page
+                    //   Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
-                    //         builder: (context) => HospitalLoginPage()));
+                    //         builder: (context) => const HospitalBottomNav()),
+                    //   );
+                    // } else {
+                    //   // Token doesn't exist, navigate to the HospitalLoginPage
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => HospitalLoginPage()),
+                    //   );
+                    // }
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HospitalLoginPage()),
+                      );
                   },
                 ),
               ),
@@ -75,7 +81,7 @@ class Profile extends StatelessWidget {
                   leading: const Icon(Icons.bloodtype),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {
-                    diologMY(context);
+                    //diologMY(context);
                   },
                 ),
               ),
@@ -86,7 +92,7 @@ class Profile extends StatelessWidget {
                   leading: const Icon(Icons.healing),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {
-                    diologMY(context);
+                    //diologMY(context);
                   },
                 ),
               ),
@@ -97,7 +103,7 @@ class Profile extends StatelessWidget {
                   leading: const Icon(Icons.medical_services),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {
-                    diologMY(context);
+                    //diologMY(context);
                   },
                 ),
               ),
@@ -108,7 +114,7 @@ class Profile extends StatelessWidget {
                   leading: const Icon(Icons.alarm),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {
-                    diologMY(context);
+                    //diologMY(context);
                   },
                 ),
               ),
@@ -119,31 +125,10 @@ class Profile extends StatelessWidget {
                   leading: const Icon(Icons.document_scanner_outlined),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {
-                     
-                     showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text("Feature Not Available"),
-                                  content: const Text(
-                                      "This feature is not available at the moment."),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .pop(); // Close the dialog
-                                      },
-                                      child: const Text("OK"),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => PrescriptionForm()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PrescriptionForm()));
                   },
                 ),
               ),
@@ -153,9 +138,7 @@ class Profile extends StatelessWidget {
                   title: const Text("Pharmacy"),
                   leading: const Icon(Icons.storefront),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () {
-                    diologMY(context);
-                  },
+                  onTap: () {},
                 ),
               ),
               //const SizedBox(height: 1.0),
@@ -164,9 +147,7 @@ class Profile extends StatelessWidget {
                   title: const Text("Ambulance"),
                   leading: const Icon(Icons.airport_shuttle),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () {
-                    diologMY(context);
-                  },
+                  onTap: () {},
                 ),
               ),
               //const SizedBox(height: 1.0),
@@ -176,27 +157,8 @@ class Profile extends StatelessWidget {
                   leading: const Icon(Icons.info),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {
-                    showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text("Feature Not Available"),
-                                  content: const Text(
-                                      "This feature is not available at the moment."),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .pop(); // Close the dialog
-                                      },
-                                      child: const Text("OK"),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                 ),
               ),
@@ -206,9 +168,7 @@ class Profile extends StatelessWidget {
                   title: const Text("Notification"),
                   leading: const Icon(Icons.fact_check),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () {
-                    diologMY(context);
-                  },
+                  onTap: () {},
                 ),
               ),
               //const SizedBox(height: 1.0),
@@ -219,9 +179,7 @@ class Profile extends StatelessWidget {
                   title: const Text("Change Language"),
                   leading: const Icon(Icons.language),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () {
-                    diologMY(context);
-                  },
+                  onTap: () {},
                 ),
               ),
 
@@ -232,9 +190,7 @@ class Profile extends StatelessWidget {
                   title: const Text("Log out"),
                   leading: const Icon(Icons.logout),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () {
-                    diologMY(context);
-                  },
+                  onTap: () {},
                 ),
               ),
               //const SizedBox(height: 1.0),
@@ -243,9 +199,7 @@ class Profile extends StatelessWidget {
                   title: const Text("Delete Account"),
                   leading: const Icon(Icons.delete),
                   trailing: const Icon(Icons.arrow_forward),
-                  onTap: () async {
-                    diologMY(context);
-                  },
+                  onTap: () async {},
                 ),
               ),
               //const SizedBox(height: 20),
@@ -255,26 +209,4 @@ class Profile extends StatelessWidget {
       ],
     )));
   }
-
- Future<void> diologMY(BuildContext context) {
-  return showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text("Feature Not Available"),
-        content: const Text("This feature is not available at the moment."),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
-            },
-            child: const Text("OK"),
-          ),
-        ],
-      );
-    },
-  );
-}
-
-
 }

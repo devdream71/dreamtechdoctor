@@ -25,7 +25,7 @@ class BottomNavState extends State<BottomNav> {
     const Center(
       child: Text("This feature is not available at the moment."),
     ),
-    MyBookingsScreen(),
+    const MyBookingsScreen(),
     //Center(child: Text('home 3')),
     const Center(child: Text('This feature is not available at the moment.')),
     //CreateAccountPage(),
@@ -68,43 +68,43 @@ class BottomNavState extends State<BottomNav> {
               ),
               actions: [
                 ////===> search and notification commet 
-                // InkWell(
-                //   onTap: () {
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => const SearchDoctor()));
-                //   },
-                //   child: const Padding(
-                //     padding: EdgeInsets.only(right: 5.0),
-                //     child: CircleAvatar(
-                //       backgroundColor: Colors.white10,
-                //       child: Icon(
-                //         Icons.search,
-                //         color: AppColor.primaryColor,
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.only(right: 5.0),
-                //   child: InkWell(
-                //     onTap: () {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) =>
-                //                   const DoctorPrescriptionUI()));
-                //     },
-                //     child: const CircleAvatar(
-                //       backgroundColor: Colors.white10,
-                //       child: Icon(
-                //         Icons.notifications,
-                //         color: AppColor.primaryColor,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SearchDoctor()));
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 5.0),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white10,
+                      child: Icon(
+                        Icons.search,
+                        color: AppColor.primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const DoctorPrescriptionUI()));
+                    },
+                    child: const CircleAvatar(
+                      backgroundColor: Colors.white10,
+                      child: Icon(
+                        Icons.notifications,
+                        color: AppColor.primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             )
           : null,

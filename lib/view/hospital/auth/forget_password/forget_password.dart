@@ -1,16 +1,28 @@
+import 'package:dream_tech_doctor/view/hospital/auth/forget_password/controller/forget_password_email_send_otp.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_forget_password_otp.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/forget_password/hospital_forget_password_otp.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ForgetPasswordPage extends StatefulWidget {
+
+import 'package:dream_tech_doctor/view/hospital/auth/forget_password/controller/forget_password_email_send_otp.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
+import 'package:dream_tech_doctor/view/hospital/auth/forget_password/hospital_forget_password_otp.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class HospitalForgetPasswordPage extends StatefulWidget {
   @override
-  _ForgetPasswordPageState createState() => _ForgetPasswordPageState();
+  _HospitalForgetPasswordPageState createState() =>
+      _HospitalForgetPasswordPageState();
 }
 
-class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
+class _HospitalForgetPasswordPageState extends State<HospitalForgetPasswordPage> {
   final TextEditingController emailController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ForgetPasswordController forgetPasswordController = Get.put(ForgetPasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +30,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          'Forgot Password',
+          'Hospital Forgot Password',
           style: TextStyle(color: Colors.black),
         ),
         elevation: 0,
@@ -71,18 +83,19 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                 },
               ),
               const SizedBox(height: 30),
-              Spacer(),
+              Obx(() {
+                if (forgetPasswordController.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return Spacer();
+              }),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // Call API or perform desired action here
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HospitalForgetPasswordOtp()));
-                       
+                      forgetPasswordController.sendOtp(emailController.text);
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -130,3 +143,6 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     );
   }
 }
+
+
+ 
