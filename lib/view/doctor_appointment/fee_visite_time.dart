@@ -5,6 +5,8 @@ import 'package:dream_tech_doctor/view/widgets/doctor_card2.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentBookingPage extends StatefulWidget {
+  const AppointmentBookingPage({super.key});
+
   @override
   State<AppointmentBookingPage> createState() => _AppointmentBookingPageState();
 }

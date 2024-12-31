@@ -2,11 +2,13 @@ import 'package:dream_tech_doctor/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class CancelBookingScreen extends StatefulWidget {
+  const CancelBookingScreen({super.key});
+
   @override
-  _CancelBookingScreenState createState() => _CancelBookingScreenState();
+  CancelBookingScreenState createState() => CancelBookingScreenState();
 }
 
-class _CancelBookingScreenState extends State<CancelBookingScreen> {
+class CancelBookingScreenState extends State<CancelBookingScreen> {
   // Selected cancellation reason
   String selectedReason = "Schedule Change";
 
@@ -96,7 +98,7 @@ class _CancelBookingScreenState extends State<CancelBookingScreen> {
                   String finalReason = selectedReason == "Other"
                       ? customReasonController.text
                       : selectedReason;
-                  print("Cancellation Reason: $finalReason");
+                  debugPrint("Cancellation Reason: $finalReason");
                   showDialog(
         context: context,
         builder: (BuildContext context) {

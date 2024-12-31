@@ -4,7 +4,6 @@ import 'package:dream_tech_doctor/view/explore/book_appointment_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
-
 class DoctorDetailsPage extends StatelessWidget {
   const DoctorDetailsPage({super.key});
 
@@ -27,34 +26,37 @@ class DoctorDetailsPage extends StatelessWidget {
           color: Colors.white,
         ),
         //centerTitle: true,
-        actions:  [
+        actions: [
           //Icon(Icons.share),
-          IconButton(onPressed: (){
-             Share.share('Visit DreamTechBD at https://dreamtechbd.net/');
-          }, icon: Icon(Icons.share)),
+          IconButton(
+              onPressed: () {
+                Share.share('Visit DreamTechBD at https://dreamtechbd.net/');
+              },
+              icon: Icon(Icons.share)),
           SizedBox(width: 12),
           InkWell(
-            onTap: (){
-              showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Feature Not Available"),
-            content: const Text("This feature is not available at the moment."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          );
-        },
-      );
-            },
-            child: Icon(Icons.favorite_border)),
-          SizedBox(width: 12),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Feature Not Available"),
+                      content: const Text(
+                          "This feature is not available at the moment."),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: const Text("OK"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: const Icon(Icons.favorite_border)),
+          const SizedBox(width: 12),
         ],
         //backgroundColor: Colors.white,
         elevation: 0,
@@ -131,7 +133,7 @@ class DoctorDetailsPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Divider(),
-      
+
             // About Section
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -147,7 +149,7 @@ class DoctorDetailsPage extends StatelessWidget {
                 style: TextStyle(color: Colors.grey),
               ),
             ),
-      
+
             // Working Hours
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -158,7 +160,7 @@ class DoctorDetailsPage extends StatelessWidget {
             ),
             _buildWorkingHours(),
             const SizedBox(height: 8),
-      
+
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -166,30 +168,30 @@ class DoctorDetailsPage extends StatelessWidget {
                 children: [
                   const Text(
                     "Address",
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   GestureDetector(
                     //onTap: _launchMapURL,
-                    onTap: (){
+                    onTap: () {
                       showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Feature Not Available"),
-            content: const Text("This feature is not available at the moment."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          );
-        },
-      );
-
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Feature Not Available"),
+                            content: const Text(
+                                "This feature is not available at the moment."),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pop(); // Close the dialog
+                                },
+                                child: const Text("OK"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     child: const Text(
                       "View on Map",
@@ -214,11 +216,11 @@ class DoctorDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
-      
+
             const SizedBox(height: 16),
-      
-            Spacer(),
-      
+
+            const Spacer(),
+
             // Book Appointment Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -229,8 +231,7 @@ class DoctorDetailsPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              const BookAppointmentScreen()),
+                          builder: (context) => const BookAppointmentScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -315,8 +316,3 @@ class DoctorDetailsPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
- 

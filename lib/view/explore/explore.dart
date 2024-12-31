@@ -130,7 +130,7 @@ class _ExploreState extends State<Explore> {
                           rating: doctor['rating'],
                           reviewers: doctor['reviewers'],
                           onAppointmentTap: () {
-                            print(
+                            debugPrint(
                                 "Appointment made with ${doctor['doctorName']}");
                           },
                         ),

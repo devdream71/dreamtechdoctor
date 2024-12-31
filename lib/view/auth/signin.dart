@@ -4,11 +4,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   bool _isPasswordHidden = true;
 
   TextEditingController emailController = TextEditingController();
@@ -141,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
         //   ),
         // ),
         const SizedBox(height: 20),
-        Spacer(),
+        const Spacer(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: SizedBox(
@@ -156,11 +158,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
               onPressed: () {
                 // Handle login action
-                print(' logged in');
+               
               },
-              child: Text(
+              child: const Text(
                 'Sign In',
-                style: const TextStyle(color: Colors.white, fontSize: 16),
+                style:  TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
           ),

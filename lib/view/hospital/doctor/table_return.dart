@@ -1,6 +1,4 @@
-import 'package:dream_tech_doctor/view/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
-
 
 class ReturnTableScreen extends StatefulWidget {
   const ReturnTableScreen({super.key});
@@ -10,6 +8,12 @@ class ReturnTableScreen extends StatefulWidget {
 }
 
 class _ReturnTableScreenState extends State<ReturnTableScreen> {
+
+  TextEditingController daysController = TextEditingController();
+  TextEditingController startController = TextEditingController();
+  TextEditingController endController = TextEditingController();
+  TextEditingController visitLimitController = TextEditingController(); 
+
   final List<String> _daysOptions = [
     "Sat",
     "Sun",
@@ -139,9 +143,11 @@ class _ReturnTableScreenState extends State<ReturnTableScreen> {
                                 },
                               ),
                             ),
+                            ///start table text field
                             SizedBox(
                               height: 30,
                               child: TextField(
+                                controller: startController,
                                 onChanged: (value) {
                                   row["start"] = value;
                                 },
@@ -159,9 +165,11 @@ class _ReturnTableScreenState extends State<ReturnTableScreen> {
                                 ),
                               ),
                             ),
+                            ///end table text field
                             SizedBox(
                               height: 30,
                               child: TextField(
+                                controller: endController,
                                 onChanged: (value) {
                                   row["end"] = value;
                                 },
@@ -179,9 +187,11 @@ class _ReturnTableScreenState extends State<ReturnTableScreen> {
                                 ),
                               ),
                             ),
+                            ///visite table field 
                             SizedBox(
                               height: 30,
                               child: TextField(
+                                controller: visitLimitController,
                                 onChanged: (value) {
                                   row["visitLimit"] = value;
                                 },
@@ -227,12 +237,6 @@ class _ReturnTableScreenState extends State<ReturnTableScreen> {
 }
 
 
-
- 
-
-
- 
-
 class CustomDropdown2 extends StatelessWidget {
   final String? label;
   final List<String> items;
@@ -243,7 +247,7 @@ class CustomDropdown2 extends StatelessWidget {
   final String placeholder;
 
   const CustomDropdown2({
-    Key? key,
+    super.key,
     this.label,
     required this.items,
     this.selectedItem,
@@ -251,7 +255,7 @@ class CustomDropdown2 extends StatelessWidget {
     //required this.labelText,
     this.isRequired = false,
     this.placeholder = "Select",
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -231,7 +231,7 @@ class AppointmentDetailsPage extends StatelessWidget {
                   Table(
                     border: TableBorder.all(color: Colors.grey.shade300),
                     columnWidths: {
-                      0: const FlexColumnWidth(1),
+                      0:  FlexColumnWidth(1),
                       1: const FlexColumnWidth(1),
                       2: const FlexColumnWidth(1),
                       3: const FlexColumnWidth(1),

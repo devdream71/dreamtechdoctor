@@ -132,10 +132,10 @@ class _AutoScrollCarouselState extends State<AutoScrollCarousel> {
 
   // List of image paths
   final List<String> _images = [
-    '${AppImages.banner1}',
-    '${AppImages.banner1}',
-    '${AppImages.banner1}',
-    '${AppImages.banner1}',
+    (AppImages.banner1),
+    (AppImages.banner1),
+    (AppImages.banner1),
+    (AppImages.banner1),
   ];
 
   @override

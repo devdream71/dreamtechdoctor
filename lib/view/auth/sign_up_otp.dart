@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class SignUpOtp extends StatelessWidget {
-  const SignUpOtp({Key? key}) : super(key: key);
+  const SignUpOtp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class SignUpOtp extends StatelessWidget {
                   ),
                   onPressed: () {
                     // Handle login action
-                    print('logged in');
+
                   },
                   child: const Text(
                     'Sign In',

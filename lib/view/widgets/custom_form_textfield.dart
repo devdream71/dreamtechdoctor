@@ -12,7 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLines;
 
   const CustomTextFormField({
-    Key? key,
+    super.key,
     required this.hintText,
     this.controller,
     this.keyboardType,
@@ -22,7 +22,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.labelText,
     this.isRequired = false,
     this.maxLines = 1,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

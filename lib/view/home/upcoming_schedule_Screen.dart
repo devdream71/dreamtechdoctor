@@ -29,12 +29,12 @@ class ScheduleCard extends StatelessWidget {
   final String time;
 
   const ScheduleCard({
-    Key? key,
+    super.key,
     required this.doctorName,
     required this.consultationType,
     required this.date,
     required this.time,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

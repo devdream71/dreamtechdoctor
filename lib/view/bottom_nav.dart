@@ -68,24 +68,24 @@ class BottomNavState extends State<BottomNav> {
               ),
               actions: [
                 ////===> search and notification commet 
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SearchDoctor()));
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.only(right: 5.0),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white10,
-                      child: Icon(
-                        Icons.search,
-                        color: AppColor.primaryColor,
-                      ),
-                    ),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => const SearchDoctor()));
+                //   },
+                //   child: const Padding(
+                //     padding: EdgeInsets.only(right: 5.0),
+                //     child: CircleAvatar(
+                //       backgroundColor: Colors.white10,
+                //       child: Icon(
+                //         Icons.search,
+                //         color: AppColor.primaryColor,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(right: 5.0),
                   child: InkWell(

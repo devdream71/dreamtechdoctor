@@ -4,13 +4,13 @@ import 'package:dream_tech_doctor/view/explore/package_screen.dart';
 import 'package:flutter/material.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
-  const BookAppointmentScreen({Key? key}) : super(key: key);
+  const BookAppointmentScreen({super.key});
 
   @override
-  _BookAppointmentScreenState createState() => _BookAppointmentScreenState();
+  BookAppointmentScreenState createState() => BookAppointmentScreenState();
 }
 
-class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
+class BookAppointmentScreenState extends State<BookAppointmentScreen> {
   int selectedDayIndex = 0;
   int selectedTimeIndex = 0;
 

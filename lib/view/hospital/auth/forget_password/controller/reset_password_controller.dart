@@ -30,14 +30,14 @@ class ResetPasswordController extends GetxController {
         body: body,
       );
 
-      print('Response Status Code: ${response.statusCode}');
-      print('Response Body: ${response.body}');
+      debugPrint('Response Status Code: ${response.statusCode}');
+      debugPrint('Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
         if (responseData['message'] == "Password updated successfully") {
           successMessage.value = responseData['message'];
-          print('Success: ${responseData['message']}');
+          debugPrint('Success: ${responseData['message']}');
           Get.snackbar(
             'Success',
             'Password updated successfully',
@@ -52,7 +52,7 @@ class ResetPasswordController extends GetxController {
           });
         } else {
           errorMessage.value = 'Password reset failed. Please try again.';
-          print('Error Message: ${responseData['message']}');
+          debugPrint('Error Message: ${responseData['message']}');
           Get.snackbar(
             'Error',
             errorMessage.value,
@@ -64,7 +64,7 @@ class ResetPasswordController extends GetxController {
       } else {
         // Handle non-200 responses
         errorMessage.value = 'Failed to reset password. Please check your inputs.';
-        print('Error: ${response.statusCode}, Body: ${response.body}');
+        debugPrint('Error: ${response.statusCode}, Body: ${response.body}');
         Get.snackbar(
           'Error',
           errorMessage.value,
@@ -75,7 +75,7 @@ class ResetPasswordController extends GetxController {
       }
     } catch (error) {
       errorMessage.value = 'An error occurred: $error';
-      print('Exception: $error');
+      debugPrint('Exception: $error');
       Get.snackbar(
         'Error',
         errorMessage.value,

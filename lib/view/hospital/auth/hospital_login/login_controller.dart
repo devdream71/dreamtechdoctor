@@ -90,7 +90,7 @@ class LoginController extends GetxController {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('access_token', loginResponse.accessToken);
 
-        print('Login Successful! Token saved: ${loginResponse.accessToken}');
+        debugPrint('Login Successful! Token saved: ${loginResponse.accessToken}');
 
         Navigator.pushReplacement(
           context,

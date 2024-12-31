@@ -1,8 +1,10 @@
 import 'package:dream_tech_doctor/utils/colors.dart';
-import 'package:dream_tech_doctor/view/explore/patientDetailsScreen.dart';
+import 'package:dream_tech_doctor/view/explore/patient_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class SelectPackageScreen extends StatefulWidget {
+  const SelectPackageScreen({super.key});
+
   @override
   State<SelectPackageScreen> createState() => _SelectPackageScreenState();
 }
@@ -70,7 +72,7 @@ class _SelectPackageScreenState extends State<SelectPackageScreen> {
               child: DropdownButton<String>(
                 value: selectedDuration,
                 isExpanded: true,
-                underline: SizedBox(),
+                underline: const SizedBox(),
                 items: ["15 minute", "30 minute", "1 hour"].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -110,11 +112,11 @@ class _SelectPackageScreenState extends State<SelectPackageScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  print("Selected Package: $selectedPackage");
+                  debugPrint("Selected Package: $selectedPackage");
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => PatientDetailsScreen()),
+                        builder: (context) => const PatientDetailsScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

@@ -10,6 +10,12 @@ class ReturnTable_RoomScreen extends StatefulWidget {
 
 class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
 
+  TextEditingController visitController = TextEditingController();
+  TextEditingController secondVisitController = TextEditingController();
+  TextEditingController thirdVisitController = TextEditingController();
+  TextEditingController paymentVisitController = TextEditingController();
+  TextEditingController roomController = TextEditingController();
+
    final List<String> _DaysOptions = [
     "Online", "Offline",
   ];
@@ -115,77 +121,69 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                   for (int i = 0; i < 1; i++)
                         TableRow(
                       children: [
-                        const SizedBox(
-                          height: 30,
-                          child: 
-                           TextField(
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                            decoration: InputDecoration(
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 5,
-                                horizontal: 10,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                          child: TextField(
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                            decoration: InputDecoration(
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 5,
-                                horizontal: 10,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                          child: TextField(
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                            decoration: InputDecoration(
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 5,
-                                horizontal: 10,
-                              ),
-                            ),
-                          ),
-                        ),
+                        ///visite free controller
                         SizedBox(
                           height: 30,
                           child: 
-                          // TextField(
-                          //   style: TextStyle(fontSize: 14, color: Colors.black),
-                          //   decoration: InputDecoration(
-                          //     focusedBorder: InputBorder.none,
-                          //     enabledBorder: InputBorder.none,
-                          //     isDense: true,
-                          //     filled: true,
-                          //     fillColor: Colors.white,
-                          //     contentPadding: EdgeInsets.symmetric(
-                          //       vertical: 5,
-                          //       horizontal: 10,
-                          //     ),
-                          //   ),
-                          // ),
+                           TextField(
+                            controller: visitController,
+                            style: const TextStyle(fontSize: 14, color: Colors.black),
+                            decoration: const InputDecoration(
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 5,
+                                horizontal: 10,
+                              ),
+                            ),
+                          ),
+                        ),
+                        ///2nd visite fee controller
+                          SizedBox(
+                          height: 30,
+                          child: TextField(
+                            controller: secondVisitController,
+                            style: const TextStyle(fontSize: 14, color: Colors.black),
+                            decoration: const InputDecoration(
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 5,
+                                horizontal: 10,
+                              ),
+                            ),
+                          ),
+                        ),
+                        ///3rd visite fee controller 
+                        SizedBox(
+                          height: 30,
+                          child: TextField(
+                            controller: thirdVisitController,
+                            style: const TextStyle(fontSize: 14, color: Colors.black),
+                            decoration: const InputDecoration(
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 5,
+                                horizontal: 10,
+                              ),
+                            ),
+                          ),
+                        ),
+                        ///payment controller
+                        SizedBox(
+                          height: 30,
+                          child: 
                           CustomDropdown2(
-                             
                             items: _DaysOptions,
                             selectedItem: _selectedDays,
                             //placeholder: "Select your division",
@@ -196,11 +194,13 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             },
                           ),
                         ),
-                        const SizedBox(
+                        ///room controller 
+                          SizedBox(
                           height: 30,
                           child: TextField(
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                            decoration: InputDecoration(
+                             controller: roomController,
+                            style: const TextStyle(fontSize: 14, color: Colors.black),
+                            decoration: const InputDecoration(
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
                               isDense: true,
@@ -228,10 +228,6 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
 }
 
 
-
-
-
- 
 
 class CustomDropdown2 extends StatelessWidget {
   final String? label;

@@ -82,7 +82,7 @@ class HospitalCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HospitalDetails()),
+          MaterialPageRoute(builder: (context) => const HospitalDetails()),
         );
       },
       child: Container(
@@ -140,7 +140,7 @@ class HospitalCard extends StatelessWidget {
         },
       );
                     },
-                    child: Icon(Icons.favorite_border, color: Colors.white)),
+                    child: const Icon(Icons.favorite_border, color: Colors.white)),
                 ),
                 Positioned(
                   bottom: 8,

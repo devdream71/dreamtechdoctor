@@ -10,7 +10,7 @@ class CustomDropdown extends StatelessWidget {
   final String placeholder;
 
   const CustomDropdown({
-    Key? key,
+    super.key,
     this.label,
     required this.items,
     this.selectedItem,
@@ -18,7 +18,7 @@ class CustomDropdown extends StatelessWidget {
     required this.labelText,
     this.isRequired = false,
     this.placeholder = "Select an option",
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

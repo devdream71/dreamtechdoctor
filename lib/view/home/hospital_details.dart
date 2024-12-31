@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HospitalDetails extends StatelessWidget {
-  const HospitalDetails({Key? key}) : super(key: key);
+  const HospitalDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,8 @@ class HospitalDetails extends StatelessWidget {
                 height: 280,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/hospital_in_bangladesh.jpg'),
+                    image:
+                        AssetImage('assets/images/hospital_in_bangladesh.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -28,7 +29,7 @@ class HospitalDetails extends StatelessWidget {
                   child: BackButton(),
                 ),
               ),
-                Positioned(
+              Positioned(
                 top: 40,
                 right: 10,
                 child: Row(
@@ -36,51 +37,56 @@ class HospitalDetails extends StatelessWidget {
                     CircleAvatar(
                       backgroundColor: Colors.white,
                       child: InkWell(
-                        onTap: (){
-                           showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Feature Not Available"),
-            content: const Text("This feature is not available at the moment."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          );
-        },
-      );
-                        },
-                        child: Icon(Icons.share, color: Colors.black)),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Feature Not Available"),
+                                  content: const Text(
+                                      "This feature is not available at the moment."),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(); // Close the dialog
+                                      },
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: const Icon(Icons.share, color: Colors.black)),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     CircleAvatar(
                       backgroundColor: Colors.white,
                       child: InkWell(
-                        onTap: (){
-                          showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Feature Not Available"),
-            content: const Text("This feature is not available at the moment."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          );
-        },
-      );
-                        },
-                        child: Icon(Icons.favorite_border, color: Colors.black)),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Feature Not Available"),
+                                  content: const Text(
+                                      "This feature is not available at the moment."),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(); // Close the dialog
+                                      },
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: const Icon(Icons.favorite_border,
+                              color: Colors.black)),
                     ),
                   ],
                 ),
@@ -111,7 +117,8 @@ class HospitalDetails extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
                   decoration: BoxDecoration(
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(20),
@@ -221,22 +228,23 @@ class HospitalDetails extends StatelessWidget {
               ),
               onPressed: () {
                 showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Feature Not Available"),
-            content: const Text("This feature is not available at the moment."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          );
-        },
-      );
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Feature Not Available"),
+                      content: const Text(
+                          "This feature is not available at the moment."),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: const Text("OK"),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               child: const Text(
                 'Book Appointment',
@@ -254,8 +262,7 @@ class ActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
 
-  const ActionButton({required this.icon, required this.label, Key? key})
-      : super(key: key);
+  const ActionButton({required this.icon, required this.label, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -264,26 +271,27 @@ class ActionButton extends StatelessWidget {
         CircleAvatar(
           backgroundColor: Colors.blue.withOpacity(0.1),
           child: InkWell(
-            onTap: (){
-              showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Feature Not Available"),
-            content: const Text("This feature is not available at the moment."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          );
-        },
-      );
-            },
-            child: Icon(icon, color: Colors.blue)),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Feature Not Available"),
+                      content: const Text(
+                          "This feature is not available at the moment."),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: const Text("OK"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Icon(icon, color: Colors.blue)),
         ),
         const SizedBox(height: 5),
         Text(label, style: const TextStyle(color: Colors.grey)),

@@ -31,31 +31,31 @@ class Profile extends StatelessWidget {
                   leading: const Icon(Icons.medication),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () async {
-                    // SharedPreferences prefs =
-                    //     await SharedPreferences.getInstance();
-                    // String? token = prefs.getString('access_token');
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    String? token = prefs.getString('access_token');
 
-                    // if (token != null && token.isNotEmpty) {
-                    //   // Token exists, navigate to the HospitalBottomNav page
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const HospitalBottomNav()),
-                    //   );
-                    // } else {
-                    //   // Token doesn't exist, navigate to the HospitalLoginPage
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => HospitalLoginPage()),
-                    //   );
-                    // }
-
-                    Navigator.push(
+                    if (token != null && token.isNotEmpty) {
+                      // Token exists, navigate to the HospitalBottomNav page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HospitalBottomNav()),
+                      );
+                    } else {
+                      // Token doesn't exist, navigate to the HospitalLoginPage
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => HospitalLoginPage()),
                       );
+                    }
+
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => HospitalLoginPage()),
+                    //   );
                   },
                 ),
               ),
@@ -128,7 +128,7 @@ class Profile extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PrescriptionForm()));
+                            builder: (context) => const PrescriptionForm()));
                   },
                 ),
               ),

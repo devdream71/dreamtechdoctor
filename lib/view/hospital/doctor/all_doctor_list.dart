@@ -131,7 +131,7 @@ class DoctorManagementScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (contet) => DoctorProfileScreen()));
+                              builder: (contet) => const DoctorProfileScreen()));
                     },
                     child: Card(
                       margin: const EdgeInsets.symmetric(vertical: 8),

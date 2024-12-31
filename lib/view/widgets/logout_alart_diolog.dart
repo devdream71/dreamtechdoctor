@@ -3,7 +3,7 @@ import 'package:get/get.dart'; // Import GetX if you're using it for navigation 
 
 class LogoutExample extends StatelessWidget {
   // Add a named constructor with the key parameter
-  const LogoutExample({Key? key}) : super(key: key);
+  const LogoutExample({super.key});
 
   @override
   Widget build(BuildContext context) {

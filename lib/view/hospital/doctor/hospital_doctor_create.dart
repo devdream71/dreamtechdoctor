@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dream_tech_doctor/utils/colors.dart';
 import 'package:dream_tech_doctor/utils/images.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/table_return.dart';
@@ -19,13 +18,14 @@ class HospitalDoctorCreate extends StatefulWidget {
 class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
   TextEditingController regController = TextEditingController();
   TextEditingController docNameController = TextEditingController();
-  TextEditingController expController = TextEditingController();
   TextEditingController ageController = TextEditingController();
+  TextEditingController expController = TextEditingController();
   TextEditingController doctorDetails = TextEditingController();
   TextEditingController doctorSpecialist = TextEditingController();
   TextEditingController doctorSymptom = TextEditingController();
   TextEditingController doctorEmail = TextEditingController();
   TextEditingController doctorNumberController = TextEditingController();
+  TextEditingController appointPhoneController = TextEditingController();
 
   final List<String> _GenderOptions = [
     "Male",
@@ -81,7 +81,7 @@ class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Doctor Create",
+          "Doctor Create Hospital",
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: AppColor.primaryColor.withOpacity(0.7),
@@ -214,9 +214,9 @@ class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
                 },
               ),
               CustomTextFormField(
-                labelText: 'Admin Email',
+                labelText: 'Doctor Email',
                 isRequired: true,
-                hintText: 'Enter admin email',
+                hintText: 'Enter Doctor email',
                 controller: doctorEmail,
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
@@ -277,13 +277,10 @@ class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
               const SizedBox(
                 height: 10,
               ),
-
-              
-                ReturnTable_RoomScreen(),
+              const ReturnTable_RoomScreen(),
               const SizedBox(
                 height: 10,
               ),
-
               const Row(
                 children: [
                   Text(
@@ -349,7 +346,7 @@ class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
                     ),
                   ),
                 ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               const Row(
@@ -452,6 +449,20 @@ class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
                     ),
                     onPressed: () {
                       // Call the login function from the LoginController
+                      debugPrint(regController.toString());
+                      debugPrint(docNameController.toString());
+                      debugPrint(ageController.toString());
+                      debugPrint(expController.toString());
+                      debugPrint(_selectedGender);
+                      debugPrint(doctorDetails.toString());
+                      debugPrint(doctorSpecialist.toString());
+                      debugPrint(doctorSymptom.toString());
+                      debugPrint(doctorEmail.toString());
+                      debugPrint(doctorNumberController.toString());
+                      debugPrint(appointPhoneController.toString());
+                      debugPrint(_logoImageFile.toString());
+                      debugPrint(_frontImageFile.toString());
+                      
                     },
                     child: const Text(
                       'Doctor Create',

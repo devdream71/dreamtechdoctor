@@ -2,6 +2,8 @@ import 'package:dream_tech_doctor/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class PatientDetailsScreen extends StatefulWidget {
+  const PatientDetailsScreen({super.key});
+
   @override
   State<PatientDetailsScreen> createState() => _PatientDetailsScreenState();
 }
@@ -98,7 +100,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       child: DropdownButton<String>(
         value: value,
         isExpanded: true,
-        underline: SizedBox(),
+        underline: const SizedBox(),
         items: items.map((String item) {
           return DropdownMenuItem<String>(
             value: item,
@@ -134,10 +136,10 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       height: 50,
       child: ElevatedButton(
         onPressed: () {
-          print("Booking For: $bookingFor");
-          print("Gender: $gender");
-          print("Age: $age");
-          print("Problem: ${problemController.text}");
+          debugPrint("Booking For: $bookingFor");
+          debugPrint("Gender: $gender");
+          debugPrint("Age: $age");
+          debugPrint("Problem: ${problemController.text}");
           showDialog(
         context: context,
         builder: (BuildContext context) {

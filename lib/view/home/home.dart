@@ -2,7 +2,7 @@ import 'package:dream_tech_doctor/utils/images.dart';
 import 'package:dream_tech_doctor/view/explore/book_appointment_Screen.dart';
 import 'package:dream_tech_doctor/view/explore/doctor_details_page.dart';
 import 'package:dream_tech_doctor/view/home/near_by_hospital.dart';
-import 'package:dream_tech_doctor/view/home/upcoming_schedule_Screen.dart';
+import 'package:dream_tech_doctor/view/home/upcoming_schedule_screen.dart';
 import 'package:dream_tech_doctor/view/widgets/auto_scroll_carousel.dart';
 import 'package:dream_tech_doctor/view/widgets/doctor_card.dart';
 import 'package:dream_tech_doctor/view/widgets/home_card.dart';
@@ -161,7 +161,7 @@ class _HomeState extends State<Home> {
               ),
               const SizedBox(height: 6),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0),
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: DoctorCard(
                   imageUrl: AppImages.doctor4,
                   name: 'Dr. Sarah Connor',

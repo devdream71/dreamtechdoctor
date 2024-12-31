@@ -25,15 +25,15 @@ class ForgetPasswordOtpCheckController extends GetxController {
         final otpResponse = OtpCheckResponse.fromJson(responseData);
 
         // On successful OTP check, show a success message and navigate to next page
-        print('OTP Check Success: ${otpResponse.otpMessage}');
+        debugPrint('OTP Check Success: ${otpResponse.otpMessage}');
         Get.snackbar('Success', otpResponse.otpMessage,
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.green,
             colorText: Colors.white);
-        Get.to(ResetPassword(), arguments: {'adminEmail': adminEmail}); // Only navigate if successful
+        Get.to(const ResetPassword(), arguments: {'adminEmail': adminEmail}); // Only navigate if successful
       } else {
         errorMessage.value = 'Failed to verify OTP. Please try again.';
-        print('Error: ${response.statusCode}');
+        debugPrint('Error: ${response.statusCode}');
         Get.snackbar('Error', errorMessage.value,
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red,
@@ -41,7 +41,7 @@ class ForgetPasswordOtpCheckController extends GetxController {
       }
     } catch (error) {
       errorMessage.value = 'An error occurred: $error';
-      print('Error: $error');
+      debugPrint('Error: $error');
       Get.snackbar('Error', errorMessage.value,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,

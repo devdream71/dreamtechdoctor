@@ -146,10 +146,10 @@ class BookingCard extends StatefulWidget {
   });
 
   @override
-  _BookingCardState createState() => _BookingCardState();
+  BookingCardState createState() => BookingCardState();
 }
 
-class _BookingCardState extends State<BookingCard> {
+class BookingCardState extends State<BookingCard> {
   bool remindMe = false; // State for the Switch
 
   @override
@@ -255,7 +255,7 @@ class _BookingCardState extends State<BookingCard> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CancelBookingScreen(),
+                                  builder: (context) => const CancelBookingScreen(),
                                 ),
                               );
                             },
