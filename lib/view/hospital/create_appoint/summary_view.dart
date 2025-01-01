@@ -63,7 +63,10 @@ class AppointmentSummaryScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: SingleChildScrollView(
                   child: DataTable(
-                    headingRowColor: MaterialStateProperty.all(Colors.blue),
+                    headingRowHeight: 25,
+                    dataRowMaxHeight: 25,
+                    dataRowMinHeight: 25,
+                    headingRowColor: WidgetStateProperty.all(Colors.blue),
                     headingTextStyle: const TextStyle(color: Colors.white),
                     columns: const [
                       DataColumn(label: Text('S.L No')),
@@ -77,7 +80,8 @@ class AppointmentSummaryScreen extends StatelessWidget {
                       6,
                       (index) => DataRow(
                         cells: [
-                          DataCell(Text((index + 1).toString().padLeft(2, '0'))),
+                          DataCell(
+                              Text((index + 1).toString().padLeft(2, '0'))),
                           const DataCell(Text('Heart')),
                           const DataCell(Text('Md. Shakib')),
                           const DataCell(Text('Md. Tamim')),

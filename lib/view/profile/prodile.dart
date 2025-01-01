@@ -31,6 +31,7 @@ class Profile extends StatelessWidget {
                   leading: const Icon(Icons.medication),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () async {
+
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     String? token = prefs.getString('access_token');

@@ -27,7 +27,8 @@ class AppointPdfView extends StatelessWidget {
                     width: 60,
                     height: 60,
                     child: CircleAvatar(
-                        backgroundImage: AssetImage(AppImages.hospital)),
+                      backgroundImage: AssetImage(AppImages.hospital),
+                    ),
                   ),
                   SizedBox(
                     width: 10,
@@ -41,7 +42,7 @@ class AppointPdfView extends StatelessWidget {
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       Text("H #42, R #12, Dhanmondi 32, Dhaka"),
-                      Text("Phone: 01759 546800")
+                      Text("Phone: 01759 546800"),
                     ],
                   )
                 ],

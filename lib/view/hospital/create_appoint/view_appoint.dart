@@ -66,6 +66,10 @@ class PatientTableScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: SingleChildScrollView(
                   child: DataTable(
+                    headingRowHeight: 25,
+                    //dataRowHeight: 25,
+                    dataRowMaxHeight: 25,
+                    dataRowMinHeight: 25,
                     headingRowColor: MaterialStateProperty.all(Colors.blue),
                     headingTextStyle: const TextStyle(color: Colors.white),
                     columns: const [
@@ -98,11 +102,11 @@ class PatientTableScreen extends StatelessWidget {
                             Row(
                               children: [
                                 IconButton(
-                                  icon: const Icon(Icons.visibility),
+                                  icon: const Icon(Icons.visibility, size: 14,),
                                   onPressed: () {},
                                 ),
                                 IconButton(
-                                  icon: const Icon(Icons.edit),
+                                  icon: const Icon(Icons.edit, size: 14,),
                                   onPressed: () {},
                                 ),
                               ],

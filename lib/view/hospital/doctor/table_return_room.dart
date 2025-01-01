@@ -9,18 +9,20 @@ class ReturnTable_RoomScreen extends StatefulWidget {
 }
 
 class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
-
   TextEditingController visitController = TextEditingController();
   TextEditingController secondVisitController = TextEditingController();
+  TextEditingController secondVisitFeeController = TextEditingController();
   TextEditingController thirdVisitController = TextEditingController();
+  TextEditingController thirdVisiFeeController = TextEditingController();
   TextEditingController paymentVisitController = TextEditingController();
   TextEditingController roomController = TextEditingController();
 
-   final List<String> _DaysOptions = [
-    "Online", "Offline",
+  final List<String> _paymentOptions = [
+    "Online",
+    "Offline",
   ];
 
-  String? _selectedDays;
+  String? _selectedPayment;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +42,10 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                   0: FlexColumnWidth(1), // Wider column for Item Name
                   1: FlexColumnWidth(1),
                   2: FlexColumnWidth(1),
-                  3: FlexColumnWidth(2),
+                  3: FlexColumnWidth(1),
                   4: FlexColumnWidth(1),
+                  5: FlexColumnWidth(2),
+                  6: FlexColumnWidth(1),
                 },
                 children: [
                   // Table Header
@@ -59,7 +63,7 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14),
+                                fontSize: 10),
                           ),
                         ),
                       ),
@@ -72,7 +76,20 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14),
+                                fontSize: 10),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                        child: Center(
+                          child: Text(
+                            "2nd Fee ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10),
                           ),
                         ),
                       ),
@@ -85,7 +102,20 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14),
+                                fontSize: 10),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                        child: Center(
+                          child: Text(
+                            "2nd Fee",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10),
                           ),
                         ),
                       ),
@@ -98,7 +128,7 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14),
+                                fontSize: 10),
                           ),
                         ),
                       ),
@@ -111,7 +141,7 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14),
+                                fontSize: 10),
                           ),
                         ),
                       ),
@@ -119,15 +149,15 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                   ),
                   // Table Rows with TextField and Fixed Height
                   for (int i = 0; i < 1; i++)
-                        TableRow(
+                    TableRow(
                       children: [
                         ///visite free controller
                         SizedBox(
                           height: 30,
-                          child: 
-                           TextField(
+                          child: TextField(
                             controller: visitController,
-                            style: const TextStyle(fontSize: 14, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.black),
                             decoration: const InputDecoration(
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -141,12 +171,14 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             ),
                           ),
                         ),
+
                         ///2nd visite fee controller
-                          SizedBox(
+                        SizedBox(
                           height: 30,
                           child: TextField(
                             controller: secondVisitController,
-                            style: const TextStyle(fontSize: 14, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.black),
                             decoration: const InputDecoration(
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -160,12 +192,35 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             ),
                           ),
                         ),
-                        ///3rd visite fee controller 
+
+                        ///2nd fee controller
+                        SizedBox(
+                          height: 30,
+                          child: TextField(
+                            controller: secondVisitFeeController,
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.black),
+                            decoration: const InputDecoration(
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 5,
+                                horizontal: 10,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        ///3rd visite fee controller
                         SizedBox(
                           height: 30,
                           child: TextField(
                             controller: thirdVisitController,
-                            style: const TextStyle(fontSize: 14, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.black),
                             decoration: const InputDecoration(
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -179,27 +234,50 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             ),
                           ),
                         ),
+
+                        ///3rd fee controller
+                        SizedBox(
+                          height: 30,
+                          child: TextField(
+                            controller: thirdVisiFeeController,
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.black),
+                            decoration: const InputDecoration(
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 5,
+                                horizontal: 10,
+                              ),
+                            ),
+                          ),
+                        ),
+
                         ///payment controller
                         SizedBox(
                           height: 30,
-                          child: 
-                          CustomDropdown2(
-                            items: _DaysOptions,
-                            selectedItem: _selectedDays,
+                          child: CustomDropdown2(
+                            items: _paymentOptions,
+                            selectedItem: _selectedPayment,
                             //placeholder: "Select your division",
                             onChanged: (value) {
                               setState(() {
-                                _selectedDays = value;
+                                _selectedPayment = value;
                               });
                             },
                           ),
                         ),
-                        ///room controller 
-                          SizedBox(
+
+                        ///room controller
+                        SizedBox(
                           height: 30,
                           child: TextField(
-                             controller: roomController,
-                            style: const TextStyle(fontSize: 14, color: Colors.black),
+                            controller: roomController,
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.black),
                             decoration: const InputDecoration(
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -213,7 +291,6 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
                             ),
                           ),
                         ),
-                         
                       ],
                     ),
                 ],
@@ -221,13 +298,10 @@ class _ReturnTable_RoomScreenState extends State<ReturnTable_RoomScreen> {
             ],
           ),
         ),
-        
       ],
     );
   }
 }
-
-
 
 class CustomDropdown2 extends StatelessWidget {
   final String? label;

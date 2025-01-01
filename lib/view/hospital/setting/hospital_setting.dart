@@ -1,7 +1,7 @@
 import 'package:dream_tech_doctor/view/bottom_nav.dart';
 import 'package:dream_tech_doctor/view/hospital/create_appoint/create_appoint.dart';
-import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list.dart';
-import 'package:dream_tech_doctor/view/hospital/doctor/hospital_doctor_create.dart';
+import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/all_doctor_list.dart';
+import 'package:dream_tech_doctor/view/hospital/doctor/doctor_create/hospital_doctor_create.dart';
 import 'package:flutter/material.dart';
 
 class HospitalSetting extends StatelessWidget {
@@ -32,7 +32,7 @@ class HospitalSetting extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const HospitalDoctorCreate()));
+                                  HospitalDoctorCreate()));
                   },
                 ),
               ),

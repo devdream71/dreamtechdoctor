@@ -384,6 +384,7 @@ class _HospitalLoginPageState extends State<HospitalLoginPage> {
                       onPressed: loginController.isLoading.value
                           ? null
                           : () {
+                               ////===>login commit , 
                               if (_formKey.currentState?.validate() ?? false) {
                                 loginController.login(
                                   emailController.text,
@@ -391,7 +392,14 @@ class _HospitalLoginPageState extends State<HospitalLoginPage> {
                                   context,
                                 );
                               }
-                            },
+
+                              ////====> with out login 
+                      //         Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const HospitalBottomNav()),
+                      // );
+                             },
                       child: loginController.isLoading.value
                           ? const CircularProgressIndicator(
                               color: Colors.white,
