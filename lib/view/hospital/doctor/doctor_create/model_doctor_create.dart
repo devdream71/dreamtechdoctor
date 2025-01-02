@@ -13,31 +13,31 @@ class DoctorResponse {
 }
 
 class Doctor {
-  final String departmentCategory;
-  final String regNum;
-  final String doctorName;
-  final String email;
-  final String age;
-  final String gender;
-  final String details;
-  final String experience;
-  final List<String> specialist;
-  final String schedule;
-  final String symptom;
-  final String mobile;
-  final String mobileOptional;
-  final String visitFee;
-  final String secondDay;
-  final String secondDayFee;
-  final String thirdDay;
-  final String thirdDayFee;
-  final String paymentType;
-  final String roomNumber;
-  final String appointmentMobile;
-  final String appointmentMobileOptional;
-  final String doctorImage;
-  final String signatureImage;
-  final String prescriptionSignatureStyle;
+  final String  departmentCategory;
+  final String  regNum;
+  final String  doctorName;
+  final String  email;
+  final String  age;
+  final String  gender;
+  final String  details;
+  final String  experience;
+  final List<String>   specialist;
+  final String  schedule;
+  final String  symptom;
+  final String  mobile;
+  final String  mobileOptional;
+  final String  visitFee;
+  final String  secondDay;
+  final String  secondDayFee;
+  final String  thirdDay;
+  final String  thirdDayFee;
+  final String  paymentType;
+  final String  roomNumber;
+  final String  appointmentMobile;
+  final String  appointmentMobileOptional;
+  final String  doctorImage;
+  final String  signatureImage;
+  final String  prescriptionSignatureStyle;
 
   Doctor({
     required this.departmentCategory,
@@ -99,3 +99,8 @@ class Doctor {
   );
 }
 }
+
+
+
+
+

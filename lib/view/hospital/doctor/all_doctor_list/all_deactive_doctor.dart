@@ -1,26 +1,25 @@
 import 'package:dream_tech_doctor/utils/colors.dart';
-import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/all_active_doctor.dart';
-import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/all_deactive_doctor.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/controller_all_doctor_list.dart';
-import 'package:dream_tech_doctor/view/hospital/doctor/doctor_create/hospital_doctor_create.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/doctor_details_view/doctor_details_view.dart';
-import 'package:dream_tech_doctor/view/hospital/doctor/doctor_update/doctor_update.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class DoctorManagementScreen extends StatelessWidget {
+class AllDeactiveDoctorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AllDoctorGetController doctorController =
-        Get.put(AllDoctorGetController());
+        Get.find<AllDoctorGetController>();
 
-    // Fetch the doctors when the screen is built
-    doctorController.fetchDoctors();
+    // Ensure data fetching is not called during the build phase
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      doctorController.fetchDeactiveDoctors();
+    });
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Doctor Management',
+          'All Deactive Doctor',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: AppColor.primaryColor.withOpacity(0.7),
@@ -33,70 +32,7 @@ class DoctorManagementScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5), // Square shape
-                    ),
-                    backgroundColor: Colors.green[400],
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HospitalDoctorCreate(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    '+ Create Doctor',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-                ),
-                Row(
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(5), // Square shape
-                        ),
-                      ),
-                      onPressed: () {
-                        Get.to(AllActiveDoctorScreen());
-                      },
-                      child: const Text(
-                        'All Active',
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.to(AllDeactiveDoctorScreen());
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(5), // Square shape
-                          ),
-                          backgroundColor: Colors.red),
-                      child: const Text(
-                        'All Inactive',
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
             const SizedBox(height: 20),
-
             // Filters
             Row(
               children: [
@@ -138,16 +74,20 @@ class DoctorManagementScreen extends StatelessWidget {
               child: Obx(
                 () {
                   if (doctorController.isLoading.value) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (doctorController.doctors.isEmpty) {
-                    return Center(child: Text('No doctors available.'));
+                    return const Center(
+                        child: Text(
+                      'No Deactive Doctors Available',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ));
                   } else {
                     return ListView.builder(
                       itemCount: doctorController.doctors.length,
                       itemBuilder: (context, index) {
                         final doctor = doctorController.doctors[index];
                         final doctorID = doctorController.doctors[index].id;
-                        print("doctor id ===>  $doctorID");
 
                         return InkWell(
                           onTap: () {
@@ -158,12 +98,11 @@ class DoctorManagementScreen extends StatelessWidget {
                           child: Card(
                             margin: const EdgeInsets.symmetric(vertical: 8),
                             child: ListTile(
-                              leading: 
-                              CircleAvatar(
+                              leading: CircleAvatar(
                                 backgroundImage:
                                     NetworkImage(doctor.doctorImage),
                               ),
-                                                        title: Text(doctor.doctorName),
+                              title: Text(doctor.doctorName),
                               subtitle: Text(doctor.departmentCategory),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -172,15 +111,10 @@ class DoctorManagementScreen extends StatelessWidget {
                                     child: IconButton(
                                       icon: const Icon(Icons.edit,
                                           color: Colors.blue),
-                                      onPressed: () {
-                                        ///doctor update 
-                                        Get.to(const HospitalDoctorUpdate(), arguments: {'doctorId': doctor.id});
-                                      },
+                                      onPressed: () {},
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 2,
-                                  ),
+                                  const SizedBox(width: 2),
                                   CircleAvatar(
                                     child: IconButton(
                                       icon: const Icon(Icons.delete,
@@ -192,11 +126,10 @@ class DoctorManagementScreen extends StatelessWidget {
                                             return AlertDialog(
                                               title: const Text('Delete'),
                                               content: const Text(
-                                                  'Are you sure you want to Delete the Doctor?'),
+                                                  'Are you sure you want to delete the doctor?'),
                                               actions: [
                                                 TextButton(
                                                   onPressed: () {
-                                                    // Close the dialog
                                                     Navigator.of(context).pop();
                                                   },
                                                   child: const Text('Cancel'),

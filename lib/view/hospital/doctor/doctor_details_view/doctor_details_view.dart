@@ -4,6 +4,7 @@ import 'package:dream_tech_doctor/utils/images.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/doctor_details_view/controller_doctor_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class DoctorDetailScreen extends StatelessWidget {
   final int doctorId;
@@ -67,9 +68,9 @@ class DoctorDetailScreen extends StatelessWidget {
                       )
                     ],
                   ),
-              
+
                   const SizedBox(height: 16),
-              
+
                   Text('Email: ${doctor.email}',
                       style: const TextStyle(fontSize: 16)),
                   Text('Age: ${doctor.age}',
@@ -88,57 +89,152 @@ class DoctorDetailScreen extends StatelessWidget {
                       style: const TextStyle(fontSize: 16)),
                   Text('Payment Type: ${doctor.paymentType}',
                       style: const TextStyle(fontSize: 16)),
-              
-                  Text('Schedule:', style: const TextStyle(fontSize: 16)),
 
-                  SizedBox(height: 5,),
+                  const Text('Schedule:', style: const TextStyle(fontSize: 16)),
+
+                  const SizedBox(
+                    height: 5,
+                  ),
                   DoctorScheduleTable(scheduleJson: doctor.schedule),
                   // You can add more details as needed
-              
+
                   const SizedBox(
                     height: 20,
                   ),
-              
+
+                  
+
+                  ////////////==============api
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Active button (Visible only if doctor is inactive)
-                      if (!doctorController.isDoctorActive.value)
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          onPressed: () {
-                            doctorController.toggleDoctorStatus();
-                          },
-                          child: const Text(
-                            'Active',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      const SizedBox(width: 10),
-                      // Inactive button (Visible only if doctor is active)
-                      if (doctorController.isDoctorActive.value)
-                        ElevatedButton(
-                          onPressed: () {
-                            doctorController.toggleDoctorStatus();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            backgroundColor: Colors.red,
-                          ),
-                          child: const Text(
-                            'Inactive',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                    ],
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    // Active button (Visible only if doctor is inactive)
+    if (!doctorController.isDoctorActive.value)
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+        ),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Confirmation'),
+                content: const Text('Are you sure you want to Deactivate the doctor?'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(), // Close the dialog
+                    child: const Text('Cancel'),
                   ),
+                  TextButton(
+                    onPressed: () async {
+
+                      var doctorId = doctor.id;
+                      // Close the dialog
+                      // Call API to activate doctor
+                      var headers = {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                      };
+                      var request = http.MultipartRequest(
+                        'POST',
+                        Uri.parse('https://doctorapp.com.softservice.site/api/auth/hospital-doctor/change-status'),
+                      );
+                      request.fields.addAll({
+                        'doctorId': '$doctorId',
+                        'status': '0' // Activate doctor
+                      });
+                      request.headers.addAll(headers);
+
+                      http.StreamedResponse response = await request.send();
+
+                      if (response.statusCode == 201) {
+                        print(await response.stream.bytesToString());
+                        doctorController.toggleDoctorStatus();
+                      } else {
+                        print(response.reasonPhrase);
+                      }
+                       Navigator.of(context).pop();
+                    },
+                    child: const Text('Deactive', style: TextStyle(color: Colors.red),),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: const Text(
+          'Active',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    const SizedBox(width: 10),
+    // Inactive button (Visible only if doctor is active)
+    if (doctorController.isDoctorActive.value)
+      ElevatedButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Confirmation'),
+                content: const Text('Are you sure you want to Activate the doctor?'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(), // Close the dialog
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      // Close the dialog
+                      // Call API to deactivate doctor
+                      var headers = {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                      };
+                      var request = http.MultipartRequest(
+                        'POST',
+                        Uri.parse('https://doctorapp.com.softservice.site/api/auth/hospital-doctor/change-status'),
+                      );
+                      request.fields.addAll({
+                        'doctorId': '$doctorId',
+                        'status': '1' // Deactivate doctor
+                      });
+                      request.headers.addAll(headers);
+
+                      http.StreamedResponse response = await request.send();
+
+                      if (response.statusCode == 201) {
+                        print(await response.stream.bytesToString());
+                        doctorController.toggleDoctorStatus();
+                      } else {
+                        print(response.reasonPhrase);
+                      }
+                       Navigator.of(context).pop();
+                    },
+                    child: const Text('Active', style: TextStyle(color: Colors.green),),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          backgroundColor: Colors.red,
+        ),
+        child: const Text(
+          'Inactive',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+  ],
+)
                 ],
               ),
             ),
@@ -149,6 +245,8 @@ class DoctorDetailScreen extends StatelessWidget {
   }
 }
 
+ 
+
 class DoctorScheduleTable extends StatelessWidget {
   final String scheduleJson;
 
@@ -156,8 +254,16 @@ class DoctorScheduleTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Parse the schedule JSON
-    final List<dynamic> scheduleList = json.decode(scheduleJson);
+    // Safely parse the schedule JSON
+    List<dynamic> scheduleList = [];
+    if (scheduleJson.isNotEmpty) {
+      try {
+        scheduleList = json.decode(scheduleJson);
+      } catch (e) {
+        // Handle invalid JSON
+        print('Error parsing schedule JSON: $e');
+      }
+    }
 
     return Table(
       border: TableBorder.all(color: Colors.black),
@@ -179,16 +285,24 @@ class DoctorScheduleTable extends StatelessWidget {
           ],
         ),
         // Data rows
-        ...scheduleList.map((schedule) {
-          return TableRow(
-            children: [
-              _buildDataCell(schedule['day']),
-              _buildDataCell(schedule['start']),
-              _buildDataCell(schedule['end']),
-              _buildDataCell(schedule['visitLimit']),
-            ],
-          );
-        }).toList(),
+        if (scheduleList.isEmpty)
+          TableRow(children: [
+            _buildDataCell('No schedule available'),
+            _buildDataCell(''),
+            _buildDataCell(''),
+            _buildDataCell(''),
+          ])
+        else
+          ...scheduleList.map((schedule) {
+            return TableRow(
+              children: [
+                _buildDataCell(schedule['day'] ?? 'N/A'),
+                _buildDataCell(schedule['start'] ?? 'N/A'),
+                _buildDataCell(schedule['end'] ?? 'N/A'),
+                _buildDataCell(schedule['visitLimit']?.toString() ?? 'N/A'),
+              ],
+            );
+          }).toList(),
       ],
     );
   }
@@ -219,9 +333,6 @@ class DoctorScheduleTable extends StatelessWidget {
 }
 
 
-
- 
-
 class SymptomList extends StatelessWidget {
   final String symptomText;
 
@@ -230,7 +341,8 @@ class SymptomList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Split the symptom text into a list of strings by periods (excluding empty strings)
-    final symptoms = symptomText.split('.').where((s) => s.trim().isNotEmpty).toList();
+    final symptoms =
+        symptomText.split('.').where((s) => s.trim().isNotEmpty).toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,4 +376,3 @@ class SymptomList extends StatelessWidget {
     );
   }
 }
-

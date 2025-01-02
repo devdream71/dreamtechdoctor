@@ -116,14 +116,11 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: DoctorCard(
                   imageUrl: AppImages.doctor2,
-                  name: 'Dr. Md. Shakib',
+                  name: 'Assoc. Prof. Dr. Md. Shakib',
                   qualifications:
-                      'MBBS DMU FCPS MS\nWHO Clinical Polw On Child Urologist(India)\nPolw On Child Urologist (USA)',
+                      'MBBS DMU FCPS MS\nWHO Clinical Polw On Child Urologist(India)\nTotal Experience: 17+ Years',
                   specialization:
-                      'Specialist\nChild, BabyCare, Urologists, Medicine\nHfdngf, Reseat',
-                  proposerInfo:
-                      'Proposer\nDepartment of Child Surgery\nSohid Sorowardy Medical College\n01984-994406',
-                  registrationNumber: '2132134',
+                      'Specialist \nChild, BabyCare, Urologists, Medicine\nHfdngf, Reseat',
                   onTapAppointment: () {
                     Navigator.push(
                         context,
@@ -145,9 +142,7 @@ class _HomeState extends State<Home> {
                       'MBBS MS DMU\nSpecialized in Pediatric Urology\nHarvard Medical School',
                   specialization:
                       'Specialist\nPediatric Urology, Surgery, Child Care',
-                  proposerInfo:
-                      'Proposer\nDepartment of Pediatric Surgery\nBoston Medical Center\n01234-567890',
-                  registrationNumber: '987654',
+                  
                    onTapAppointment: () {
                     Navigator.push(
                         context,
@@ -169,9 +164,7 @@ class _HomeState extends State<Home> {
                       'MBBS MS DMU\nSpecialized in Pediatric Urology\nHarvard Medical School',
                   specialization:
                       'Specialist\nPediatric Urology, Surgery, Child Care',
-                  proposerInfo:
-                      'Proposer\nDepartment of Pediatric Surgery\nBoston Medical Center\n01234-567890',
-                  registrationNumber: '987654',
+                   
                    onTapAppointment: () {
                     Navigator.push(
                         context,

@@ -145,7 +145,7 @@ class DoctorDetailsPage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: Text(
-                "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque, earum blanditiis eos itaque possimus excepturi.",
+                "Proposer\nDepartment of Child Surgery\nSohid Sorowardy Medical College\n01984-994406.\nregistrationNumber: 2132134",
                 style: TextStyle(color: Colors.grey),
               ),
             ),

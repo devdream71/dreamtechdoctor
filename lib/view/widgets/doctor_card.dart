@@ -5,10 +5,10 @@ class DoctorCard extends StatelessWidget {
   final String name;
   final String qualifications;
   final String specialization;
-  final String proposerInfo;
-  final String registrationNumber;
-  final void Function() ? onTapDoctorView;
-  final void Function() ? onTapAppointment;
+  //final String proposerInfo;
+  //final String registrationNumber;
+  final void Function()? onTapDoctorView;
+  final void Function()? onTapAppointment;
 
   const DoctorCard({
     super.key,
@@ -16,9 +16,9 @@ class DoctorCard extends StatelessWidget {
     required this.name,
     required this.qualifications,
     required this.specialization,
-    required this.proposerInfo,
-    required this.registrationNumber,
-     this.onTapDoctorView,
+    //required this.proposerInfo,
+    //required this.registrationNumber,
+    this.onTapDoctorView,
     this.onTapAppointment,
   });
 
@@ -88,21 +88,27 @@ class DoctorCard extends StatelessWidget {
             specialization,
             style: const TextStyle(fontSize: 12, color: Colors.black87),
           ),
-          const SizedBox(height: 8),
-          Text(
-            proposerInfo,
-            style: const TextStyle(fontSize: 12, color: Colors.black54),
+          const SizedBox(height: 4),
+          const Row(
+            children: [
+               Icon(Icons.star, color: Colors.amber, size: 16),
+               SizedBox(width: 4),
+              Text(
+                "5.5/385",
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            "Reg.No $registrationNumber",
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 12),
+          
+          // Text(
+          //   "Reg.No $registrationNumber",
+          //   style: const TextStyle(
+          //     fontSize: 12,
+          //     fontWeight: FontWeight.bold,
+          //     color: Colors.black87,
+          //   ),
+          // ),
+          const SizedBox(height: 4),
           // Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,7 +123,7 @@ class DoctorCard extends StatelessWidget {
   }
 
   // Helper method for buttons
-  Widget _buildButton(String title, Color color, void Function() ? onTap) {
+  Widget _buildButton(String title, Color color, void Function()? onTap) {
     return InkWell(
       onTap: onTap,
       child: Container(
