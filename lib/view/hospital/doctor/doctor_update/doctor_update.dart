@@ -330,30 +330,26 @@ class HospitalDoctorUpdateState extends State<HospitalDoctorUpdate> {
                           ),
                           onPressed: () {
                             // Call the login function from the LoginController
-                            debugPrint("depcat $_selectedDepCat");
-                            debugPrint(
-                                "reg number ${regController.toString()}");
-                            debugPrint(
-                                "doc name  ${docNameController.toString()}");
-                            debugPrint(
-                                "doctor email ${doctorEmail.toString()}");
-                            debugPrint("age ${ageController.toString()}");
-                            debugPrint("gender $_selectedGender");
-                            debugPrint("exp ${expController.toString()}");
-                            debugPrint(
-                                "doctor details ${doctorDetails.toString()}");
-                            debugPrint("doctor speci $_selectedSpecialist");
-                            debugPrint("doctor symtom $_selectedsymtomOption");
-                            debugPrint(
-                                "doctor number ${doctorNumberController.toString()}");
-                            debugPrint(
-                                "apponit phone number ${appointPhoneController.toString()}");
-                            debugPrint(
-                                "signature style ${appointPhoneController.toString()}");
-                            debugPrint(
-                                "logo image ${_logoImageFile.toString()}");
-                            debugPrint(
-                                "front image ${_frontImageFile.toString()}");
+                               
+                               print(" reg number ${regController.text}");
+                               print(" reg number ${docNameController.text}");
+                               print(" reg number ${ageController.text}");
+                               print(" reg number ${expController.text}");
+                              print(" reg number ${doctorDetails.text}");
+                               print(" reg number ${regController.text}");
+
+                               print(" reg number ${doctorEmail.text}");
+                               print(" reg number ${ageController.text}");
+
+                               print(" reg number ${doctorNumberController.text}");
+                               print(" reg number ${prescriptionSignatureCOntroller.text}");
+                              print(" reg number ${appointPhoneController.text}");
+
+                               print(" reg number ${_selectedGender}");
+                               print(" reg number ${_selectedDepCat}");
+                               print(" reg number ${_selectedsymtomOption}");
+
+
 
                                //updateDoctor();
 
