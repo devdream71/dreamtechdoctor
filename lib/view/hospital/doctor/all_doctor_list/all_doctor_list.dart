@@ -1,3 +1,5 @@
+
+import 'package:bd_address_two/widgets/division_dropdown.dart';
 import 'package:dream_tech_doctor/utils/colors.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/all_active_doctor.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/all_deactive_doctor.dart';
@@ -56,6 +58,10 @@ class DoctorManagementScreen extends StatelessWidget {
                 ),
               ],
             ),
+
+           
+            
+            const DivisionDropdown(),
 
             //const SizedBox(height: 20),
             Row(

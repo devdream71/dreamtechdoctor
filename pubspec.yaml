@@ -43,6 +43,9 @@ dependencies:
   pinput: ^5.0.0
   image_picker: ^1.1.2
   get: ^4.6.6
+  bd_address_two: ^0.0.2
+
+  
 
 dev_dependencies:
   flutter_test:

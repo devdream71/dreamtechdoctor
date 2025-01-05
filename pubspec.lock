@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  bd_address_two:
+    dependency: "direct main"
+    description:
+      name: bd_address_two
+      sha256: "94181a71574a0b502b6d4de4529eefe4a61697e87b8d4e0b6b43caac11791569"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   boolean_selector:
     dependency: transitive
     description:
