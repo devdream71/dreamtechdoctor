@@ -29,27 +29,25 @@ class MyApp extends StatelessWidget {
 }
 
 
+                  //   showDialog(
+                  //   context: context,
+                  //   builder: (BuildContext context) {
+                  //     return AlertDialog(
+                  //       title: const Text("Feature Not Available"),
+                  //       content: const Text(
+                  //           "This feature is not available at the moment."),
+                  //       actions: [
+                  //         TextButton(
+                  //           onPressed: () {
+                  //             Navigator.of(context).pop(); // Close the dialog
+                  //           },
+                  //           child: const Text("OK"),
+                  //         ),
+                  //       ],
+                  //     );
+                  //   },
+                  // );
 
-// ///====>hospital seat managment 
-// ///
 
-                            //   showDialog(
-                            //   context: context,
-                            //   builder: (BuildContext context) {
-                            //     return AlertDialog(
-                            //       title: const Text("Feature Not Available"),
-                            //       content: const Text(
-                            //           "This feature is not available at the moment."),
-                            //       actions: [
-                            //         TextButton(
-                            //           onPressed: () {
-                            //             Navigator.of(context)
-                            //                 .pop(); // Close the dialog
-                            //           },
-                            //           child: const Text("OK"),
-                            //         ),
-                            //       ],
-                            //     );
-                            //   },
-                            // );
+
 

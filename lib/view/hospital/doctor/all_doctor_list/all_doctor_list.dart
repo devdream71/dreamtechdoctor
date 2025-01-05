@@ -5,6 +5,7 @@ import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/controlle
 import 'package:dream_tech_doctor/view/hospital/doctor/doctor_create/hospital_doctor_create.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/doctor_details_view/doctor_details_view.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/doctor_update/doctor_update.dart';
+import 'package:dream_tech_doctor/view/hospital/hospital_search_doctor/hospital_search_doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,6 +34,29 @@ class DoctorManagementScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              children: [
+                const Text("Doctor Search"),
+                const SizedBox(
+                  width: 10,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(16)),
+                      ),
+                      builder: (context) => const HospitalSearchDoctor(),
+                    );
+                  },
+                ),
+              ],
+            ),
+
             //const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -158,12 +182,11 @@ class DoctorManagementScreen extends StatelessWidget {
                           child: Card(
                             margin: const EdgeInsets.symmetric(vertical: 8),
                             child: ListTile(
-                              leading: 
-                              CircleAvatar(
+                              leading: CircleAvatar(
                                 backgroundImage:
                                     NetworkImage(doctor.doctorImage),
                               ),
-                                                        title: Text(doctor.doctorName),
+                              title: Text(doctor.doctorName),
                               subtitle: Text(doctor.departmentCategory),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -173,8 +196,9 @@ class DoctorManagementScreen extends StatelessWidget {
                                       icon: const Icon(Icons.edit,
                                           color: Colors.blue),
                                       onPressed: () {
-                                        ///doctor update 
-                                        Get.to(const HospitalDoctorUpdate(), arguments: {'doctorId': doctor.id});
+                                        ///doctor update
+                                        Get.to(const HospitalDoctorUpdate(),
+                                            arguments: {'doctorId': doctor.id});
                                       },
                                     ),
                                   ),

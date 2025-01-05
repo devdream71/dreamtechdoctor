@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/all_doctor_list.dart';
+import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/controller_all_doctor_list.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/doctor_create/model_doctor_create.dart';
+import 'package:dream_tech_doctor/view/hospital/doctor/doctor_update/model_doctor_update.dart';
 import 'package:dream_tech_doctor/view/hospital/hospital_bottom_nav.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -79,8 +83,6 @@ class DoctorController extends GetxController {
     }
   }
 
- 
-
   Future<void> updateDoctor({
     required String regNum,
     required String doctorName,
@@ -143,12 +145,21 @@ class DoctorController extends GetxController {
 
       if (response.statusCode == 200) {
         final result = json.decode(responseData);
-        final responseModel = DoctorResponse.fromJson(result);
-        Get.snackbar('Success', responseModel.message);
+        final responseModel = UpdateDoctorResponse.fromJson(result);
+        Get.snackbar('Success', responseModel.message,
+            backgroundColor: Colors.green, colorText: Colors.white);
+
+        final AllDoctorGetController doctorController =
+            Get.find<AllDoctorGetController>();
+
+        // Fetch the doctors when the screen is built
+        doctorController.fetchDoctors();
+
+        Get.offAll(DoctorManagementScreen());
         print(responseModel.message);
       } else {
         Get.snackbar('Error', 'Failed to update doctor. Please try again.');
-        print(responseData);
+        debugPrint(responseData);
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
