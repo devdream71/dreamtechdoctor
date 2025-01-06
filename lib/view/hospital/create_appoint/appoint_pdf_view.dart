@@ -83,7 +83,7 @@ class AppointPdfView extends StatelessWidget {
               ),
               const Text("Department of Child Surgery"),
               const Text("Dhka Medical College"),
-
+              //patient
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(

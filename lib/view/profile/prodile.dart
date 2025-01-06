@@ -4,6 +4,8 @@ import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_log
 import 'package:dream_tech_doctor/view/hospital/hospital_bottom_nav.dart';
 import 'package:dream_tech_doctor/view/prescription/prescription_create.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
@@ -36,20 +38,24 @@ class Profile extends StatelessWidget {
                         await SharedPreferences.getInstance();
                     String? token = prefs.getString('access_token');
 
+
+
                     if (token != null && token.isNotEmpty) {
                       // Token exists, navigate to the HospitalBottomNav page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HospitalBottomNav()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const HospitalBottomNav()),
+                      // );
+                      Get.offAll(const HospitalBottomNav());
                     } else {
                       // Token doesn't exist, navigate to the HospitalLoginPage
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HospitalLoginPage()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => HospitalLoginPage()),
+                      // );
+                      Get.offAll(HospitalLoginPage());
                     }
 
                     // Navigator.push(
@@ -159,7 +165,7 @@ class Profile extends StatelessWidget {
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                        MaterialPageRoute(builder: (context) => const LoginPage()));
                   },
                 ),
               ),

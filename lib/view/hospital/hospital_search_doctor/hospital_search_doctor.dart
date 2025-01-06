@@ -37,7 +37,7 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
 
   List<String> _selectedSpecialists = [];
 
-   final List<String> _genderOptions = [
+  final List<String> _genderOptions = [
     "Male",
     "Female",
   ];
@@ -48,11 +48,11 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
     "0 to 1 Years Exp",
     "1 to 2 Years Exp",
     "2 to 3 Years Exp",
-    "4 to 5 Years Exp", 
+    "4 to 5 Years Exp",
     "5 Years above",
     "10 Years above",
     "15 Years above",
-    ];
+  ];
 
   String? _selectedExp;
 
@@ -60,24 +60,23 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
     "Barisal ",
     "Chittagong",
     "Dhaka",
-    "Khulna", 
+    "Khulna",
     "Mymensingh",
     "Rajshahi",
     "Sylhet",
     "Sylhet",
     "Rangpur",
-    ];
+  ];
 
   String? _selecteddivision;
 
-   final List<String> _hospitalOptions = [
+  final List<String> _hospitalOptions = [
     "Hospital 1",
     "Hospital 2",
     "Hospital 3",
-    ];
+  ];
 
   String? _selectedHospital;
-
 
   @override
   Widget build(BuildContext context) {
@@ -95,18 +94,11 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
               ),
             ),
             const SizedBox(height: 16),
-            // CustomDropdown(
-            //   labelText: "Symptoms",
-            //   isRequired: true,
-            //   items: _symptomsOptions,
-            //   selectedItem: _selectedSymtom,
-            //   onChanged: (value) {
-            //     setState(() {
-            //       _selectedSymtom = value;
-            //     });
-            //   },
-            // ),
+            
             const Text("Symptoms"),
+            const SizedBox(
+              height: 5,
+            ),
             DropdownButtonFormField<String>(
               decoration: const InputDecoration(
                 labelText: "Symptoms",
@@ -133,7 +125,12 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
               children: _selectedSymptoms.map((symptom) {
                 return Chip(
                   label: Text(symptom),
-                  deleteIcon: const CircleAvatar(child: Icon(Icons.close, color: Colors.red, size: 15,)),
+                  deleteIcon: const CircleAvatar(
+                      child: Icon(
+                    Icons.close,
+                    color: Colors.red,
+                    size: 15,
+                  )),
                   onDeleted: () {
                     setState(() {
                       _selectedSymptoms.remove(symptom);
@@ -143,18 +140,11 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
               }).toList(),
             ),
             const SizedBox(height: 8),
-            // CustomDropdown(
-            //   labelText: "Specialist",
-            //   isRequired: true,
-            //   items: _specialistOptions,
-            //   selectedItem: _selectedSpecialist,
-            //   onChanged: (value) {
-            //     setState(() {
-            //       _selectedSpecialist = value;
-            //     });
-            //   },
-            // ),
+            
             const Text("Specialist"),
+            const SizedBox(
+              height: 5,
+            ),
             DropdownButtonFormField<String>(
               decoration: const InputDecoration(
                 labelText: "Specialist",
@@ -167,7 +157,8 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
                 );
               }).toList(),
               onChanged: (String? selected) {
-                if (selected != null && !_selectedSpecialists.contains(selected)) {
+                if (selected != null &&
+                    !_selectedSpecialists.contains(selected)) {
                   setState(() {
                     _selectedSpecialists.add(selected);
                   });
@@ -181,7 +172,12 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
               children: _selectedSpecialists.map((specialist) {
                 return Chip(
                   label: Text(specialist),
-                  deleteIcon: const CircleAvatar(child: Icon(Icons.close, color: Colors.red, size: 15,)),
+                  deleteIcon: const CircleAvatar(
+                      child: Icon(
+                    Icons.close,
+                    color: Colors.red,
+                    size: 15,
+                  )),
                   onDeleted: () {
                     setState(() {
                       _selectedSpecialists.remove(specialist);
@@ -190,7 +186,8 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
                 );
               }).toList(),
             ),
-             const SizedBox(height: 8),
+
+            const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
@@ -292,9 +289,7 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
                 onPressed: () {
                   // Add your search logic here
                   Navigator.pop(context);
-                   print("Selected Symptoms: $_selectedSymptoms");
-
-                  
+                  debugPrint("Selected Symptoms: $_selectedSymptoms");
                 },
                 child: const Text(
                   'Doctor Search',
@@ -309,72 +304,3 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
     );
   }
 }
-
-
-
-// import 'package:flutter/material.dart';
-
-// class HospitalSearchDoctor extends StatefulWidget {
-//   const HospitalSearchDoctor({super.key});
-
-//   @override
-//   State<HospitalSearchDoctor> createState() => _HospitalSearchDoctorState();
-// }
-
-// class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
-//   final List<String> _symptomsOptions = [
-//     "Symptom 1",
-//     "Symptom 2",
-//     "Symptom 3",
-//     "Symptom 4",
-//   ];
-
-//   // List to hold multiple selected symptoms
-//   List<String> _selectedSymptoms = [];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-//       child: SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             const SizedBox(height: 16),
-//             const Center(
-//               child: Text(
-//                 'Doctor',
-//                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-//               ),
-//             ),
-//             const SizedBox(height: 16),
-//             // Multi-select dropdown for symptoms
-            
-//             const SizedBox(height: 16),
-//             SizedBox(
-//               width: double.infinity,
-//               height: 48,
-//               child: ElevatedButton(
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: Colors.blue,
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(12),
-//                   ),
-//                 ),
-//                 onPressed: () {
-//                   // Logic for handling selected symptoms
-                 
-//                 },
-//                 child: const Text(
-//                   'Doctor Search',
-//                   style: TextStyle(color: Colors.white, fontSize: 16),
-//                 ),
-//               ),
-//             ),
-//             const SizedBox(height: 16),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

@@ -6,8 +6,15 @@ import 'package:dream_tech_doctor/view/hospital/create_appoint/widget/free.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AppointmentPage extends StatelessWidget {
+class AppointmentPage extends StatefulWidget {
   const AppointmentPage({super.key});
+
+  @override
+  State<AppointmentPage> createState() => _AppointmentPageState();
+}
+
+class _AppointmentPageState extends State<AppointmentPage> {
+  String? _selectedPayment;
 
   @override
   Widget build(BuildContext context) {
@@ -208,32 +215,64 @@ class AppointmentPage extends StatelessWidget {
                             onChanged: (value) {},
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: DropdownButtonFormField<String>(
-                            decoration: const InputDecoration(
-                              labelText: 'Payment',
-                              border: OutlineInputBorder(),
-                            ),
-                            items: const [
-                              DropdownMenuItem(
-                                value: 'Unpaid',
-                                child: Text('Unpaid'),
-                              ),
-                              DropdownMenuItem(
-                                value: 'Paid',
-                                child: Text('Paid'),
-                              ),
-                            ],
-                            onChanged: (value) {},
-                          ),
-                        ),
+                        
+
+                       
                       ],
                     ),
+
+                    const SizedBox(
+                      height: 5,
+                    ),
+
+                    DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        labelText: 'Payment',
+                        border: OutlineInputBorder(),
+                      ),
+                      items: const [
+                        DropdownMenuItem(
+                          value: 'Unpaid',
+                          child: Text('Unpaid'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Paid',
+                          child: Text('Paid'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Discount',
+                          child: Text('Discount'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Free',
+                          child: Text('Free'),
+                        ),
+                      ],
+                      value: _selectedPayment,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedPayment = value;
+                        });
+                      },
+                    ),
                     const SizedBox(height: 10),
-                    const DiscountForm(),
-                    const SizedBox(height: 10),
-                    const FreeForm(),
+                    if (_selectedPayment == 'Discount') ...[
+                      const DiscountForm(),
+                      const SizedBox(height: 10),
+                    ],
+                    if (_selectedPayment == 'Free') ...[
+                      const FreeForm(),
+                      const SizedBox(height: 10),
+                    ],
+
+                    if(_selectedPayment =="Paid") ...[
+                      const Text("Payment: Paid")
+                    ],
+
+                    if(_selectedPayment =="Unpaid") ...[
+                      const Text("Payment: unPaid")
+                    ],
+                    
                     const SizedBox(height: 10),
                     const TextField(
                       decoration: InputDecoration(
@@ -255,10 +294,10 @@ class AppointmentPage extends StatelessWidget {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              Colors.blue, // Change to your desired color
+                              Colors.blue, 
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                5), // Rounded border with radius 5
+                                5), 
                           ),
                         ),
                         onPressed: () {
@@ -271,7 +310,6 @@ class AppointmentPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    
                   ],
                 ),
               ),

@@ -2,7 +2,10 @@ import 'package:dream_tech_doctor/view/bottom_nav.dart';
 import 'package:dream_tech_doctor/view/hospital/create_appoint/create_appoint.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/all_doctor_list.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/doctor_create/hospital_doctor_create.dart';
+import 'package:dream_tech_doctor/view/hospital/hospital_view_appoint/hospital_view_apoint.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class HospitalSetting extends StatelessWidget {
   const HospitalSetting({super.key});
@@ -61,6 +64,17 @@ class HospitalSetting extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const AppointmentPage()));
+                  },
+                ),
+              ),
+
+              Card(
+                child: ListTile(
+                  title: const Text("View Appoint"),
+                  leading: const Icon(Icons.visibility),
+                  trailing: const Icon(Icons.arrow_forward),
+                  onTap: () {
+                    Get.to(HospitalViewAapoint());
                   },
                 ),
               ),

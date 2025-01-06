@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class DoctorDetailScreen extends StatelessWidget {
   final int doctorId;
 
-  DoctorDetailScreen({required this.doctorId});
+  const DoctorDetailScreen({super.key, required this.doctorId});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class DoctorDetailScreen extends StatelessWidget {
                   Text('Payment Type: ${doctor.paymentType}',
                       style: const TextStyle(fontSize: 16)),
 
-                  const Text('Schedule:', style: const TextStyle(fontSize: 16)),
+                  const Text('Schedule:', style:   TextStyle(fontSize: 16)),
 
                   const SizedBox(
                     height: 5,
@@ -152,10 +152,10 @@ class DoctorDetailScreen extends StatelessWidget {
                       http.StreamedResponse response = await request.send();
 
                       if (response.statusCode == 201) {
-                        print(await response.stream.bytesToString());
+                        debugPrint(await response.stream.bytesToString());
                         doctorController.toggleDoctorStatus();
                       } else {
-                        print(response.reasonPhrase);
+                        debugPrint(response.reasonPhrase);
                       }
                        Navigator.of(context).pop();
                     },
@@ -208,10 +208,10 @@ class DoctorDetailScreen extends StatelessWidget {
                       http.StreamedResponse response = await request.send();
 
                       if (response.statusCode == 201) {
-                        print(await response.stream.bytesToString());
+                        debugPrint(await response.stream.bytesToString());
                         doctorController.toggleDoctorStatus();
                       } else {
-                        print(response.reasonPhrase);
+                        debugPrint(response.reasonPhrase);
                       }
                        Navigator.of(context).pop();
                     },
@@ -250,7 +250,7 @@ class DoctorDetailScreen extends StatelessWidget {
 class DoctorScheduleTable extends StatelessWidget {
   final String scheduleJson;
 
-  DoctorScheduleTable({required this.scheduleJson});
+  const DoctorScheduleTable({super.key, required this.scheduleJson});
 
   @override
   Widget build(BuildContext context) {
@@ -276,7 +276,7 @@ class DoctorScheduleTable extends StatelessWidget {
       children: [
         // Header row
         TableRow(
-          decoration: BoxDecoration(color: Colors.blue),
+          decoration: const BoxDecoration(color: Colors.blue),
           children: [
             _buildHeaderCell('Days'),
             _buildHeaderCell('Start Time'),
@@ -336,7 +336,7 @@ class DoctorScheduleTable extends StatelessWidget {
 class SymptomList extends StatelessWidget {
   final String symptomText;
 
-  SymptomList({required this.symptomText});
+  const SymptomList({super.key, required this.symptomText});
 
   @override
   Widget build(BuildContext context) {

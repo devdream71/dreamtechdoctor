@@ -38,6 +38,5 @@ class DoctorDetailsViewController extends GetxController {
     isDoctorActive.value = !isDoctorActive.value;
     // You can add logic to update the status in the database or API as needed
   }
-
   
 }
