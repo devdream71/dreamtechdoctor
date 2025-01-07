@@ -1,15 +1,13 @@
 import 'package:dream_tech_doctor/view/hospital/auth/forget_password/controller/forget_passord_otp_check.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/forget_password/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pinput/pinput.dart';
 
 
 
 
 class HospitalForgetPasswordOtp extends StatelessWidget {
-  const HospitalForgetPasswordOtp({Key? key}) : super(key: key);
+  const HospitalForgetPasswordOtp({super.key});
 
   @override
   Widget build(BuildContext context) {

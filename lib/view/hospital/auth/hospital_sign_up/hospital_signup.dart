@@ -3,14 +3,14 @@ import 'package:dream_tech_doctor/utils/images.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/ddu/division_controller.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/hospital_sign_up.controller.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/sign_up_otp.dart';
+
 import 'package:dream_tech_doctor/view/widgets/custom_dropdown.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_form_textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HospitalSignUpPage extends StatefulWidget {
   const HospitalSignUpPage({super.key});
@@ -20,11 +20,11 @@ class HospitalSignUpPage extends StatefulWidget {
 }
 
 class HospitalSignUpPageState extends State<HospitalSignUpPage> {
-  final List<String> _CountryOptions = [
+  final List<String> _countryOptions = [
     "Bangladesh",
   ];
 
-  final List<String> _DivisionOptions = [
+  final List<String> _divisionOptions = [
     "Barisal",
     "Chittagong",
     "Dhaka",
@@ -35,7 +35,7 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
     "Rangpur"
   ];
 
-  final List<String> _DistrictOptions = [
+  final List<String> _districtOptions = [
     "district 1 ",
     "district 2",
     "district 3",
@@ -236,7 +236,7 @@ class HospitalSignUpPageState extends State<HospitalSignUpPage> {
                           child: CustomDropdown(
                             labelText: "Country",
                             isRequired: true,
-                            items: _CountryOptions,
+                            items: _countryOptions,
                             selectedItem: _selectedCountry,
                             //placeholder: "Select your division",
                             onChanged: (value) {

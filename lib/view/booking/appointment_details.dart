@@ -1,10 +1,10 @@
 import 'package:dream_tech_doctor/utils/colors.dart';
 import 'package:dream_tech_doctor/utils/images.dart';
-import 'package:dream_tech_doctor/utils/urls.dart';
+// import 'package:dream_tech_doctor/utils/urls.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentDetailsScreen extends StatelessWidget {
-  const AppointmentDetailsScreen({Key? key}) : super(key: key);
+  const AppointmentDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
-            
+
             const SizedBox(height: 8),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,22 +165,23 @@ class AppointmentDetailsScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Feature Not Available"),
-            content: const Text("This feature is not available at the moment."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          );
-        },
-      );
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Feature Not Available"),
+                        content: const Text(
+                            "This feature is not available at the moment."),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Close the dialog
+                            },
+                            child: const Text("OK"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,

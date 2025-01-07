@@ -1,9 +1,9 @@
 import 'package:dream_tech_doctor/utils/colors.dart';
-import 'package:dream_tech_doctor/view/auth/signup.dart';
+// import 'package:dream_tech_doctor/view/auth/signup.dart';
 import 'package:dream_tech_doctor/view/booking/booking.dart';
 import 'package:dream_tech_doctor/view/explore/explore.dart';
 import 'package:dream_tech_doctor/view/prescription/prescription_view.dart';
-import 'package:dream_tech_doctor/view/explore/search_doctor.dart';
+// import 'package:dream_tech_doctor/view/explore/search_doctor.dart';
 import 'package:dream_tech_doctor/view/home/home.dart';
 import 'package:dream_tech_doctor/view/profile/prodile.dart';
 import 'package:flutter/material.dart';

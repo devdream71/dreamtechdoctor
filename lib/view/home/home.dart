@@ -1,3 +1,4 @@
+// import 'package:bd_address_two/widgets/division_dropdown.dart';
 import 'package:dream_tech_doctor/utils/images.dart';
 import 'package:dream_tech_doctor/view/explore/book_appointment_Screen.dart';
 import 'package:dream_tech_doctor/view/explore/doctor_details_page.dart';
@@ -9,6 +10,7 @@ import 'package:dream_tech_doctor/view/widgets/home_card.dart';
 import 'package:dream_tech_doctor/view/widgets/left_right_row.dart';
 import 'package:dream_tech_doctor/view/widgets/popup.dart';
 import 'package:flutter/material.dart';
+// import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -61,6 +63,7 @@ class _HomeState extends State<Home> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              // DivisionDropdown(useBangla: false,),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

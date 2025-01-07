@@ -21,7 +21,10 @@ class AppointmentSummaryScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
+                    cursorHeight: 14,
                     decoration: const InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                       labelText: 'Visit Date',
                       border: OutlineInputBorder(),
                     ),
@@ -30,7 +33,10 @@ class AppointmentSummaryScreen extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: TextFormField(
+                    cursorHeight: 14,
                     decoration: const InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                       labelText: 'Department/Category',
                       border: OutlineInputBorder(),
                     ),
@@ -41,6 +47,8 @@ class AppointmentSummaryScreen extends StatelessWidget {
             const SizedBox(height: 10),
             DropdownButtonFormField<String>(
               decoration: const InputDecoration(
+                isDense: true,
+                contentPadding: EdgeInsetsDirectional.symmetric(vertical: 4, horizontal: 8),
                 labelText: 'Doctor',
                 border: OutlineInputBorder(),
               ),

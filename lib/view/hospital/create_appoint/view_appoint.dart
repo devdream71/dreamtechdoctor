@@ -8,7 +8,7 @@ class PatientTableScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Patient Visit Details'),
+        title: const Text('Appoint View Details'),
         backgroundColor: Colors.white,
       ),
       body: Padding(
@@ -20,32 +20,56 @@ class PatientTableScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Visit Date',
-                      border: OutlineInputBorder(),
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Visit Date"),
+                      TextFormField(
+                        cursorHeight: 14,
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          //labelText: 'Visit Date',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Department/Category',
-                      border: OutlineInputBorder(),
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Department/Category"),
+                      TextFormField(
+                        cursorHeight: 14,
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          //labelText: 'Department/Category',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                
               ],
             ),
             const SizedBox(
               height: 10,
             ),
+
+            const Text("Doctor"),
             DropdownButtonFormField<String>(
               decoration: const InputDecoration(
-                labelText: 'Doctor',
+                //labelText: 'Doctor',
                 border: OutlineInputBorder(),
+                isDense: true,
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               ),
               items: const [
                 DropdownMenuItem(
@@ -59,7 +83,24 @@ class PatientTableScreen extends StatelessWidget {
               ],
               onChanged: (value) {},
             ),
+
             const SizedBox(height: 16),
+
+            const Text(
+              "12-02-2025",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const Text(
+              "Cardiologist",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const Text(
+              "Dr. Md. Jasim Uddin Nizami",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+
+            const SizedBox(height: 16),
+
             // Data Table
             Expanded(
               child: SingleChildScrollView(
@@ -70,7 +111,7 @@ class PatientTableScreen extends StatelessWidget {
                     //dataRowHeight: 25,
                     dataRowMaxHeight: 25,
                     dataRowMinHeight: 25,
-                    headingRowColor: MaterialStateProperty.all(Colors.blue),
+                    headingRowColor: WidgetStateProperty.all(Colors.blue),
                     headingTextStyle: const TextStyle(color: Colors.white),
                     columns: const [
                       DataColumn(label: Text('S.L No')),
@@ -102,11 +143,17 @@ class PatientTableScreen extends StatelessWidget {
                             Row(
                               children: [
                                 IconButton(
-                                  icon: const Icon(Icons.visibility, size: 14,),
+                                  icon: const Icon(
+                                    Icons.visibility,
+                                    size: 14,
+                                  ),
                                   onPressed: () {},
                                 ),
                                 IconButton(
-                                  icon: const Icon(Icons.edit, size: 14,),
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    size: 14,
+                                  ),
                                   onPressed: () {},
                                 ),
                               ],

@@ -1,4 +1,5 @@
 import 'package:dream_tech_doctor/view/bottom_nav.dart';
+import 'package:dream_tech_doctor/view/hospital/appoint_running/dailly_appoint_running.dart';
 import 'package:dream_tech_doctor/view/hospital/create_appoint/create_appoint.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/all_doctor_list/all_doctor_list.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/doctor_create/hospital_doctor_create.dart';
@@ -75,6 +76,17 @@ class HospitalSetting extends StatelessWidget {
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {
                     Get.to(HospitalViewAapoint());
+                  },
+                ),
+              ),
+
+              Card(
+                child: ListTile(
+                  title: const Text("Daily Appoint Running"),
+                  leading: const Icon(Icons.list_alt),
+                  trailing: const Icon(Icons.arrow_forward),
+                  onTap: () {
+                    Get.to(DaillyAppointRunning());
                   },
                 ),
               ),

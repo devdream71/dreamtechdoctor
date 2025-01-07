@@ -12,11 +12,10 @@ packages:
   bd_address_two:
     dependency: "direct main"
     description:
-      name: bd_address_two
-      sha256: "94181a71574a0b502b6d4de4529eefe4a61697e87b8d4e0b6b43caac11791569"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
+      path: "C:\\Users\\Joshim\\bd_address_two"
+      relative: false
+    source: path
+    version: "0.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -241,7 +240,7 @@ packages:
     source: hosted
     version: "0.15.5"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       sha256: b9c29a161230ee03d3ccf545097fccd9b87a5264228c5d348202e0f0c28f9010

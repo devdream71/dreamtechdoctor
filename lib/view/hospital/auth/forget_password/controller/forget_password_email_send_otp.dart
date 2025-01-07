@@ -1,6 +1,6 @@
 import 'package:dream_tech_doctor/view/hospital/auth/forget_password/hospital_forget_password_otp.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/forget_password/model/forget_password_email_model.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/forget_password/reset_password.dart';
+// import 'package:dream_tech_doctor/view/hospital/auth/forget_password/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -29,22 +29,22 @@ class ForgetPasswordController extends GetxController {
 
          
 
-        print('OTP: ${otpResponse.otp}');
+        debugPrint('OTP: ${otpResponse.otp}');
 
          otp.value = otpResponse.otp.toString(); 
          this.adminEmail.value = adminEmail; 
-        Get.to(HospitalForgetPasswordOtp(), arguments: {'otp': otp.value, 'adminEmail': adminEmail},);
+        Get.to(const HospitalForgetPasswordOtp(), arguments: {'otp': otp.value, 'adminEmail': adminEmail},);
         Get.snackbar('Success', otpResponse.message,
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.green,
             colorText: Colors.white);
       } else {
         errorMessage.value = 'Failed to send OTP. Please try again.';
-        print('Error: ${response.statusCode}');
+        debugPrint('Error: ${response.statusCode}');
       }
     } catch (error) {
       errorMessage.value = 'An error occurred: $error';
-      print('Error: $error');
+      debugPrint('Error: $error');
     } finally {
       isLoading.value = false;
     }

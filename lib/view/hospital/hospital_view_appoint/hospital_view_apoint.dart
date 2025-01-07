@@ -1,14 +1,9 @@
-
-
-
-
 import 'package:dream_tech_doctor/view/hospital/hospital_view_appoint/hospital_view_appoint_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class HospitalViewAapoint extends StatelessWidget {
-    final List<Map<String, String>> appointments = [
+  final List<Map<String, String>> appointments = [
     {
       'department': 'Cardiology',
       'doctor': 'Dr. Smith',
@@ -16,7 +11,7 @@ class HospitalViewAapoint extends StatelessWidget {
       'visitDate': '12/08/2028',
       'slNo': '1',
       'appointType': 'Online',
-      'status': 'Pending', // Status for the button
+      'status': 'Pending',
     },
     {
       'department': 'Dermatology',
@@ -25,7 +20,7 @@ class HospitalViewAapoint extends StatelessWidget {
       'visitDate': '12/08/2028',
       'slNo': '2',
       'appointType': 'In-person',
-      'status': 'Accepted', // Status for the button
+      'status': 'Accepted',  
     },
     {
       'department': 'Neurology',
@@ -34,7 +29,7 @@ class HospitalViewAapoint extends StatelessWidget {
       'visitDate': '12/09/2028',
       'slNo': '3',
       'appointType': 'Online',
-      'status': 'Cancelled', // Status for the button
+      'status': 'Cancelled',  
     },
   ];
 
@@ -62,8 +57,8 @@ class HospitalViewAapoint extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 12, horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.blue, // Background color of the button
-                      borderRadius: BorderRadius.circular(8), // Rounded corners
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
@@ -75,7 +70,7 @@ class HospitalViewAapoint extends StatelessWidget {
                     child: const Text(
                       'Appoint View',
                       style: TextStyle(
-                        color: Colors.white, // Text color
+                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -90,8 +85,8 @@ class HospitalViewAapoint extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 12, horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.green, // Background color of the button
-                      borderRadius: BorderRadius.circular(8), // Rounded corners
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
@@ -105,7 +100,7 @@ class HospitalViewAapoint extends StatelessWidget {
                         Text(
                           '102',
                           style: TextStyle(
-                            color: Colors.white, // Text color
+                            color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -113,7 +108,7 @@ class HospitalViewAapoint extends StatelessWidget {
                         Text(
                           ' Appoint',
                           style: TextStyle(
-                            color: Colors.white, // Text color
+                            color: Colors.white,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -130,8 +125,8 @@ class HospitalViewAapoint extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 12, horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.blue, // Background color of the button
-                      borderRadius: BorderRadius.circular(8), // Rounded corners
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
@@ -143,7 +138,7 @@ class HospitalViewAapoint extends StatelessWidget {
                     child: const Text(
                       'New Appoint',
                       style: TextStyle(
-                        color: Colors.white, // Text color
+                        color: Colors.white, 
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -161,28 +156,44 @@ class HospitalViewAapoint extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      labelText: 'Department/Category',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: ['Cardiology', 'Dermatology']
-                        .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                        .toList(),
-                    onChanged: (value) {},
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Department/Category'),
+                      DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          labelText: 'Department/Category',
+                          border: OutlineInputBorder(),
+                        ),
+                        items: ['Cardiology', 'Dermatology']
+                            .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                            .toList(),
+                        onChanged: (value) {},
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      labelText: 'Doctor',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: ['Dr. Smith', 'Dr. Jane']
-                        .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                        .toList(),
-                    onChanged: (value) {},
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Doctor"),
+                      DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          labelText: 'Doctor',
+                          border: OutlineInputBorder(),
+                        ),
+                        items: ['Dr. Smith', 'Dr. Jane']
+                            .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                            .toList(),
+                        onChanged: (value) {},
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -204,16 +215,18 @@ class HospitalViewAapoint extends StatelessWidget {
               itemBuilder: (context, index) {
                 final appointment = appointments[index];
                 return InkWell(
-                  onTap: (){
+                  onTap: () {
                     Get.to(HospitalViewAapointDetails());
                   },
                   child: Card(
-                    
                     margin: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 4.0),
                     child: ListTile(
                       leading: CircleAvatar(
-                        child: Text(appointment['slNo']!, style: const TextStyle(fontSize: 12),),
+                        child: Text(
+                          appointment['slNo']!,
+                          style: const TextStyle(fontSize: 12),
+                        ),
                       ),
                       title: Text(
                         'Patient: ${appointment['patient']} (${appointment['appointType']})',
@@ -222,17 +235,29 @@ class HospitalViewAapoint extends StatelessWidget {
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Doctor: ${appointment['doctor']}', style: const TextStyle(fontSize: 12), ),
                           Text(
-                              'Department/Category: ${appointment['department']}', style: const TextStyle(fontSize: 12),),
-                          Text('Visit Date: ${appointment['visitDate']}', style: const TextStyle(fontSize: 12),),
-                          Text("Appoint No. : ${appointment['slNo']!}", style: const TextStyle(fontSize: 12),),
-                          Text("Appoint Type: ${appointment['appointType']}", style: const TextStyle(fontSize: 12),),
+                            'Doctor: ${appointment['doctor']}',
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          Text(
+                            'Department/Category: ${appointment['department']}',
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          Text(
+                            'Visit Date: ${appointment['visitDate']}',
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          Text(
+                            "Appoint No. : ${appointment['slNo']!}",
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          Text(
+                            "Appoint Type: ${appointment['appointType']}",
+                            style: const TextStyle(fontSize: 12),
+                          ),
                         ],
                       ),
-                  
-                      trailing: 
-                      ElevatedButton(
+                      trailing: ElevatedButton(
                         onPressed: () {
                           // Handle button press for appointment status
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -243,11 +268,14 @@ class HospitalViewAapoint extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: _getStatusColor(appointment['status']!),
+                          backgroundColor:
+                              _getStatusColor(appointment['status']!),
                         ),
-                        child: Text(appointment['status']!, style: const TextStyle(color: Colors.white),),
+                        child: Text(
+                          appointment['status']!,
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
-                      
                     ),
                   ),
                 );
@@ -271,5 +299,4 @@ class HospitalViewAapoint extends StatelessWidget {
         return Colors.grey;
     }
   }
-
 }

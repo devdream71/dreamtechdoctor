@@ -1,25 +1,19 @@
 import 'package:dream_tech_doctor/view/hospital/auth/forget_password/controller/forget_password_email_send_otp.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/forget_password/hospital_forget_password_otp.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-
-import 'package:dream_tech_doctor/view/hospital/auth/forget_password/controller/forget_password_email_send_otp.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/hospital_login.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/forget_password/hospital_forget_password_otp.dart';
+// import 'package:dream_tech_doctor/view/hospital/auth/forget_password/hospital_forget_password_otp.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HospitalForgetPasswordPage extends StatefulWidget {
+  const HospitalForgetPasswordPage({super.key});
+
   @override
-  _HospitalForgetPasswordPageState createState() =>
-      _HospitalForgetPasswordPageState();
+  HospitalForgetPasswordPageState createState() =>
+      HospitalForgetPasswordPageState();
 }
 
-class _HospitalForgetPasswordPageState extends State<HospitalForgetPasswordPage> {
+class HospitalForgetPasswordPageState extends State<HospitalForgetPasswordPage> {
   final TextEditingController emailController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ForgetPasswordController forgetPasswordController = Get.put(ForgetPasswordController());
@@ -87,7 +81,7 @@ class _HospitalForgetPasswordPageState extends State<HospitalForgetPasswordPage>
                 if (forgetPasswordController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                return Spacer();
+                return const Spacer();
               }),
               SizedBox(
                 width: double.infinity,

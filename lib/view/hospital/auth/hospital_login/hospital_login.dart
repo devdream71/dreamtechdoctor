@@ -1,9 +1,7 @@
 import 'package:dream_tech_doctor/utils/images.dart';
-import 'package:dream_tech_doctor/view/auth/signup.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/forget_password/forget_password.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/login_controller.dart';
 import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/hospital_signup.dart';
-import 'package:dream_tech_doctor/view/hospital/hospital_bottom_nav.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_form_textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -223,25 +221,16 @@ import 'package:get/get.dart'; // Add Get package for controller
 
 
 
- 
 
-
-import 'package:dream_tech_doctor/utils/images.dart';
-import 'package:dream_tech_doctor/view/auth/signup.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/forget_password/forget_password.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_login/login_controller.dart';
-import 'package:dream_tech_doctor/view/hospital/auth/hospital_sign_up/hospital_signup.dart';
-import 'package:dream_tech_doctor/view/widgets/custom_form_textfield.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class HospitalLoginPage extends StatefulWidget {
+  const HospitalLoginPage({super.key});
+
   @override
-  _HospitalLoginPageState createState() => _HospitalLoginPageState();
+  HospitalLoginPageState createState() => HospitalLoginPageState();
 }
 
-class _HospitalLoginPageState extends State<HospitalLoginPage> {
+class HospitalLoginPageState extends State<HospitalLoginPage> {
   bool _isPasswordHidden = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -347,7 +336,7 @@ class _HospitalLoginPageState extends State<HospitalLoginPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HospitalForgetPasswordPage(),
+                      builder: (context) => const HospitalForgetPasswordPage(),
                     ),
                   );
                 },
@@ -416,7 +405,7 @@ class _HospitalLoginPageState extends State<HospitalLoginPage> {
                 );
               }),
 
-              SizedBox(height: 8,),
+              const SizedBox(height: 8,),
               Obx(() {
                 if (loginController.loginError.isNotEmpty) {
                   return Center(

@@ -138,7 +138,10 @@ class HospitalViewAapointDetails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: DropdownButtonFormField<String>(
+                  
                   decoration: const InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     labelText: 'Visit Date',
                     border: OutlineInputBorder(),
                   ),
@@ -195,23 +198,47 @@ class HospitalViewAapointDetails extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
-              const SizedBox(height: 10),
+
+              // const Align(
+              //   alignment: Alignment.center,
+              //   child: Text(
+              //     "Appoint  ID: 56",
+              //     style: TextStyle(
+              //         color: Colors.black, fontWeight: FontWeight.w600),
+              //   ),
+              // ),
               const Align(
                 alignment: Alignment.center,
-                child: Text(
-                  "Appoint  ID: 56",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w600),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(12)), // Rounded corners
+                  ),
+                  elevation: 4, // Adds shadow to the card
+                  margin: EdgeInsets.symmetric(
+                      vertical: 10), // Space around the card
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
+                    child: Text(
+                      "Appoint ID: 56",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14, // Increased font size for readability
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
                   width: 300,
-                  margin: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.all(8),
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(8)),
                   child: const Text(
                     "Patient",
@@ -235,7 +262,7 @@ class HospitalViewAapointDetails extends StatelessWidget {
                   margin: const EdgeInsets.all(16),
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(8)),
                   child: const Text(
                     "Appoint details",
@@ -257,7 +284,7 @@ class HospitalViewAapointDetails extends StatelessWidget {
                   margin: const EdgeInsets.all(16),
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(8)),
                   child: const Text(
                     "Appointment Doctor",
@@ -295,7 +322,6 @@ class HospitalViewAapointDetails extends StatelessWidget {
                     },
                     child: Expanded(
                       child: Container(
-                        
                         padding: const EdgeInsets.symmetric(
                             vertical: 12, horizontal: 20),
                         decoration: BoxDecoration(
@@ -311,7 +337,7 @@ class HospitalViewAapointDetails extends StatelessWidget {
                           ],
                         ),
                         child: const Center(
-                          child:  Text(
+                          child: Text(
                             'Edit',
                             style: TextStyle(
                               color: Colors.white, // Text color
@@ -323,14 +349,15 @@ class HospitalViewAapointDetails extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 2,),
+                  const SizedBox(
+                    width: 2,
+                  ),
                   GestureDetector(
                     onTap: () {
                       // Handle tap event
                     },
                     child: Expanded(
                       child: Container(
-                       
                         padding: const EdgeInsets.symmetric(
                             vertical: 12, horizontal: 20),
                         decoration: BoxDecoration(
@@ -346,7 +373,7 @@ class HospitalViewAapointDetails extends StatelessWidget {
                           ],
                         ),
                         child: const Center(
-                          child:  Text(
+                          child: Text(
                             'Appoint Decline',
                             style: TextStyle(
                               color: Colors.white, // Text color
@@ -358,14 +385,15 @@ class HospitalViewAapointDetails extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 2,),
+                  const SizedBox(
+                    width: 2,
+                  ),
                   GestureDetector(
                     onTap: () {
                       // Handle tap event
                     },
                     child: Expanded(
                       child: Container(
-                       
                         padding: const EdgeInsets.symmetric(
                             vertical: 12, horizontal: 20),
                         decoration: BoxDecoration(
@@ -381,7 +409,7 @@ class HospitalViewAapointDetails extends StatelessWidget {
                           ],
                         ),
                         child: const Center(
-                          child:  Text(
+                          child: Text(
                             'Appoint Accept',
                             style: TextStyle(
                               color: Colors.white, // Text color
@@ -392,7 +420,7 @@ class HospitalViewAapointDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(

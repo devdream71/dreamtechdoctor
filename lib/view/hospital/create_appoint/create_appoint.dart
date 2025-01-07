@@ -16,6 +16,63 @@ class AppointmentPage extends StatefulWidget {
 class _AppointmentPageState extends State<AppointmentPage> {
   String? _selectedPayment;
 
+  void _showPaymentModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (_selectedPayment == 'Discount') ...[
+                const DiscountForm(),
+              ],
+              if (_selectedPayment == 'Free') ...[
+                const FreeForm(),
+              ],
+              // if (_selectedPayment == 'Paid') ...[
+              //   const Text(
+              //     "Payment: Paid",
+              //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              //   ),
+              // ],
+              // if (_selectedPayment == 'Unpaid') ...[
+              //   const Text(
+              //     "Payment: Unpaid",
+              //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              //   ),
+              // ],
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  onPressed: () {
+                    // Button action here
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,7 +197,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       children: [
                         const Expanded(
                           child: TextField(
+                            cursorHeight: 14,
                             decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                               labelText: 'Patient Mobile/Mail',
                               border: OutlineInputBorder(),
                             ),
@@ -155,7 +215,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     ),
                     const SizedBox(height: 10),
                     const TextField(
+                      cursorHeight: 14,
                       decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         labelText: 'Patient Name',
                         border: OutlineInputBorder(),
                       ),
@@ -165,7 +228,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       children: [
                         Expanded(
                           child: DropdownButtonFormField<String>(
+
                             decoration: const InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                               labelText: 'Gender',
                               border: OutlineInputBorder(),
                             ),
@@ -186,6 +252,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         const Expanded(
                           child: TextField(
                             decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                               labelText: 'Age',
                               border: OutlineInputBorder(),
                             ),
@@ -199,6 +267,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         Expanded(
                           child: DropdownButtonFormField<String>(
                             decoration: const InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                               labelText: 'Visit Time',
                               border: OutlineInputBorder(),
                             ),
@@ -215,9 +285,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             onChanged: (value) {},
                           ),
                         ),
-                        
-
-                       
                       ],
                     ),
 
@@ -227,6 +294,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
                     DropdownButtonFormField<String>(
                       decoration: const InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(vertical: 4,horizontal: 8),
                         labelText: 'Payment',
                         border: OutlineInputBorder(),
                       ),
@@ -252,30 +321,69 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       onChanged: (value) {
                         setState(() {
                           _selectedPayment = value;
+                          if (_selectedPayment != null) {
+                            _showPaymentModal(
+                                context); 
+                          }
                         });
                       },
                     ),
+
+                    // DropdownButtonFormField<String>(
+                    //   decoration: const InputDecoration(
+                    //     labelText: 'Payment',
+                    //     border: OutlineInputBorder(),
+                    //   ),
+                    //   items: const [
+                    //     DropdownMenuItem(
+                    //       value: 'Unpaid',
+                    //       child: Text('Unpaid'),
+                    //     ),
+                    //     DropdownMenuItem(
+                    //       value: 'Paid',
+                    //       child: Text('Paid'),
+                    //     ),
+                    //     DropdownMenuItem(
+                    //       value: 'Discount',
+                    //       child: Text('Discount'),
+                    //     ),
+                    //     DropdownMenuItem(
+                    //       value: 'Free',
+                    //       child: Text('Free'),
+                    //     ),
+                    //   ],
+                    //   value: _selectedPayment,
+                    //   onChanged: (value) {
+                    //     setState(() {
+                    //       _selectedPayment = value;
+                    //     });
+                    //   },
+                    // ),
                     const SizedBox(height: 10),
-                    if (_selectedPayment == 'Discount') ...[
-                      const DiscountForm(),
-                      const SizedBox(height: 10),
-                    ],
-                    if (_selectedPayment == 'Free') ...[
-                      const FreeForm(),
-                      const SizedBox(height: 10),
-                    ],
+                    // if (_selectedPayment == 'Discount') ...[
+                    //   const DiscountForm(),
+                    //   const SizedBox(height: 10),
+                    // ],
 
-                    if(_selectedPayment =="Paid") ...[
-                      const Text("Payment: Paid")
-                    ],
+                    // if (_selectedPayment == 'Free') ...[
+                    //   const FreeForm(),
+                    //   const SizedBox(height: 10),
+                    // ],
 
-                    if(_selectedPayment =="Unpaid") ...[
-                      const Text("Payment: unPaid")
-                    ],
-                    
+                    // if(_selectedPayment =="Paid") ...[
+                    //   const Text("Payment: Paid")
+                    // ],
+
+                    // if(_selectedPayment =="Unpaid") ...[
+                    //   const Text("Payment: unPaid")
+                    // ],
+
                     const SizedBox(height: 10),
                     const TextField(
+                      cursorHeight: 14,
                       decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                         labelText: 'Refarance',
                         border: OutlineInputBorder(),
                       ),
@@ -283,7 +391,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     const SizedBox(height: 10),
                     const TextField(
                       maxLines: 3,
+                      cursorHeight: 14,
                       decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                         labelText: 'Description',
                         border: OutlineInputBorder(),
                       ),
@@ -293,11 +404,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Colors.blue, 
+                          backgroundColor: Colors.blue,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                5), 
+                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
                         onPressed: () {
