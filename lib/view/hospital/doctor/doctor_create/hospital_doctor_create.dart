@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:dream_tech_doctor/utils/images.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/doctor_create/controller_doctor_create.dart';
+import 'package:dream_tech_doctor/view/hospital/doctor/doctor_create/doctor_create_specialist/controller_doctor_create_specialist.dart';
+import 'package:dream_tech_doctor/view/hospital/doctor/doctor_create/doctor_create_symptom.dart/controller_create_doctor_symptom.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/table_return.dart';
 import 'package:dream_tech_doctor/view/hospital/doctor/table_return_room.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_dropdown.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_form_textfield.dart';
+import 'package:dream_tech_doctor/view/widgets/lebel_with_asterisk.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +19,7 @@ class HospitalDoctorCreate extends StatefulWidget {
 
 class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
   final doctorController = Get.put(DoctorController());
+  final SymptomController symptomController = Get.put(SymptomController());
 
   final TextEditingController regController = TextEditingController();
   final TextEditingController docNameController = TextEditingController();
@@ -120,29 +124,59 @@ class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Hospital Doctor'),
+        title: const Text('Create Hospital Doctor'),
       ),
       body: Obx(
         () => doctorController.isLoading.value
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomDropdown(
-                      labelText: "Department/Category",
-                      isRequired: true,
-                      items: _DepCatOptions.isNotEmpty
-                          ? _DepCatOptions
-                          : [''], // Ensure list is not empty
-                      selectedItem: _selectedDepCat,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedDepCat = value;
-                        });
-                      },
-                    ),
+                    /////====>department
+
+                    Obx(() {
+                      if (symptomController.isLoading.value) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      final List<String> departmentOptions = symptomController
+                          .departments
+                          .map((department) => department.departmentCategory)
+                          .toList();
+
+                      String? selectedDepartment = departmentOptions.isNotEmpty
+                          ? departmentOptions.first
+                          : null;
+
+                      return DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          labelText: 'Department',
+                          border: OutlineInputBorder(),
+                          isDense: true,
+                        ),
+                        value: selectedDepartment,
+                        items: departmentOptions.map((String department) {
+                          return DropdownMenuItem<String>(
+                            value: department,
+                            child: Text(department),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          selectedDepartment = newValue!;
+                          print("Selected Department: $selectedDepartment");
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a department';
+                          }
+                          return null;
+                        },
+                      );
+                    }),
 
                     const SizedBox(
                       height: 8,
@@ -215,7 +249,6 @@ class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
                       ],
                     ),
 
-                     
                     CustomDropdown(
                       labelText: "Gender",
                       isRequired: true,
@@ -228,19 +261,61 @@ class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
                       },
                     ),
 
-                    CustomTextFormField(
-                      labelText: 'Experience',
-                      isRequired: true,
-                      hintText: 'Enter Experience',
-                      keyboardType: TextInputType.number,
-                      controller: expController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter established Year';
-                        }
-                        return null;
-                      },
+                    const SizedBox(
+                      height: 5,
                     ),
+                    const LabelWithAsterisk(
+                      labelText: "Experience",
+                      isRequired: true,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    ////===========>
+                    Obx(() {
+                      if (symptomController.isLoading.value) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      // Convert experiences to a list of string values
+                      final List<String> experienceOptions = symptomController
+                          .experiences
+                          .map((experience) => experience.experience)
+                          .toList();
+
+                      // Ensure there's at least one option available for the dropdown
+                      String? selectedExperience = experienceOptions.isNotEmpty
+                          ? experienceOptions.first
+                          : null;
+
+                      return DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          //labelText: 'Experience',
+                          border: OutlineInputBorder(),
+                          isDense: true,
+                        ),
+                        value: selectedExperience,
+                        items: experienceOptions.map((String experience) {
+                          return DropdownMenuItem<String>(
+                            value: experience,
+                            child: Text(experience),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          selectedExperience = newValue!;
+                          print("Selected Experience: $selectedExperience");
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select an experience';
+                          }
+                          return null;
+                        },
+                      );
+                    }),
+
                     CustomTextFormField(
                       labelText: 'Doctor Details',
                       isRequired: true,
@@ -256,34 +331,96 @@ class _HospitalDoctorCreateState extends State<HospitalDoctorCreate> {
                       },
                     ),
 
-                    CustomDropdown(
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    //Specialist
+                    const LabelWithAsterisk(
                       labelText: "Specialist",
                       isRequired: true,
-                      items: _SpecialistOptions.isNotEmpty
-                          ? _SpecialistOptions
-                          : [''], // Ensure list is not empty
-                      selectedItem: _selectedSpecialist,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedSpecialist = value;
-                        });
-                      },
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                     
+
+                    Obx(() {
+                      if (symptomController.isLoading.value) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      // Map specialists to a list of strings
+                      final List<String> specialistOptions = symptomController
+                          .specialists
+                          .map((specialist) => specialist.specialist)
+                          .toList();
+
+                      // Ensure `selectedItem` is not null by setting a default fallback value
+                      String selectedSpecialist = specialistOptions.isNotEmpty
+                          ? specialistOptions.first
+                          : 'No Specialists Available';
+
+                      return CustomDropdown(
+                        labelText: "Specialist",
+                        isRequired: true,
+                        items: specialistOptions.isNotEmpty
+                            ? specialistOptions
+                            : [
+                                'No Specialists Available'
+                              ], // Fallback item if list is empty
+                        selectedItem: selectedSpecialist,
+                        onChanged: (value) {
+                          print("Selected Specialist: $value");
+                        },
+                      );
+                    }),
+
+                   
+
+                    const SizedBox(
+                      height: 5,
                     ),
 
-                    CustomDropdown(
+                    // const Text("Symptom"),
+                    const LabelWithAsterisk(
                       labelText: "Symptom",
                       isRequired: true,
-                      items: _symtomOptions.isNotEmpty
-                          ? _symtomOptions
-                          : [''], // Ensure list is not empty
-                      selectedItem: _selectedsymtomOption,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedsymtomOption = value;
-                        });
-                      },
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    //symtom
+                    Obx(() {
+                      if (symptomController.isLoading.value) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
 
+                      return DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                          //labelText: "Symptom",
+                          border: OutlineInputBorder(),
+                        ),
+                        items: symptomController.symptoms.map((symptom) {
+                          return DropdownMenuItem<String>(
+                            value: symptom.symptom,
+                            child: Text(symptom.symptom),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          // Handle selection
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a symptom';
+                          }
+                          return null;
+                        },
+                      );
+                    }),
+                    
                     CustomTextFormField(
                       labelText: 'Doctor Phone Number',
                       isRequired: true,

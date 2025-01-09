@@ -5,6 +5,7 @@ import 'package:dream_tech_doctor/view/hospital/doctor/doctor_details_view/contr
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DoctorDetailScreen extends StatelessWidget {
   final int doctorId;
@@ -79,162 +80,196 @@ class DoctorDetailScreen extends StatelessWidget {
                       style: const TextStyle(fontSize: 16)),
                   Text('Specialist: ${doctor.specialist.join(", ")}',
                       style: const TextStyle(fontSize: 16)),
-                  // Text('Schedule: ${doctor.schedule}',
-                  //     style: const TextStyle(fontSize: 16)),
-                  // Text('Symptom: ${doctor.symptom}',
-                  //     style: const TextStyle(fontSize: 16)),
-                  SymptomList(symptomText: doctor.symptom),
+
+                  SymptomList(
+                    symptomTexts: doctor.symptoms.isNotEmpty
+                        ? doctor.symptoms
+                        : ['No symptoms available'],
+                  ),
+
                   const SizedBox(height: 20),
                   Text('Visit Fee: ${doctor.visitFee}',
                       style: const TextStyle(fontSize: 16)),
                   Text('Payment Type: ${doctor.paymentType}',
                       style: const TextStyle(fontSize: 16)),
 
-                  const Text('Schedule:', style:   TextStyle(fontSize: 16)),
+                  const Text('Schedule:', style: TextStyle(fontSize: 16)),
 
                   const SizedBox(
                     height: 5,
                   ),
-                  DoctorScheduleTable(scheduleJson: doctor.schedule),
-                  // You can add more details as needed
+                  // DoctorScheduleTable(scheduleJson: doctor.schedule),
+                  DoctorScheduleTable(
+                      scheduleJson: jsonEncode(doctor.schedule)),
 
                   const SizedBox(
                     height: 20,
                   ),
 
-                  
-
                   ////////////==============api
                   Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    // Active button (Visible only if doctor is inactive)
-    if (!doctorController.isDoctorActive.value)
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Confirmation'),
-                content: const Text('Are you sure you want to Deactivate the doctor?'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(), // Close the dialog
-                    child: const Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () async {
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Active button (Visible only if doctor is inactive)
+                      if (!doctorController.isDoctorActive.value)
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Confirmation'),
+                                  content: const Text(
+                                      'Are you sure you want to Deactivate the doctor?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.of(context)
+                                          .pop(), // Close the dialog
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        var doctorId = doctor.id;
+                                        // Close the dialog
+                                        // Call API to activate doctor
 
-                      var doctorId = doctor.id;
-                      // Close the dialog
-                      // Call API to activate doctor
-                      var headers = {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                      };
-                      var request = http.MultipartRequest(
-                        'POST',
-                        Uri.parse('https://doctorapp.com.softservice.site/api/auth/hospital-doctor/change-status'),
-                      );
-                      request.fields.addAll({
-                        'doctorId': '$doctorId',
-                        'status': '0' // Activate doctor
-                      });
-                      request.headers.addAll(headers);
+                                        SharedPreferences prefs =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        String? token =
+                                            prefs.getString('access_token');
 
-                      http.StreamedResponse response = await request.send();
+                                        var headers = {
+                                          'Accept': 'application/json',
+                                          'Content-Type': 'application/json',
+                                          'Authorization': 'Bearer $token',
+                                        };
 
-                      if (response.statusCode == 201) {
-                        debugPrint(await response.stream.bytesToString());
-                        doctorController.toggleDoctorStatus();
-                      } else {
-                        debugPrint(response.reasonPhrase);
-                      }
-                       Navigator.of(context).pop();
-                    },
-                    child: const Text('Deactive', style: TextStyle(color: Colors.red),),
-                  ),
-                ],
-              );
-            },
-          );
-        },
-        child: const Text(
-          'Active',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    const SizedBox(width: 10),
-    // Inactive button (Visible only if doctor is active)
-    if (doctorController.isDoctorActive.value)
-      ElevatedButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Confirmation'),
-                content: const Text('Are you sure you want to Activate the doctor?'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(), // Close the dialog
-                    child: const Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      // Close the dialog
-                      // Call API to deactivate doctor
-                      var headers = {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                      };
-                      var request = http.MultipartRequest(
-                        'POST',
-                        Uri.parse('https://doctorapp.com.softservice.site/api/auth/hospital-doctor/change-status'),
-                      );
-                      request.fields.addAll({
-                        'doctorId': '$doctorId',
-                        'status': '1' // Deactivate doctor
-                      });
-                      request.headers.addAll(headers);
+                                        var request = http.MultipartRequest(
+                                          'POST',
+                                          Uri.parse(
+                                              'https://doctorapp.com.softservice.site/api/auth/hospital-doctor/change-status'),
+                                        );
+                                        request.fields.addAll({
+                                          'doctorId': '$doctorId',
+                                          'status': '0' // Activate doctor
+                                        });
+                                        request.headers.addAll(headers);
 
-                      http.StreamedResponse response = await request.send();
+                                        http.StreamedResponse response =
+                                            await request.send();
 
-                      if (response.statusCode == 201) {
-                        debugPrint(await response.stream.bytesToString());
-                        doctorController.toggleDoctorStatus();
-                      } else {
-                        debugPrint(response.reasonPhrase);
-                      }
-                       Navigator.of(context).pop();
-                    },
-                    child: const Text('Active', style: TextStyle(color: Colors.green),),
-                  ),
-                ],
-              );
-            },
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-          backgroundColor: Colors.red,
-        ),
-        child: const Text(
-          'Inactive',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-  ],
-)
+                                        if (response.statusCode == 201) {
+                                          debugPrint(await response.stream
+                                              .bytesToString());
+                                          doctorController.toggleDoctorStatus();
+                                        } else {
+                                          debugPrint(response.reasonPhrase);
+                                        }
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text(
+                                        'Deactive',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: const Text(
+                            'Active',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      const SizedBox(width: 10),
+                      // Inactive button (Visible only if doctor is active)
+                      if (doctorController.isDoctorActive.value)
+                        ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Confirmation'),
+                                  content: const Text(
+                                      'Are you sure you want to Activate the doctor?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.of(context)
+                                          .pop(), // Close the dialog
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        // Close the dialog
+                                        // Call API to deactivate doctor
+
+                                        SharedPreferences prefs =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        String? token =
+                                            prefs.getString('access_token');
+
+                                        var headers = {
+                                          'Accept': 'application/json',
+                                          'Content-Type': 'application/json',
+                                          'Authorization': 'Bearer $token',
+                                        };
+
+                                        var request = http.MultipartRequest(
+                                          'POST',
+                                          Uri.parse(
+                                              'https://doctorapp.com.softservice.site/api/auth/hospital-doctor/change-status'),
+                                        );
+                                        request.fields.addAll({
+                                          'doctorId': '$doctorId',
+                                          'status': '1' // Deactivate doctor
+                                        });
+                                        request.headers.addAll(headers);
+
+                                        http.StreamedResponse response =
+                                            await request.send();
+
+                                        if (response.statusCode == 201) {
+                                          debugPrint(await response.stream
+                                              .bytesToString());
+                                          doctorController.toggleDoctorStatus();
+                                        } else {
+                                          debugPrint(response.reasonPhrase);
+                                        }
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text(
+                                        'Active',
+                                        style: TextStyle(color: Colors.green),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
+                          child: const Text(
+                            'Inactive',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -244,8 +279,6 @@ class DoctorDetailScreen extends StatelessWidget {
     );
   }
 }
-
- 
 
 class DoctorScheduleTable extends StatelessWidget {
   final String scheduleJson;
@@ -332,18 +365,13 @@ class DoctorScheduleTable extends StatelessWidget {
   }
 }
 
-
 class SymptomList extends StatelessWidget {
-  final String symptomText;
+  final List<String> symptomTexts;
 
-  const SymptomList({super.key, required this.symptomText});
+  const SymptomList({super.key, required this.symptomTexts});
 
   @override
   Widget build(BuildContext context) {
-    // Split the symptom text into a list of strings by periods (excluding empty strings)
-    final symptoms =
-        symptomText.split('.').where((s) => s.trim().isNotEmpty).toList();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -352,26 +380,28 @@ class SymptomList extends StatelessWidget {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
-        ...symptoms.map((symptom) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  '\u2022 ', // Bullet symbol
-                  style: TextStyle(fontSize: 16),
-                ),
-                Expanded(
-                  child: Text(
-                    symptom.trim(),
-                    style: const TextStyle(fontSize: 16),
+        ...symptomTexts.isNotEmpty
+            ? symptomTexts.map((symptom) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 4.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '\u2022 ', // Bullet symbol
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Expanded(
+                        child: Text(
+                          symptom.trim(),
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          );
-        }).toList(),
+                );
+              }).toList()
+            : [Text('No symptoms available')],
       ],
     );
   }

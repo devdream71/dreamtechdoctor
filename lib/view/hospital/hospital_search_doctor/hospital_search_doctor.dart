@@ -1,5 +1,9 @@
+import 'package:dream_tech_doctor/view/hospital/hospital_search_doctor/controller_search.dart';
+import 'package:dream_tech_doctor/view/hospital/hospital_search_doctor/search_model/model_search_specialist.dart';
+import 'package:dream_tech_doctor/view/hospital/hospital_search_doctor/search_model/model_search_symptoms.dart';
 import 'package:dream_tech_doctor/view/widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HospitalSearchDoctor extends StatefulWidget {
   const HospitalSearchDoctor({super.key});
@@ -9,6 +13,15 @@ class HospitalSearchDoctor extends StatefulWidget {
 }
 
 class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
+  final SearchNewController controller = Get.put(SearchNewController());
+  List<String> _selectedSymptoms = [];
+
+  List<String> _selectedSpecialists = [];
+
+  List<String> _selectedDepartments = [];
+
+  String? _selectedDepartment;
+
   final List<String> _DivisionOptions = [
     "Data 1",
     "Data 2",
@@ -16,26 +29,6 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
   ];
 
   String? _selectedDivision;
-
-  final List<String> _symptomsOptions = [
-    "symtom 1",
-    "symtom 2",
-    "symtom 3",
-  ];
-
-  // String? _selectedSymtom;
-
-  List<String> _selectedSymptoms = [];
-
-  final List<String> _specialistOptions = [
-    "Specialist 1",
-    "Specialist 2",
-    "Specialist 3",
-  ];
-
-  // String? _selectedSpecialist;
-
-  List<String> _selectedSpecialists = [];
 
   final List<String> _genderOptions = [
     "Male",
@@ -94,30 +87,49 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
+            ////====>symptom
             const Text("Symptoms"),
             const SizedBox(
               height: 5,
             ),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                labelText: "Symptoms",
-                border: OutlineInputBorder(),
-              ),
-              items: _symptomsOptions.map((String symptom) {
-                return DropdownMenuItem<String>(
-                  value: symptom,
-                  child: Text(symptom),
+
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (controller.symptoms.isEmpty) {
+                return const Center(
+                  child: Text("No symptoms available."),
                 );
-              }).toList(),
-              onChanged: (String? selected) {
-                if (selected != null && !_selectedSymptoms.contains(selected)) {
-                  setState(() {
-                    _selectedSymptoms.add(selected);
-                  });
-                }
-              },
-            ),
+              }
+
+              return DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  isDense: true,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  //labelText: "Symptoms",
+                  border: OutlineInputBorder(),
+                ),
+                items: controller.symptoms
+                    .map((SearchSymptom symptom) => DropdownMenuItem<String>(
+                          value: symptom.symptom,
+                          child: Text(symptom.symptom),
+                        ))
+                    .toList(),
+                onChanged: (String? selected) {
+                  if (selected != null &&
+                      !_selectedSymptoms.contains(selected)) {
+                    setState(() {
+                      _selectedSymptoms.add(selected);
+                    });
+                  }
+                },
+              );
+            }),
+
             const SizedBox(height: 8),
             Wrap(
               spacing: 8.0,
@@ -140,31 +152,50 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
               }).toList(),
             ),
             const SizedBox(height: 8),
-            
+
+            ////=====>specialist
             const Text("Specialist"),
             const SizedBox(
               height: 5,
             ),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                labelText: "Specialist",
-                border: OutlineInputBorder(),
-              ),
-              items: _specialistOptions.map((String specialist) {
-                return DropdownMenuItem<String>(
-                  value: specialist,
-                  child: Text(specialist),
+
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(child: SizedBox());
+              }
+
+              if (controller.specialists.isEmpty) {
+                return const Center(
+                  child: Text("No specialists available."),
                 );
-              }).toList(),
-              onChanged: (String? selected) {
-                if (selected != null &&
-                    !_selectedSpecialists.contains(selected)) {
-                  setState(() {
-                    _selectedSpecialists.add(selected);
-                  });
-                }
-              },
-            ),
+              }
+
+              return DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  isDense: true,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  //labelText: "Specialist",
+                  border: OutlineInputBorder(),
+                ),
+                items: controller.specialists
+                    .map((SearchSpecialist specialist) =>
+                        DropdownMenuItem<String>(
+                          value: specialist.specialist,
+                          child: Text(specialist.specialist),
+                        ))
+                    .toList(),
+                onChanged: (String? selected) {
+                  if (selected != null &&
+                      !_selectedSpecialists.contains(selected)) {
+                    setState(() {
+                      _selectedSpecialists.add(selected);
+                    });
+                  }
+                },
+              );
+            }),
+
             const SizedBox(height: 8),
             Wrap(
               spacing: 8.0,
@@ -181,6 +212,70 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
                   onDeleted: () {
                     setState(() {
                       _selectedSpecialists.remove(specialist);
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+
+            const SizedBox(
+              height: 5,
+            ),
+
+            /////=====>department
+            ///
+            const Text("Departments"),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(child: SizedBox());
+              }
+
+              if (controller.departments.isEmpty) {
+                return const Center(
+                  child: Text("No departments available."),
+                );
+              }
+
+              return DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  isDense: true,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  //labelText: "Department",
+                  border: OutlineInputBorder(),
+                ),
+                items: controller.departments
+                    .map((department) => DropdownMenuItem<String>(
+                          value: department.departmentCategory,
+                          child: Text(department.departmentCategory),
+                        ))
+                    .toList(),
+                onChanged: (String? selected) {
+                  setState(() {
+                    _selectedDepartment = selected;
+                  });
+                },
+                value: _selectedDepartment,
+              );
+            }),
+
+            const SizedBox(height: 8),
+
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 4.0,
+              children: _selectedDepartments.map((department) {
+                return Chip(
+                  label: Text(department),
+                  deleteIcon: const CircleAvatar(
+                      child: Icon(
+                    Icons.close,
+                    color: Colors.red,
+                    size: 15,
+                  )),
+                  onDeleted: () {
+                    setState(() {
+                      _selectedDepartments.remove(department);
                     });
                   },
                 );
@@ -204,19 +299,6 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: CustomDropdown(
-                    labelText: "Experience",
-                    isRequired: true,
-                    items: _expOptions,
-                    selectedItem: _selectedExp,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedExp = value;
-                      });
-                    },
-                  ),
-                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -264,17 +346,41 @@ class _HospitalSearchDoctorState extends State<HospitalSearchDoctor> {
               },
             ),
             const SizedBox(height: 8),
-            CustomDropdown(
-              labelText: "Hospital",
-              isRequired: true,
-              items: _hospitalOptions,
-              selectedItem: _selectedHospital,
-              onChanged: (value) {
-                setState(() {
-                  _selectedHospital = value;
-                });
-              },
-            ),
+
+            const Text("Hospitals"),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(child: SizedBox());
+              }
+
+              if (controller.hospitalData.value.hospitalNames.isEmpty) {
+                return const Center(
+                  child: Text("No hospitals available."),
+                );
+              }
+
+              return DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  isDense: true,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  border: OutlineInputBorder(),
+                ),
+                items: controller.hospitalData.value.hospitalNames
+                    .map((hospital) => DropdownMenuItem<String>(
+                          value: hospital,
+                          child: Text(hospital),
+                        ))
+                    .toList(),
+                onChanged: (String? selected) {
+                  setState(() {
+                    _selectedHospital = selected;
+                  });
+                },
+                value: _selectedHospital,
+              );
+            }),
+
             const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,

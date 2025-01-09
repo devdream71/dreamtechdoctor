@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class DoctorDetailsViewController extends GetxController {
   RxBool isLoading = false.obs;
@@ -13,8 +15,17 @@ class DoctorDetailsViewController extends GetxController {
   Future<void> fetchDoctorDetails(int doctorId) async {
     isLoading.value = true;
     final uri = Uri.parse('https://doctorapp.com.softservice.site/api/auth/hospital-doctor/doctor-view/$doctorId');
+    
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('access_token');
+    
     try {
-      final response = await http.get(uri);
+      final response = await http.get(uri,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+      );
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);

@@ -7,6 +7,7 @@ import 'package:dream_tech_doctor/view/hospital/hospital_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DoctorController extends GetxController {
   final isLoading = false.obs;
@@ -29,11 +30,23 @@ class DoctorController extends GetxController {
     String? frontImagePath,
   }) async {
     isLoading.value = true;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('access_token');
+
     final uri = Uri.parse(
         'https://doctorapp.com.softservice.site/api/auth/hospital-doctor/store');
 
     try {
-      final request = http.MultipartRequest('POST', uri);
+      final request = http.MultipartRequest(
+        'POST',
+        uri,
+      );
+
+      // Set the token in the header for Authorization
+      if (token != null) {
+        request.headers['Authorization'] = 'Bearer $token';
+      }
 
       // Add text fields
       request.fields['regnum'] = regNum;
@@ -68,7 +81,8 @@ class DoctorController extends GetxController {
       if (response.statusCode == 201) {
         final result = json.decode(responseData);
         final responseModel = DoctorResponse.fromJson(result);
-        Get.snackbar('Success', responseModel.message);
+        Get.snackbar('Success', responseModel.message,
+            backgroundColor: Colors.green, colorText: Colors.white);
         Get.to(const HospitalBottomNav());
         print(responseModel.message);
       } else {
@@ -110,6 +124,9 @@ class DoctorController extends GetxController {
     print("id=================>");
     print(doctorId);
 
+       SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('access_token');
+
     try {
       final request = http.MultipartRequest('POST', uri);
 
@@ -126,6 +143,11 @@ class DoctorController extends GetxController {
       request.fields['prescription_signature_style'] = prescriptionSignature;
       request.fields['deparment_category'] = departmentCategory;
       //request.fields['specialist'] = specialist;
+
+       // Set the token in the header for Authorization
+    if (token != null) {
+      request.headers['Authorization'] = 'Bearer $token';
+    }
 
       // Handle symptom field (if null, use empty string)
       request.fields['symptom'] = symptom ?? '';

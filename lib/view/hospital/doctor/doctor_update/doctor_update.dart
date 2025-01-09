@@ -121,8 +121,8 @@ class HospitalDoctorUpdateState extends State<HospitalDoctorUpdate> {
             ? doctor.departmentCategory
             : null;
 
-        _selectedsymtomOption =
-            _symtomOptions.contains(doctor.symptom) ? doctor.symptom : null;
+        // _selectedsymtomOption =
+        //     _symtomOptions.contains(doctor.symptom) ? doctor.symptom : null;
 
         setState(() {});
       }
